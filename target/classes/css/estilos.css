@@ -1,0 +1,184 @@
+.custom-menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: black
+}
+
+.custom-menu-item:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: black
+}
+
+.menu-bar {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.menu:hover {
+    -fx-underline: true;
+    -fx-background-color: black;
+    -fx-opacity: 0.75;
+    -fx-cursor: hand;
+}
+
+#baby_baby:hover, #baby_newborn:hover, #babyboy_clothing:hover, #babyboy_outerwear:hover, #babyboy_shoes:hover,
+#babygirl_clothing:hover, #babygirl_outerwear:hover, #babygirl_shoes:hover, #boy1_clothing:hover,
+#boy1_outerwear:hover, #boy1_shoes:hover, #boy2_clothing:hover, #boy2_outerwear:hover, #boy2_shoes:hover, #girl1_clothing:hover,
+#girl1_outerwear:hover, #girl1_shoes:hover, #girl2_clothing:hover, #girl2_outerwear:hover, #girl2_shoes:hover, #kids1:hover, #kids2:hover,
+#men_clothes:hover, #men_dress_shoes:hover, #men_gym:hover, #men_hoodies:hover, #men_jeans:hover, #men_pants:hover, #men_running:hover, #men_shirts:hover,
+#men_shoes:hover, #men_sneakers:hover, #men_sport_shorts:hover, #men_sports:hover, #newborn_clothing:hover, #newborn_outerwear:hover, #newborn_shoes:hover,
+#women_blouses:hover, #women_boots:hover, #women_clothes:hover, #women_dresses:hover, #women_gym:hover,
+#women_jeans:hover, #women_leggings:hover, #women_running:hover, #women_shoes:hover, #women_sneakers:hover, #women_sportbra:hover, #women_sports:hover,
+#women_tops:hover, #women:hover, #men:hover, #kids:hover, #baby:hover, #about2:hover, #bd2:hover, #women2:hover,
+#men2:hover, #baby2:hover, #kid:hover, #member:hover{
+    -fx-underline: true;
+    -fx-background-color: lightgray;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}
+
+#baby_baby2:hover,#baby_newborn2:hover,#babyboy_clothing2:hover,#babyboy_outerwear2:hover,
+#babyboy_shoes2:hover,#babygirl_clothing2:hover,#babygirl_outerwear2:hover,#babygirl_shoes2:hover,#boy1_clothing2:hover,
+#boy1_outerwear2:hover,#boy1_shoes2:hover,#boy2_clothing2:hover,#boy2_outerwear2:hover,#boy2_shoes2:hover,
+#girl1_clothing2:hover,#girl1_outerwear2:hover,#girl1_shoes2:hover,#girl2_clothing2:hover,#girl2_outerwear2:hover,
+#girl2_shoes2:hover,#kids12:hover,#kids22:hover,#men_clothes2:hover,#men_dress_shoes2:hover,#men_gym2:hover,
+#men_hoodies2:hover,#men_jeans2:hover,#men_pants2:hover,#men_running2:hover,#men_shirts2:hover,#men_shoes2:hover,
+#men_sneakers2:hover,#men_sport_shorts2:hover,#men_sports2:hover,#newborn_clothing2:hover,#newborn_outerwear2:hover,
+#newborn_shoes2:hover,#women_blouses2:hover,#women_boots2:hover,#women_clothes2:hover,
+#women_dresses2:hover,#women_gym2:hover,#women_jeans2:hover,#women_leggings2:hover,#women_running2:hover,
+#women_shoes2:hover,#women_sneakers2:hover,#women_sportbra2:hover,#women_sports2:hover,#women_tops2:hover {
+    -fx-underline: true;
+    -fx-background-color: lightgray;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-max-height: 0;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #f3f6f4;
+    -fx-pref-width: 10px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #b8b3b3;
+    -fx-background-radius: 7px;
+}   
+
+.scroll-pane .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #a29f9f; 
+}
+
+#btnsearch {
+    -fx-background-color: transparent; 
+    -fx-prompt-text-fill: black;
+}
+
+#btnsearch:hover {
+    -fx-cursor: hand;
+}
+
+#separador1 {
+    -fx-background-color: black; 
+    -fx-scale-y: 0.25;
+}
+    
+#signin:hover, #become_member:hover, #shopping_bag:hover, #favorites:hover {
+    -fx-cursor: hand;
+}
+
+#anchorpaneMember, #vboxSignin {
+    -fx-border-color: black;
+    -fx-border-width: 0.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 1, 1, 5, 5);
+}
+
+#cerrar {
+    -fx-shape: "M 0 0 L 50 50 M 50 0 L 0 50";
+}
+
+
+#cerrar:hover {
+    -fx-cursor: hand;
+}
+
+#signin1,#btnRegistrar, #changePicture, #btnsignin, #btnSavePassword, #btnComprar, #btnPedido, #btnBrowse, #addBag {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+#signin1:hover,#btnRegistrar:hover,#changePicture:hover, #btnsignin:hover, #btnSavePassword:hover, #btnComprar:hover,
+#btnPedido:hover, #btnBrowse:hover, #addBag:hover{
+    -fx-background-color: #383838;
+    -fx-cursor:hand;
+}
+
+#signin2, #become_member, #btnSignin, #deletePicture, #checkoutButton {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-font-weight: bold;
+    -fx-cursor:hand;
+}
+
+#logoHM:hover {
+    -fx-cursor:hand;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.negrita {
+   -fx-text-fill: black; 
+}
+
+#cmbGenero {
+    -fx-background-color: white; 
+    -fx-border-color: #d3d3d3;
+    -fx-border-color: rgba(0, 0, 0, 0.2); 
+    -fx-border-width: 1px; 
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0, 0, 1);
+}
+
+.boton_acc, #btnFavorito {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15; 
+    -fx-padding: 5 10; 
+    -fx-font-size: 12px; 
+}
+
+#btnFavorito {
+    -fx-scale-x: 0.75;
+    -fx-scale-y: 0.75;
+}
+
+.boton_acc:hover {
+    -fx-background-color: #333333;
+}
+
+.button {
+    -fx-cursor: hand;
+}
+
+.table-view {
+    -fx-background-color: transparent; 
+    -fx-border-radius: 10px; 
+    -fx-padding: 10; 
+}
+
+.column-header {
+    -fx-background-color: transparent; 
+    -fx-font-weight: bold; 
+}
+
+.table-view .table-cell {
+    -fx-padding: 5 10;
+    -fx-text-fill: #333; 
+}

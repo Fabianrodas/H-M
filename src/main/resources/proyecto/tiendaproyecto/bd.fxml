@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CustomMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.tiendaproyecto.TiendaController">
+   <children>
+      <ScrollPane fx:id="scrollPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0">
+        <content>
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="875.0" prefWidth="750.0" stylesheets="@../../css/estilos.css">
+               <children>
+                  <MenuBar fx:id="menuBarFinal" layoutX="218.0" layoutY="91.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="315.0">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="Women">
+                           <items>
+                              <CustomMenuItem mnemonicParsing="false" text="Women Main Page">
+                                 <content>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="women2" strokeType="OUTSIDE" strokeWidth="0.0" text="Women" translateX="20.0">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                              <CustomMenuItem mnemonicParsing="false" text="Women">
+                                 <content>
+                                    <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="250.0" spacing="25.0">
+                                       <children>
+                                          <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Clothes">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="women_dresses" strokeType="OUTSIDE" strokeWidth="0.0" text="Dresses" />
+                                                <Text fx:id="women_tops" strokeType="OUTSIDE" strokeWidth="0.0" text="Tops &amp; T-Shirts" />
+                                                <Text fx:id="women_blouses" strokeType="OUTSIDE" strokeWidth="0.0" text="Shirts &amp; Blouses" />
+                                                <Text fx:id="women_jeans" strokeType="OUTSIDE" strokeWidth="0.0" text="Jeans" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sport">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="women_leggings" strokeType="OUTSIDE" strokeWidth="0.0" text="Leggings" />
+                                                      <Text fx:id="women_sportbra" strokeType="OUTSIDE" strokeWidth="0.0" text="Sport Bras" />
+                                                      <Text fx:id="women_running" strokeType="OUTSIDE" strokeWidth="0.0" text="Running" />
+                                                      <Text fx:id="women_gym" strokeType="OUTSIDE" strokeWidth="0.0" text="Training &amp; Gym" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="women_sneakers" strokeType="OUTSIDE" strokeWidth="0.0" text="Sneakers" />
+                                                <Text fx:id="women_boots" strokeType="OUTSIDE" strokeWidth="0.0" text="Boots" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New In">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="women_clothes" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothes" />
+                                                      <Text fx:id="women_sports" strokeType="OUTSIDE" strokeWidth="0.0" text="Sport" />
+                                                      <Text fx:id="women_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="25.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Men">
+                           <items>
+                              <CustomMenuItem mnemonicParsing="false" text="Men Main Page">
+                                 <content>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="men2" strokeType="OUTSIDE" strokeWidth="0.0" text="Men" translateX="20.0">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                              <CustomMenuItem mnemonicParsing="false" text="Men">
+                                 <content>
+                                    <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="250.0" spacing="25.0">
+                                       <children>
+                                          <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Clothes">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="men_shirts" strokeType="OUTSIDE" strokeWidth="0.0" text="Shirts" />
+                                                <Text fx:id="men_pants" strokeType="OUTSIDE" strokeWidth="0.0" text="Pants" />
+                                                <Text fx:id="men_jeans" strokeType="OUTSIDE" strokeWidth="0.0" text="Jeans" />
+                                                <Text fx:id="men_hoodies" strokeType="OUTSIDE" strokeWidth="0.0" text="Hoodies" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sport">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="men_sport_shorts" strokeType="OUTSIDE" strokeWidth="0.0" text="Sport Shorts" />
+                                                      <Text fx:id="men_running" strokeType="OUTSIDE" strokeWidth="0.0" text="Running" />
+                                                      <Text fx:id="men_gym" strokeType="OUTSIDE" strokeWidth="0.0" text="Training &amp; Gym" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="men_sneakers" strokeType="OUTSIDE" strokeWidth="0.0" text="Sneakers" />
+                                                <Text fx:id="men_dress_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Dress Shoes" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New In">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="men_clothes" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothes" />
+                                                      <Text fx:id="men_sports" strokeType="OUTSIDE" strokeWidth="0.0" text="Sport" />
+                                                      <Text fx:id="men_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="25.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Baby">
+                           <items>
+                              <CustomMenuItem mnemonicParsing="false" text="Baby Main Page">
+                                 <content>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="baby2" strokeType="OUTSIDE" strokeWidth="0.0" text="Baby" translateX="20.0">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                              <CustomMenuItem mnemonicParsing="false" text="Baby">
+                                 <content>
+                                    <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="250.0" spacing="25.0">
+                                       <children>
+                                          <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Newborn">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="newborn_clothing" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothing" />
+                                                <Text fx:id="newborn_outerwear" strokeType="OUTSIDE" strokeWidth="0.0" text="Outerwear" />
+                                                <Text fx:id="newborn_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Baby Boy">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="babyboy_clothing" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothing" />
+                                                      <Text fx:id="babyboy_outerwear" strokeType="OUTSIDE" strokeWidth="0.0" text="Outerwear" />
+                                                      <Text fx:id="babyboy_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Baby Girl">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="babygirl_clothing" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothing" />
+                                                <Text fx:id="babygirl_outerwear" strokeType="OUTSIDE" strokeWidth="0.0" text="Outerwear" />
+                                                <Text fx:id="babygirl_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New In">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="baby_newborn" strokeType="OUTSIDE" strokeWidth="0.0" text="Newborn" />
+                                                      <Text fx:id="baby_baby" strokeType="OUTSIDE" strokeWidth="0.0" text="Baby" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="25.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Kids">
+                           <items>
+                              <CustomMenuItem mnemonicParsing="false" text="Kids Main Page">
+                                 <content>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="kid" strokeType="OUTSIDE" strokeWidth="0.0" text="Kids" translateX="20.0">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                              <CustomMenuItem mnemonicParsing="false" text="Kids">
+                                 <content>
+                                    <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="250.0" spacing="25.0">
+                                       <children>
+                                          <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Girls (2-8Y)">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="girl1_clothing" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothing" />
+                                                <Text fx:id="girl1_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                <Text fx:id="girl1_outerwear" strokeType="OUTSIDE" strokeWidth="0.0" text="Outerwear" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Girls (9-14Y)">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="girl2_clothing" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothing" />
+                                                      <Text fx:id="girl2_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                      <Text fx:id="girl2_outerwear" strokeType="OUTSIDE" strokeWidth="0.0" text="Outerwear" />
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New In">
+                                                               <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Text fx:id="kids1" strokeType="OUTSIDE" strokeWidth="0.0" text="Kids (2-8Y)" />
+                                                            <Text fx:id="kids2" strokeType="OUTSIDE" strokeWidth="0.0" text="Kids (9-14Y)" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Boys (2-8Y)">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="boy1_clothing" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothing" />
+                                                <Text fx:id="boy1_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                <Text fx:id="boy1_outerwear" strokeType="OUTSIDE" strokeWidth="0.0" text="Outerwear" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Boys (9-14Y)">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="boy2_clothing" strokeType="OUTSIDE" strokeWidth="0.0" text="Clothing" />
+                                                      <Text fx:id="boy2_shoes" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoes" />
+                                                      <Text fx:id="boy2_outerwear" strokeType="OUTSIDE" strokeWidth="0.0" text="Outerwear" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="25.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </CustomMenuItem>
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="BD">
+                           <items>
+                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Ir a la Base de datos" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About">
+                           <items>
+                              <MenuItem fx:id="about" mnemonicParsing="false" text="Descubre más sobre este proyecto" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+                  <VBox fx:id="vboxSearch" alignment="CENTER" layoutX="577.0" layoutY="89.0" prefHeight="29.0" prefWidth="145.0">
+                     <children>
+                        <Button fx:id="btnsearch" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="135.0" text="🔍 Search" />
+                        <Separator fx:id="separador1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="135.0" translateX="3.0" translateY="-2.0" />
+                     </children>
+                  </VBox>
+                  <ImageView fx:id="logoHM" fitHeight="32.0" fitWidth="46.0" layoutX="352.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imagenes/h&amp;m.png" />
+                     </image>
+                  </ImageView>
+                  <HBox fx:id="hboxCuenta" alignment="CENTER" layoutX="473.0" layoutY="34.0" prefHeight="26.0" prefWidth="250.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="26.0" prefWidth="113.0">
+                           <children>
+                              <Label fx:id="signin" prefHeight="18.0" prefWidth="62.0" text="👤 Sign In" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="26.0" prefWidth="116.0">
+                           <children>
+                              <Label fx:id="favorites" text="♥ Favorites" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="26.0" prefWidth="154.0">
+                           <children>
+                              <Label fx:id="shopping_bag" text="👜 Shopping Bag (0)" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="26.0" layoutY="34.0" prefHeight="26.0" prefWidth="216.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="26.0" prefWidth="56.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="53.0" text="Fabián R." />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="26.0" prefWidth="52.0">
+                           <children>
+                              <Label text="Paula B." />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="26.0" prefWidth="98.0">
+                           <children>
+                              <Label text="Proyecto2P (POO)" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="100.0" width="741.0" />
+                  <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="260.0">
+                     <image>
+                        <Image url="@../../imagenes/h&amp;m.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | Todos los derechos reservados 2024 © " translateY="290.0" />
+                  <HBox fx:id="hboxPie" layoutX="119.0" layoutY="563.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="520.0" spacing="30.0" translateY="70.0">
+                     <children>
+                        <VBox prefHeight="138.0" prefWidth="51.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="18.0" prefWidth="53.0" text="SHOP">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5.0" prefWidth="51.0" />
+                              <Label fx:id="women" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Women" />
+                              <Label fx:id="men" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Men" />
+                              <Label fx:id="baby" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Baby" />
+                              <Label fx:id="kids" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Kids" />
+                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="BD" />
+                              <Label fx:id="about2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="About" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="140.0" prefWidth="147.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="18.0" prefWidth="110.0" text="CORPORATE INFO">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5.0" prefWidth="51.0" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="94.0" text="Career at H&amp;M" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="110.0" text="About H&amp;M group" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="162.0" text="Sustainability H&amp;M Group" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Press" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="90.0" text="Investor Relations" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="162.0" text="Corporate Governance" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="146.0" prefWidth="96.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="18.0" prefWidth="110.0" text="HELP">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5.0" prefWidth="51.0" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="94.0" text="Customer Service" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="110.0" text="My Account" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="162.0" text="Find a Store" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="126.0" text="Legal &amp; Privacy" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="90.0" text="Contact" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="94.0" text="Report a scam" />
+                              <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="91.0" text="Cookie Notice" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="140.0" prefWidth="147.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="18.0" prefWidth="110.0" text="Become a member">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5.0" prefWidth="51.0" />
+                              <Label alignment="TOP_LEFT" prefHeight="42.0" prefWidth="147.0" text="Join now and get 10% off your next purchase!" wrapText="true" />
+                              <Label fx:id="member" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="162.0" text="READ MORE 🡢">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Label layoutX="26.0" layoutY="91.0" text="Base de Datos: " translateY="5.0">
+                     <font>
+                        <Font name="Segoe UI" size="12.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" layoutX="233.0" layoutY="128.0" prefHeight="87.0" prefWidth="274.0">
+                     <children>
+                        <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="94.0" text="Tabla:" textAlignment="CENTER">
+                           <font>
+                              <Font name="Segoe UI" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nombreTablaLabel" text="Nombre_Tabla">
+                           <font>
+                              <Font name="Segoe UI Bold" size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Label layoutX="26.0" layoutY="109.0" text="proyectoprueba">
+                     <font>
+                        <Font name="Segoe UI Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <StackPane fx:id="stackPane" layoutX="5.0" layoutY="228.0" prefHeight="310.0" prefWidth="734.0">
+                     <children>
+                        <TableView fx:id="tablaProducto" prefHeight="310.0" prefWidth="708.0">
+                          <columns>
+                            <TableColumn fx:id="cidproducto" prefWidth="28.79998779296875" text="id" />
+                            <TableColumn fx:id="cnombre_producto" prefWidth="159.99993133544922" text="nombre_Producto" />
+                              <TableColumn fx:id="cdescripcion" prefWidth="193.60006713867188" text="descripción" />
+                              <TableColumn fx:id="cprecio" prefWidth="93.5999755859375" text="precio" />
+                              <TableColumn fx:id="cidsubsub" minWidth="8.79998779296875" prefWidth="59.20001220703125" text="Subsub" />
+                              <TableColumn fx:id="cidgeneroproducto" minWidth="4.0" prefWidth="48.0" text="Género" />
+                              <TableColumn fx:id="cimagen_nombre" prefWidth="114.39996337890625" text="imagen_nombre" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="tablaCliente" prefHeight="200.0" prefWidth="689.0" visible="false">
+                           <columns>
+                              <TableColumn fx:id="cidcliente" prefWidth="26.399993896484375" text="id" />
+                              <TableColumn fx:id="cnombrecliente" prefWidth="61.599998474121094" text="nombre" />
+                              <TableColumn fx:id="capellido" prefWidth="75.20004272460938" text="apellido" />
+                              <TableColumn fx:id="ccorreo" prefWidth="94.39999389648438" text="correo" />
+                              <TableColumn fx:id="czipcode" prefWidth="60.0" text="zipcode" />
+                              <TableColumn fx:id="cfecha_nacimiento" prefWidth="111.20001220703125" text="fecha_nacimiento" />
+                              <TableColumn fx:id="ccontrasena" prefWidth="109.60003662109375" text="contrasena" />
+                              <TableColumn fx:id="cgenero" prefWidth="53.5999755859375" text="género" />
+                              <TableColumn fx:id="cimagen_usuario" prefWidth="100.0" text="imagen_usuario" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tablaCarrito" prefHeight="200.0" prefWidth="689.0" visible="false">
+                           <columns>
+                              <TableColumn fx:id="cidcarrito" prefWidth="100.0" text="idCarrito" />
+                              <TableColumn fx:id="cidclientecarrito" prefWidth="100.0" text="idCliente" />
+                              <TableColumn fx:id="cidproductocarrito" prefWidth="100.0" text="idProducto" />
+                              <TableColumn fx:id="ccantidad" prefWidth="100.0" text="cantidad" />
+                              <TableColumn fx:id="cpreciounitario" minWidth="0.0" prefWidth="182.4000244140625" text="precioUnitario" />
+                              <TableColumn fx:id="ctalla" minWidth="0.0" prefWidth="111.199951171875" text="talla" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tablaFavorito" prefHeight="200.0" prefWidth="689.0" visible="false">
+                           <columns>
+                              <TableColumn fx:id="cidfavorito" prefWidth="231.0" text="idFavorito" />
+                              <TableColumn fx:id="cidproductofavorito" prefWidth="231.19998779296873" text="idProducto" />
+                              <TableColumn fx:id="cidclientefavorito" prefWidth="231.0" text="idCliente" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tablaCategoria" prefHeight="200.0" prefWidth="689.0" visible="false">
+                           <columns>
+                              <TableColumn fx:id="cidcategoria" prefWidth="100.0" text="idCategoria" />
+                              <TableColumn fx:id="cnombre_categoria" prefWidth="132.80007934570312" text="nombre_categoria" />
+                              <TableColumn fx:id="cidsubcategoria" prefWidth="94.39997863769531" text="idSubcategoria" />
+                              <TableColumn fx:id="cnombre_subcategoria" prefWidth="155.199951171875" text="nombre_subcategoria" />
+                              <TableColumn fx:id="cidsubsubcategoria" minWidth="0.0" prefWidth="51.20001220703125" text="idSubub" />
+                              <TableColumn fx:id="cnombre_subsub" minWidth="0.0" prefWidth="164.7999267578125" text="nombre_subsub" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tablaSesion" prefHeight="200.0" prefWidth="689.0" visible="false">
+                           <columns>
+                              <TableColumn fx:id="cidsesion" prefWidth="350.0" text="Sesión Activa (remember me)" />
+                              <TableColumn fx:id="cidclientesesion" prefWidth="350.0" text="Cliente en la Sesión" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tablaGenero" prefHeight="200.0" prefWidth="689.0" visible="false">
+                           <columns>
+                              <TableColumn fx:id="cidgenero" prefWidth="350.0" text="idGenero" />
+                              <TableColumn fx:id="cnombregenero" prefWidth="350.0" text="Nombre (Producto)" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tablaPedido" prefHeight="200.0" prefWidth="689.0" visible="false">
+                           <columns>
+                              <TableColumn fx:id="cidpedido" prefWidth="175.0" text="idPedido" />
+                              <TableColumn fx:id="cidclientepedido" prefWidth="175.0" text="idCliente" />
+                              <TableColumn fx:id="cfechapedido" prefWidth="175.0" text="Fecha" />
+                              <TableColumn fx:id="ctotalpedido" prefWidth="175.0" text="Total" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </StackPane>
+                  <Button fx:id="btnPrevious" layoutX="206.0" layoutY="172.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="🡸" translateY="-15.0">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnNext" layoutX="505.0" layoutY="172.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="🡺" translateX="-35.0" translateY="-16.0">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
