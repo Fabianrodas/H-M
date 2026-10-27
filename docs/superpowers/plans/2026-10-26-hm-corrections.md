@@ -190,12 +190,12 @@
 - Crear: LICENSE, SECURITY.md, README.md, docs/assets/hm-logo-white.png, docs/assets/readme-header.png y docs/screenshots/.
 - Preservar: recursos y estilos originales de la aplicación.
 
-- [ ] Recolorear una copia del logo transparente a blanco y ponerlo sobre un encabezado oscuro para README; revisar que se vea nítido. No reemplazar el logo de la app.
-- [ ] Ejecutar con datos mock y capturar tienda, producto, carrito/checkout, cuenta y BD enmascarada. No capturar datos reales.
-- [ ] Escribir README sencillo en español: explicación corta, capturas, requisitos, pasos copiables de Windows para crear PostgreSQL local, importar schema/seed/migraciones, completar `.env` desde plantilla y lanzar con `mvn javafx:run`.
-- [ ] Añadir MIT con titular propuesto Fabian Rodas. SECURITY.md explica reporte privado y recuerda no versionar credenciales locales ni datos reales.
+- [x] Recolorear una copia del logo transparente a blanco y ponerlo sobre un encabezado oscuro para README; revisar visualmente la nitidez. No reemplazar el logo de la app.
+- [ ] Ejecutar con datos mock y capturar tienda, producto, carrito/checkout, cuenta y BD enmascarada. No capturar datos reales. Pendiente mientras el usuario mantenga desactivado el control remoto; no sustituir por imágenes simuladas.
+- [x] Redactar README sencillo en español con explicación, requisitos y pasos de Windows para PostgreSQL, datos de ejemplo, .env local y ejecución con Maven. La galería de capturas auténticas queda pendiente.
+- [x] Añadir MIT con titular propuesto Fabian Rodas y SECURITY.md con reporte privado y guía para no versionar credenciales ni datos reales (commit 1b5f5bf).
 - [ ] Verificar links, comandos e imágenes; ejecutar `mvn -B -ntp test`, `mvn -B -ntp package` y los verificadores de INSERT.
-- [ ] Commit en main: docs: add README screenshots and MIT license
+- [ ] Commitear README y recursos de marca; añadir después las capturas auténticas en un commit separado cuando sea posible revisar la aplicación.
 
 ## Verificación final
 
