@@ -1,111 +1,193 @@
 package controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import modelo.Pedido;
+import java.util.List;
+import modelo.Carrito;
 import modelo.DbConnection;
+import modelo.Pedido;
+import modelo.PedidoDetalle;
 
 public class PedidoController {
-    private DbConnection connection = new DbConnection();
-    
-    public int Create(Pedido pedido) {
-        int result = 0;
-        String req = "INSERT INTO pedido(idCliente,fecha,total)" + "VALUES (?, ?, ?)";
+    private static final BigDecimal TAX_RATE = new BigDecimal("0.15");
+    private static final BigDecimal ZERO_MONEY = new BigDecimal("0.00");
+    private final DbConnection connection = new DbConnection();
+
+    public long crearConDetalle(int clienteId, LocalDate fecha, List<Carrito> lineas) {
+        if (clienteId <= 0) {
+            throw new IllegalArgumentException("El cliente del pedido no es válido.");
+        }
+        if (fecha == null) {
+            throw new IllegalArgumentException("La fecha del pedido es obligatoria.");
+        }
+        if (lineas == null || lineas.isEmpty()) {
+            throw new IllegalArgumentException("El carrito está vacío.");
+        }
+
+        List<PedidoDetalle> detalles = new ArrayList<>();
+        BigDecimal subtotal = ZERO_MONEY;
+        for (Carrito linea : lineas) {
+            PedidoDetalle detalle = new PedidoDetalle(linea);
+            detalles.add(detalle);
+            subtotal = subtotal.add(detalle.getSubtotal());
+        }
+        BigDecimal impuesto = subtotal.multiply(TAX_RATE).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal total = subtotal.add(impuesto).setScale(2, RoundingMode.HALF_UP);
+
+        Connection database = null;
         try {
-            connection.conectar();
-            PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
-            statement.setInt(1, pedido.getIdCliente());
-            statement.setString(2, pedido.getFecha());
-            statement.setDouble(3, pedido.getTotal());
-            result = statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            database = connection.conectar();
+            database.setAutoCommit(false);
+
+            long orderId;
+            String insertOrder = "INSERT INTO pedido (idcliente, fecha, total) VALUES (?, ?, ?) RETURNING idpedido";
+            try (PreparedStatement statement = database.prepareStatement(insertOrder)) {
+                statement.setInt(1, clienteId);
+                statement.setDate(2, Date.valueOf(fecha));
+                statement.setBigDecimal(3, total);
+                try (ResultSet result = statement.executeQuery()) {
+                    if (!result.next()) {
+                        throw new SQLException("PostgreSQL no devolvió el número del pedido creado.");
+                    }
+                    orderId = result.getLong("idpedido");
+                }
+            }
+
+            String insertDetail = "INSERT INTO pedido_detalle "
+                    + "(idpedido, idproducto, talla, cantidad, precio_unitario, subtotal) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement statement = database.prepareStatement(insertDetail)) {
+                for (PedidoDetalle detalle : detalles) {
+                    detalle.setIdPedido(orderId);
+                    statement.setLong(1, detalle.getIdPedido());
+                    statement.setInt(2, detalle.getIdProducto());
+                    statement.setString(3, detalle.getTalla());
+                    statement.setInt(4, detalle.getCantidad());
+                    statement.setBigDecimal(5, detalle.getPrecioUnitario());
+                    statement.setBigDecimal(6, detalle.getSubtotal());
+                    statement.addBatch();
+                }
+                statement.executeBatch();
+            }
+
+            int removedCartLines;
+            try (PreparedStatement statement = database.prepareStatement(
+                    "DELETE FROM carrito WHERE idcliente = ? AND idcarrito = ? AND idproducto = ? "
+                    + "AND cantidad = ? AND preciounitario = ? AND talla = ?")) {
+                removedCartLines = 0;
+                for (int index = 0; index < lineas.size(); index++) {
+                    Carrito linea = lineas.get(index);
+                    PedidoDetalle detalle = detalles.get(index);
+                    statement.setInt(1, clienteId);
+                    statement.setInt(2, linea.getIdCarrito());
+                    statement.setInt(3, linea.getIdProducto());
+                    statement.setInt(4, linea.getCantidad());
+                    statement.setBigDecimal(5, detalle.getPrecioUnitario());
+                    statement.setString(6, linea.getTalla());
+                    removedCartLines += statement.executeUpdate();
+                }
+            }
+            if (removedCartLines != detalles.size()) {
+                throw new SQLException("El carrito cambió durante la compra; el pedido se revirtió.");
+            }
+
+            database.commit();
+            return orderId;
+        } catch (SQLException exception) {
+            rollback(database, exception);
+            throw new RuntimeException("No se pudo completar el pedido.", exception);
+        } catch (RuntimeException exception) {
+            rollback(database, exception);
+            throw exception;
         } finally {
-            if(this.connection != null){
-                this.connection.desconectar();
-            }
+            connection.desconectar();
         }
-        return result;
     }
-    
-    public int Delete(int id) {
-        int result = 0;
-        String req = "DELETE FROM pedido WHERE idPedido=?";
-        try{
-            this.connection.conectar();
-            PreparedStatement statement =this.connection.getConnection().prepareStatement(req);
-            statement.setInt(1, id);
-            result = statement.executeUpdate();
-        } catch (SQLException e){
-            throw new RuntimeException (e);
+
+    private static void rollback(Connection database, Exception cause) {
+        if (database == null) {
+            return;
         }
-        finally {
-            if(this.connection != null){
-                this.connection.desconectar();
-            }
-        }
-        return result;
-    }
-    
-    public ArrayList<Pedido> Read(){
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        String req = "SELECT * FROM pedido";
         try {
-            this.connection.conectar();
-            PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int pedidoID = resultSet.getInt("idpedido");
-                int clienteID = resultSet.getInt("idcliente");
-                String fecha = resultSet.getString("fecha");
-                double total = resultSet.getDouble("total");
-                pedidos.add(new Pedido(pedidoID,clienteID,fecha,total));
+            database.rollback();
+        } catch (SQLException rollbackError) {
+            cause.addSuppressed(rollbackError);
+        }
+    }
+
+    public int Delete(long id) {
+        int result = 0;
+        String deleteDetails = "DELETE FROM pedido_detalle WHERE idpedido=?";
+        String deleteOrder = "DELETE FROM pedido WHERE idPedido=?";
+        Connection database = null;
+        try {
+            database = this.connection.conectar();
+            database.setAutoCommit(false);
+            try (PreparedStatement detailStatement = database.prepareStatement(deleteDetails);
+                    PreparedStatement orderStatement = database.prepareStatement(deleteOrder)) {
+                detailStatement.setLong(1, id);
+                detailStatement.executeUpdate();
+                orderStatement.setLong(1, id);
+                result = orderStatement.executeUpdate();
             }
-        }catch(SQLException e){
-            throw new RuntimeException(e);        
-        } finally{
+            database.commit();
+        } catch (SQLException exception) {
+            rollback(database, exception);
+            throw new RuntimeException(exception);
+        } finally {
+            this.connection.desconectar();
+        }
+        return result;
+    }
+
+    public ArrayList<Pedido> Read() {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String request = "SELECT * FROM pedido";
+        try {
+            Connection database = this.connection.conectar();
+            try (PreparedStatement statement = database.prepareStatement(request);
+                    ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    long pedidoId = resultSet.getLong("idpedido");
+                    int clienteId = resultSet.getInt("idcliente");
+                    String fecha = resultSet.getString("fecha");
+                    double total = resultSet.getDouble("total");
+                    pedidos.add(new Pedido(pedidoId, clienteId, fecha, total));
+                }
+            }
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
             this.connection.desconectar();
         }
         return pedidos;
     }
-    
-    public int ultimaFactura(){
-        int factura = 0;
-        String req = "SELECT MAX(idPedido) AS factura FROM pedido";
-        try {
-            this.connection.conectar();
-            PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                factura = resultSet.getInt("factura");
-            }
-        }catch(SQLException e){
-            throw new RuntimeException(e);        
-        } finally{
-            this.connection.desconectar();
-        }
-        return factura;
-    }
-    
+
     public int totalPedidos(int id) {
         int pedidos = 0;
-        String req = "SELECT COUNT(idPedido) AS pedidosCliente FROM pedido WHERE idCliente=?";
+        String request = "SELECT COUNT(idPedido) AS pedidosCliente FROM pedido WHERE idCliente=?";
         try {
             this.connection.conectar();
-            PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                pedidos = resultSet.getInt("pedidoscliente");
+            try (PreparedStatement statement = this.connection.getConnection().prepareStatement(request)) {
+                statement.setInt(1, id);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        pedidos = resultSet.getInt("pedidoscliente");
+                    }
+                }
             }
-        }catch(SQLException e){
-            throw new RuntimeException(e);        
-        } finally{
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
             this.connection.desconectar();
         }
         return pedidos;
-    
     }
 }

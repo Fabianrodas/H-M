@@ -30,7 +30,6 @@ import javafx.stage.Stage;
 import modelo.Carrito;
 import modelo.Cliente;
 import modelo.ClienteSingleton;
-import modelo.Pedido;
 import modelo.Producto;
 
 public class CompraController implements Initializable {
@@ -46,6 +45,7 @@ public class CompraController implements Initializable {
     @FXML private AnchorPane anchorPedido, contenedor;
     private Cliente cliente;
     private double total;
+    private List<Carrito> lineasCarrito = new ArrayList<>();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,8 +57,8 @@ public class CompraController implements Initializable {
             cliente = ClienteSingleton.getInstance().getCliente();
         }
         
-        ArrayList<Carrito> carrito = carritoController.ReadByCliente(cliente.getIdCliente());
-        insertarPedido(carrito);
+        lineasCarrito = carritoController.ReadByCliente(cliente.getIdCliente());
+        insertarPedido(lineasCarrito);
         
         if(vboxPedido != null && nombre_pedido != null && fecha_pedido != null 
         && total_pedido != null && subtotal_pedido != null) {
@@ -72,32 +72,24 @@ public class CompraController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String fechaPedido = fechaHoraActual.format(formatter);
         fecha_pedido.setText(fechaPedido);
-        LocalDate fechaActual = LocalDate.now();
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String fecha = fechaActual.format(formatter2);
-        double total_iva = this.total;
         btnComprar.setOnMouseClicked(e -> {
-            Pedido pedido = new Pedido(cliente.getIdCliente(),fecha,total_iva);
-            int result = pedidoController.Create(pedido);
-            if(result>0){
-                int result2 = carritoController.borrarCarritos(cliente.getIdCliente());
-                if(result2>0){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Pedido Exitoso");
-                    alert.setHeaderText("N° FACTURA: "+pedidoController.ultimaFactura());
-                    alert.setContentText("Disfrute de sus productos H&M"+"\n"+"Vuelva a llenar su carrito para realizar otro pedido.");
-                    alert.showAndWait();
-                    cerrarStage();
-                    try {
-                        App.setRoot("shopping");
-                    } catch (IOException ex) {
-                        Logger.getLogger(CompraController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    System.out.println("ERROR BORRANDO EL CARRITO DEL CLIENTE");
+            try {
+                long factura = pedidoController.crearConDetalle(
+                        cliente.getIdCliente(), LocalDate.now(), lineasCarrito);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Pedido Exitoso");
+                alert.setHeaderText("N° FACTURA: " + factura);
+                alert.setContentText("Disfrute de sus productos H&M" + "\n"
+                        + "Vuelva a llenar su carrito para realizar otro pedido.");
+                alert.showAndWait();
+                cerrarStage();
+                try {
+                    App.setRoot("shopping");
+                } catch (IOException ex) {
+                    Logger.getLogger(CompraController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            } else {
+            } catch (RuntimeException ex) {
+                Logger.getLogger(CompraController.class.getName()).log(Level.SEVERE, "No se pudo completar el pedido.", ex);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR EN EL PEDIDO");
                 alert.setHeaderText("Error al crear el pedido");
@@ -130,12 +122,12 @@ public class CompraController implements Initializable {
             ImageView imagen = new ImageView(new Image("/imagenes/" + producto.getImagen()));
             Label nombre = new Label(producto.getNombre());
             nombre.setMaxWidth(205);
-            Label precio = new Label("$" + String.valueOf(producto.getPrecio()));
+            Label precio = new Label("$" + String.valueOf(carrito.getPrecio()));
             Label cantidad = new Label("Cantidad: "+carrito.getCantidad());
             Label talla = new Label("Talla: "+carrito.getTalla());
             Label descripcion = new Label(producto.getDescripcion());
             descripcion.setPrefWidth(200);
-            this.total+= Math.round((producto.getPrecio() * carrito.getCantidad()) * 100.0) /100.0;
+            this.total+= Math.round((carrito.getPrecio() * carrito.getCantidad()) * 100.0) /100.0;
             imagen.setFitWidth(75);
             imagen.setFitHeight(75);
             imagen.setPreserveRatio(true);

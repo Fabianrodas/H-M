@@ -131,7 +131,7 @@
 - [x] Incluir talla en consulta y propagar la línea exacta al agregar, mostrar y comprar; eliminar por `idCarrito` para no borrar otra talla.
 - [x] Mantener layout y mensaje actual para duplicados.
 - [x] Ejecutar las 26 pruebas en PostgreSQL descartable, verificar INSERTs y probar añadir dos tallas, rechazar el duplicado y quitar solo una talla.
-- [ ] Commit en main: fix: distinguish cart items by size
+- [x] Commit en main: `fix: distinguish cart items by size` (`386f4fa`)
 
 ### Task 6: Guardar líneas del pedido con una transacción
 
@@ -144,13 +144,13 @@
 - `PedidoController.crearConDetalle(int clienteId, LocalDate fecha, List<Carrito> lineas)` devuelve el ID generado como `long`.
 - `modelo.Pedido.idPedido` y su getter/setter usan `long` para alinear la columna PostgreSQL `BIGINT`.
 
-- [ ] Agregar PedidoCheckoutTest.successStoresEveryProductSizeAndQuantity y PedidoCheckoutTest.failureRollsBackOrderDetailsAndCart.
-- [ ] Ejecutar pruebas y confirmar que faltan persistencia de detalle y rollback.
-- [ ] Crear `pedido_detalle` en migración PostgreSQL aparte con pedido/producto, talla, cantidad, precio unitario y subtotal de línea. No editar dump.sql ni INSERTs existentes.
-- [ ] Guardar cabecera, líneas y vaciado de carrito en la misma transacción. Revertir ante cualquier fallo. Usar ID generado en lugar de consultar `MAX(idPedido)`.
-- [ ] Mantener pantalla, layout e importes/impuesto actuales.
-- [ ] Aplicar migración a DB PostgreSQL de prueba limpia; ejecutar pruebas, `mvn -B -ntp test`, verificador de INSERT y checkout normal/fallido.
-- [ ] Commit en main: fix: persist order lines atomically
+- [x] Agregar PedidoCheckoutTest.successStoresEveryProductSizeAndQuantity y PedidoCheckoutTest.failureRollsBackOrderDetailsAndCart.
+- [x] Ejecutar las pruebas y confirmar que faltan la interfaz transaccional y el guardado de detalles.
+- [x] Crear `pedido_detalle` en migración PostgreSQL aparte con pedido/producto, talla, cantidad, precio unitario y subtotal de línea. No editar dump.sql ni INSERTs existentes.
+- [x] Guardar cabecera, líneas y vaciado de carrito en la misma transacción; revertir ante cualquier fallo y usar el ID generado.
+- [x] Mantener pantalla y layout; conservar el IVA y los importes usando el precio guardado en cada línea del carrito.
+- [x] Aplicar la migración a una DB PostgreSQL temporal limpia; ejecutar 28 pruebas, el verificador de INSERT y los caminos de checkout exitoso/fallido.
+- [x] Commit en main: `fix: persist order lines atomically`
 
 ### Task 7: Corregir borrado de cuenta y sesiones
 

@@ -56,10 +56,16 @@ try {
         throw "createdb exited with code $LASTEXITCODE."
     }
 
-    foreach ($sqlFile in @(
-                (Join-Path $projectRoot 'database\postgresql\schema.sql'),
-                (Join-Path $projectRoot 'database\postgresql\seed.sql'),
-                (Join-Path $projectRoot 'database\postgresql\sync-identities.sql'))) {
+    $sqlFiles = @(
+        (Join-Path $projectRoot 'database\postgresql\schema.sql'),
+        (Join-Path $projectRoot 'database\postgresql\seed.sql'),
+        (Join-Path $projectRoot 'database\postgresql\sync-identities.sql'))
+    $migrationDirectory = Join-Path $projectRoot 'database\postgresql\migrations'
+    $migrationFiles = @(Get-ChildItem -LiteralPath $migrationDirectory -Filter '*.sql' -File |
+        Sort-Object -Property Name |
+        Select-Object -ExpandProperty FullName)
+
+    foreach ($sqlFile in $sqlFiles) {
         & $psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p $port -U hm_test -d hm-db -f $sqlFile
         if ($LASTEXITCODE -ne 0) {
             throw "PostgreSQL import failed for $([System.IO.Path]::GetFileName($sqlFile)) (exit $LASTEXITCODE)."
@@ -84,6 +90,13 @@ try {
         throw "Expected ten PostgreSQL identity columns; found $($identityColumnCount -join '')."
     }
     Write-Output 'Verified PostgreSQL seed row counts, lowercase columns, and ten identity columns.'
+
+    foreach ($sqlFile in $migrationFiles) {
+        & $psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p $port -U hm_test -d hm-db -f $sqlFile
+        if ($LASTEXITCODE -ne 0) {
+            throw "PostgreSQL migration failed for $([System.IO.Path]::GetFileName($sqlFile)) (exit $LASTEXITCODE)."
+        }
+    }
 
     $env:HM_ENV_FILE = $envFile
     & (Join-Path $PSScriptRoot 'verify-postgresql-seed.ps1')

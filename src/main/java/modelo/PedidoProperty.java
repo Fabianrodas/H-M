@@ -9,7 +9,7 @@ public class PedidoProperty {
     private StringProperty fecha;
     private StringProperty total;
 
-    public PedidoProperty(int idPedido, int idCliente, String fecha, double total) {
+    public PedidoProperty(long idPedido, int idCliente, String fecha, double total) {
         this.idPedido = new SimpleStringProperty(String.valueOf(idPedido));
         this.idCliente = new SimpleStringProperty(String.valueOf(idCliente));
         this.fecha = new SimpleStringProperty(fecha);

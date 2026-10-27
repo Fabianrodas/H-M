@@ -1,12 +1,12 @@
 package modelo;
 
 public class Pedido {
-    private int idPedido;
+    private long idPedido;
     private int idCliente;
     private String fecha;
     private double total;
 
-    public Pedido(int idPedido, int idCliente, String fecha, double total) {
+    public Pedido(long idPedido, int idCliente, String fecha, double total) {
         this.idPedido = idPedido;
         this.idCliente = idCliente;
         this.fecha = fecha;
@@ -22,11 +22,11 @@ public class Pedido {
     public Pedido() {
     }
 
-    public int getIdPedido() {
+    public long getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(int idPedido) {
+    public void setIdPedido(long idPedido) {
         this.idPedido = idPedido;
     }
 
