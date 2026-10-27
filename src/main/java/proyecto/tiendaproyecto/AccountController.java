@@ -297,10 +297,7 @@ public class AccountController implements Initializable {
         }
         
         if(cliente != null){
-            ArrayList<Producto> pr = carritoController.productosCliente(cliente.getIdCliente());
-            for(Producto p : pr){
-                prod++;
-            }
+            prod = carritoController.ReadByCliente(cliente.getIdCliente()).size();
             shopping_bag.setOnMouseClicked(e -> {
                 try {
                     App.setRoot("shopping");

@@ -3,6 +3,7 @@ package proyecto.tiendaproyecto;
 import controller.CarritoController;
 import controller.ClienteController;
 import controller.PedidoController;
+import controller.ProductoController;
 import controller.SesionController;
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +38,7 @@ public class CompraController implements Initializable {
     @FXML private Label nombre_pedido, fecha_pedido, subtotal_pedido, total_pedido;
     private PedidoController pedidoController = new PedidoController();
     private CarritoController carritoController = new CarritoController();
+    private ProductoController productoController = new ProductoController();
     private ClienteController clienteController = new ClienteController();
     private SesionController sesionController = new SesionController();
     @FXML private VBox vboxPedido;
@@ -55,7 +57,7 @@ public class CompraController implements Initializable {
             cliente = ClienteSingleton.getInstance().getCliente();
         }
         
-        ArrayList<Producto> carrito = carritoController.productosCliente(cliente.getIdCliente());
+        ArrayList<Carrito> carrito = carritoController.ReadByCliente(cliente.getIdCliente());
         insertarPedido(carrito);
         
         if(vboxPedido != null && nombre_pedido != null && fecha_pedido != null 
@@ -105,7 +107,7 @@ public class CompraController implements Initializable {
         });
     }
     
-    private void insertarPedido(List<Producto> productos) {
+    private void insertarPedido(List<Carrito> lineasCarrito) {
         this.total = 0;
         vboxPedido.setSpacing(5);
         int cantidadFilas = 0;
@@ -115,11 +117,11 @@ public class CompraController implements Initializable {
         double alturaFila = alturaImagen + 1 * alturaLabel + 1 * espaciadoVertical;
         contenedor.setStyle("-fx-border-color: black; "+"-fx-border-width: 1px;");
         
-        for (Producto producto : productos) {
+        for (Carrito carrito : lineasCarrito) {
+            Producto producto = productoController.GetById(carrito.getIdProducto());
             HBox hbox = new HBox();
             hbox.setStyle("-fx-border-color: black; "+"-fx-border-width: 0.5px;");
             hbox.setSpacing(20); 
-            Carrito carrito = carritoController.ReadByCliePro(cliente.getIdCliente(), producto.getIdProd());
             VBox inVbox = new VBox();
             HBox inHbox = new HBox();
             inVbox.setSpacing(5); 

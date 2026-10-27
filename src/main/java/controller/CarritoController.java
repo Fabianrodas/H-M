@@ -6,24 +6,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Carrito;
 import modelo.DbConnection;
-import modelo.Producto;
 
 public class CarritoController {
     private DbConnection connection = new DbConnection();
-    private ProductoController productoController = new ProductoController();
     
     public int Create(Carrito carrito) {
+        if (ReadByCliePro(carrito.getIdCliente(), carrito.getIdProducto(), carrito.getTalla()) != null) {
+            return 0;
+        }
         int result = 0;
         String req = "INSERT INTO carrito(idCliente,idProducto,cantidad,precioUnitario,talla)" + "VALUES (?, ?, ?, ?, ?)";
         try {
             connection.conectar();
-            PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
-            statement.setInt(1, carrito.getIdCliente());
-            statement.setInt(2, carrito.getIdProducto());
-            statement.setInt(3, carrito.getCantidad());
-            statement.setDouble(4, carrito.getPrecio());
-            statement.setString(5, carrito.getTalla());
-            result = statement.executeUpdate();
+            try (PreparedStatement statement = this.connection.getConnection().prepareStatement(req)) {
+                statement.setInt(1, carrito.getIdCliente());
+                statement.setInt(2, carrito.getIdProducto());
+                statement.setInt(3, carrito.getCantidad());
+                statement.setDouble(4, carrito.getPrecio());
+                statement.setString(5, carrito.getTalla());
+                result = statement.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -96,14 +98,15 @@ public class CarritoController {
         return carritos;
     }
 
-    public Carrito ReadByCliePro(int idClie, int idProd){
+    public Carrito ReadByCliePro(int idClie, int idProd, String tallaBuscada){
         Carrito carrito = null;
-        String req = "SELECT * FROM carrito where idCliente=? AND idProducto=?";
+        String req = "SELECT * FROM carrito WHERE idCliente=? AND idProducto=? AND talla=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, idClie);
             statement.setInt(2, idProd);
+            statement.setString(3, tallaBuscada);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int carritoID = resultSet.getInt("idcarrito");
@@ -153,7 +156,7 @@ public class CarritoController {
     
     public ArrayList<Carrito> ReadByCliente(int id){
         ArrayList<Carrito> carrito = new ArrayList<>();
-        String req = "SELECT * FROM carrito where idCliente=?";
+        String req = "SELECT * FROM carrito WHERE idCliente=? ORDER BY idCarrito";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -200,25 +203,4 @@ public class CarritoController {
         return resultado > 0;
     }
     
-    public ArrayList<Producto> productosCliente(int id) {
-        ArrayList<Producto> carrito = new ArrayList<>();
-        String req = "SELECT idProducto FROM carrito WHERE idCliente=?";
-        try {
-            this.connection.conectar();
-            PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int idProd = resultSet.getInt("idproducto");
-                carrito.add(productoController.GetById(idProd));
-            }
-        } catch(SQLException e){
-            throw new RuntimeException(e);        
-        } finally{
-            this.connection.desconectar();
-        }
-        return carrito;
-        
-    }
-
 }

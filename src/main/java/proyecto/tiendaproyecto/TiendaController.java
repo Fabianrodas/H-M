@@ -314,17 +314,14 @@ public class TiendaController implements Initializable {
         }
         
         if(cliente != null){
-            ArrayList<Producto> pr = carritoController.productosCliente(cliente.getIdCliente());
-            for(Producto p : pr){
-                prod++;
-            }
+            prod = carritoController.ReadByCliente(cliente.getIdCliente()).size();
         }
         shopping_bag.setText("👜 Shopping Bag ("+prod+")");
         
         if(cliente != null){
             if(carritoController.tieneCarrito(cliente.getIdCliente())) {
                 if(vboxScroll != null && preciototal != null && cliente_nombre != null) {
-                    ArrayList<Producto> carrito = carritoController.productosCliente(cliente.getIdCliente());
+                    ArrayList<Carrito> carrito = carritoController.ReadByCliente(cliente.getIdCliente());
                     cliente_nombre.setText(cliente.getNombre());
                     insertarCarrito(carrito);
                 }
@@ -650,7 +647,7 @@ public class TiendaController implements Initializable {
                 return; 
             }
             Carrito car = new Carrito(idClie,idProd,cantidad,precio,talla);
-            if(carritoController.ReadByCliePro(idClie, idProd) != null){
+            if(carritoController.ReadByCliePro(idClie, idProd, talla) != null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("MyCarrito");
                 alert.setHeaderText("Agregar producto al carrito");
@@ -1022,9 +1019,8 @@ public class TiendaController implements Initializable {
         }
     }
     
-    private void eliminarCarrito(int idProducto) {
-        int idCar = carritoController.ReadByCliePro(cliente.getIdCliente(), idProducto).getIdCarrito();
-        int result = carritoController.Delete(idCar);
+    private void eliminarCarrito(int idCarrito) {
+        int result = carritoController.Delete(idCarrito);
         if(result>0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Eliminar del carrito");
@@ -1108,7 +1104,7 @@ public class TiendaController implements Initializable {
         anchorFavorito.setPrefHeight(nuevaAltura+35+30);
     }
     
-    private void insertarCarrito(List<Producto> productos) {
+    private void insertarCarrito(List<Carrito> lineasCarrito) {
         if(this.prod==0){
             labelLlena.setVisible(true);
         } else {
@@ -1122,11 +1118,11 @@ public class TiendaController implements Initializable {
         double espaciadoVertical = 50;
         double alturaFila = alturaImagen + 1 * alturaLabel + 1 * espaciadoVertical;
         
-        for (Producto producto : productos) {
+        for (Carrito carrito : lineasCarrito) {
+            Producto producto = productoController.GetById(carrito.getIdProducto());
             HBox hbox = new HBox();
             hbox.setStyle("-fx-border-color: black; "+"-fx-border-width: 0.5px;");
             hbox.setSpacing(20); 
-            Carrito carrito = carritoController.ReadByCliePro(cliente.getIdCliente(), producto.getIdProd());
             VBox inVbox = new VBox();
             HBox inHbox = new HBox();
             inHbox.setMaxWidth(250);
@@ -1161,7 +1157,7 @@ public class TiendaController implements Initializable {
             eliminarCarrito.setTranslateX(25);
             eliminarCarrito.setTranslateY(30);
             eliminarCarrito.setOnMouseClicked(e -> {
-                eliminarCarrito(producto.getIdProd());
+                eliminarCarrito(carrito.getIdCarrito());
                 try {
                     App.setRoot("shopping");
                 } catch (IOException ex) {

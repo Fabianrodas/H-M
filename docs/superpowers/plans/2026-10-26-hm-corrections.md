@@ -74,7 +74,7 @@
 - [x] Ejecutar pruebas enfocadas, mvn -B test y lanzar con MySQL apagado; no debe producir NullPointerException.
 - [x] Commit en main: fix: handle database configuration and connection failures
 
-### Task 3: Proteger contraseñas y limitar BD
+### Task 3: Proteger contraseñas y limitar BD (completa, commit 3218907)
 
 **Archivos:**
 - Crear: modelo/PasswordService.java, modelo/AdminAccess.java, PasswordServiceTest.java y AdminAccessTest.java.
@@ -112,7 +112,9 @@
 - [x] Verificar que `DbConnection` reporta fallo de conexión PostgreSQL cuando el servidor no responde; no se pudo observar la ventana JavaFX porque la herramienta de control bloqueó abrir una consola interactiva.
 - [x] Verificar la conexión de solo lectura a `hm-db`, su motor PostgreSQL y nombre de catálogo, sin modificar datos ni consumir secuencias.
 - [x] Verificar identidad/valores originales de `dump.sql`.
-- [ ] Commit en main: `feat: migrate database layer to PostgreSQL`
+- [x] Commit en main: `feat: migrate database layer to PostgreSQL` (`a1383ab`)
+
+- [x] Corregir UTF-8 y la conversión SHA-256 del verificador para Windows PowerShell clásico; comprobarlo también en PowerShell 7 y registrar el commit `197d79b`.
 
 ### Task 5: Incluir talla en la identidad del carrito
 
@@ -124,11 +126,11 @@
 - Sustituir `ReadByCliePro(int clienteId, int productoId)` por `ReadByCliePro(int clienteId, int productoId, String talla)`; listar las líneas exactas con `ReadByCliente(int clienteId)`.
 - Las pantallas de carrito y checkout recorren líneas `Carrito`; cada fila se enlaza a su `idCarrito`, talla y producto.
 
-- [ ] Agregar CarritoControllerTest.allowsSameProductInDifferentSizes y CarritoControllerTest.rejectsDuplicateProductAndSameSize.
-- [ ] Ejecutar las pruebas contra PostgreSQL descartable y confirmar que falla la consulta actual que no considera talla.
-- [ ] Incluir talla en consulta y propagar selección a agregar, mostrar, borrar y consultar al comprar; eliminar por `idCarrito` para no borrar otra talla.
-- [ ] Mantener layout y mensaje actual para duplicados.
-- [ ] Ejecutar pruebas, `mvn -B -ntp test`, verificador de INSERT y prueba dinámica de añadir/quitar dos tallas del mismo producto.
+- [x] Agregar CarritoControllerTest.allowsSameProductInDifferentSizes y CarritoControllerTest.rejectsDuplicateProductAndSameSize.
+- [x] Ejecutar la prueba y confirmar que falta la consulta que acepta talla.
+- [x] Incluir talla en consulta y propagar la línea exacta al agregar, mostrar y comprar; eliminar por `idCarrito` para no borrar otra talla.
+- [x] Mantener layout y mensaje actual para duplicados.
+- [x] Ejecutar las 26 pruebas en PostgreSQL descartable, verificar INSERTs y probar añadir dos tallas, rechazar el duplicado y quitar solo una talla.
 - [ ] Commit en main: fix: distinguish cart items by size
 
 ### Task 6: Guardar líneas del pedido con una transacción
