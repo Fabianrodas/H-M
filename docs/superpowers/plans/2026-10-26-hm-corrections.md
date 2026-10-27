@@ -194,8 +194,8 @@
 - [ ] Ejecutar con datos mock y capturar tienda, producto, carrito/checkout, cuenta y BD enmascarada. No capturar datos reales. Pendiente mientras el usuario mantenga desactivado el control remoto; no sustituir por imágenes simuladas.
 - [x] Redactar README sencillo en español con explicación, requisitos y pasos de Windows para PostgreSQL, datos de ejemplo, .env local y ejecución con Maven. La galería de capturas auténticas queda pendiente.
 - [x] Añadir MIT con titular propuesto Fabian Rodas y SECURITY.md con reporte privado y guía para no versionar credenciales ni datos reales (commit 1b5f5bf).
-- [ ] Verificar links, comandos e imágenes; ejecutar `mvn -B -ntp test`, `mvn -B -ntp package` y los verificadores de INSERT.
-- [ ] Commitear README y recursos de marca; añadir después las capturas auténticas en un commit separado cuando sea posible revisar la aplicación.
+- [x] Verificar links locales, rutas de comandos y recursos visuales; ejecutar mvn -B -ntp test/package y los verificadores de INSERT; la suite PostgreSQL temporal pasó 33/33 sin omisiones. El inicio de la interfaz y sus capturas quedan pendientes junto con la revisión visual.
+- [ ] Añadir las capturas auténticas al README y commitearlas por separado cuando el usuario permita revisar la aplicación en ejecución.
 
 ## Verificación final
 
