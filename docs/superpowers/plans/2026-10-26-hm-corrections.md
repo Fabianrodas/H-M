@@ -177,12 +177,12 @@
 - Establecer `artifactId` y `name` como `H-M` para que NetBeans muestre el nombre pedido; conservar los paquetes Java actuales.
 - Mantener `target/` local e ignorado; confirmar si ya hay algún archivo generado versionado antes de quitarlo del índice sin borrarlo.
 
-- [ ] Renombrar el artefacto y el nombre visible de Maven a `H-M` sin renombrar paquetes Java.
-- [ ] Unificar release a Java 21; el driver PostgreSQL ya se añade en Tarea 4.
-- [ ] Confirmar `/target/` ignorado y retirar solo los archivos que ya estuvieran versionados, conservándolos en disco.
-- [ ] Ejecutar `mvn -B -ntp test` y `mvn -B -ntp package`; esperar build correcto y `target/` ignorado.
-- [ ] Verificar estado Git y digest de INSERTs.
-- [ ] Commit en main: chore: name project H-M and align Maven
+- [x] Renombrar el artefacto y el nombre visible de Maven a `H-M` sin renombrar paquetes Java.
+- [x] Unificar release a Java 21; el driver PostgreSQL ya se añade en Tarea 4.
+- [x] Confirmar `/target/` ignorado; no había archivos generados versionados que retirar.
+- [x] Ejecutar `mvn -B -ntp test` y `mvn -B -ntp package`; ambos builds pasan y `target/` queda ignorado.
+- [x] Verificar nombre del artefacto, estado Git y digest de INSERTs.
+- [x] Commit en main: `chore: name project H-M and align Maven`
 
 ### Task 9: Añadir licencia, SECURITY.md, capturas y README
 
