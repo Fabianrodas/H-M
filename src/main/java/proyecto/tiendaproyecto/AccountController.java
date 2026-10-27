@@ -36,20 +36,23 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
 import javafx.fxml.FXMLLoader;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Producto;
+import modelo.AdminAccess;
+import modelo.PasswordService;
 import modelo.DatabaseConfig;
 
 
 public class AccountController implements Initializable {
     @FXML private Button changePicture, btnSavePassword, btnAccountSettings, btnsearch, btnsignin;       
     @FXML private ImageView fotoUsuario, logoHM;    
-    @FXML private TextField accName, accApellido, accEmail, accGenero, accFecha, newPassword;
-    @FXML private PasswordField accPassword;
+    @FXML private TextField accName, accApellido, accEmail, accGenero, accFecha;
+    @FXML private PasswordField accPassword, newPassword;
     @FXML private Label btnDeleteAccount, pedidosCliente;
     @FXML private MenuItem bd, about;
 
@@ -58,7 +61,6 @@ public class AccountController implements Initializable {
     private int clienteID;
     
     private final ClienteController clienteController = new ClienteController();
-    private final RegistroController registroController = new RegistroController();
     private final SesionController sesionController = new SesionController();
     private final PedidoController pedidoController = new PedidoController();
     private final CarritoController carritoController = new CarritoController();
@@ -85,6 +87,18 @@ public class AccountController implements Initializable {
         }
     
         clienteID = ClienteSingleton.getInstance().getCliente().getIdCliente();
+        if (PasswordService.requiresPasswordChange(cliente.getContrasena())) {
+            ClienteSingleton.getInstance().setPasswordChangeRequired(true);
+            if (btnSavePassword == null) {
+                Platform.runLater(() -> {
+                    try {
+                        App.setRoot("accountsettings");
+                    } catch (IOException ex) {
+                        Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+            }
+        }
         
         if (clienteController.getImagenCliente(clienteID) != null) {
             if (fotoUsuario != null) {
@@ -105,7 +119,7 @@ public class AccountController implements Initializable {
             }
             
             if(accPassword != null){
-                accPassword.setText(cliente.getContrasena());
+                accPassword.setText(PasswordService.maskForDisplay(cliente.getContrasena()));
             }
         
         
@@ -149,28 +163,38 @@ public class AccountController implements Initializable {
 
             });       
     }
-        if(btnSavePassword != null){
-         btnSavePassword.setOnMouseClicked(e -> {
-            if(newPassword.getText() != null && newPassword.getText().isBlank() == false){
-            String nuevaContra = newPassword.getText();
-            String contraEncriptada = registroController.encriptarContrasena(nuevaContra);
-            clienteController.UpdateContrasena(clienteID, contraEncriptada);
-            Alert cuadroDialogo3 = new Alert(AlertType.INFORMATION);
-            cuadroDialogo3.setTitle("Actualizar contraseña");
-            cuadroDialogo3.setHeaderText("Actualización de contraseña exitosa");
-            cuadroDialogo3.setContentText("¡La contraseña ha sido actualizada exitosamente!");
-            cuadroDialogo3.showAndWait();
-            }
-            else{
-              Alert errorContrasena = new Alert(AlertType.ERROR);
-                    errorContrasena.setTitle("Error de actualización");
-                    errorContrasena.setHeaderText("Error al actualizar la contraseña");
-                    errorContrasena.setContentText("El proceso ha fallado y tu contraseña no ha sido actualizada."+"\n"+"Completa los espacios en blanco y evita los campos en blanco");
-                    errorContrasena.showAndWait();  
-            }
-         });
+        if (btnSavePassword != null) {
+            btnSavePassword.setOnMouseClicked(event -> {
+                if (newPassword == null || newPassword.getText() == null || newPassword.getText().isBlank()) {
+                    showPasswordUpdateError();
+                    return;
+                }
+                char[] password = newPassword.getText().toCharArray();
+                try {
+                    String hash = PasswordService.hash(password);
+                    if (clienteController.UpdateContrasena(clienteID, hash) > 0) {
+                        cliente.setContrasena(hash);
+                        ClienteSingleton.getInstance().setPasswordChangeRequired(false);
+                        newPassword.clear();
+                        if (accPassword != null) {
+                            accPassword.setText(PasswordService.maskForDisplay(hash));
+                        }
+                        Alert success = new Alert(AlertType.INFORMATION);
+                        success.setTitle("Actualizar contraseña");
+                        success.setHeaderText("Actualización de contraseña exitosa");
+                        success.setContentText("¡La contraseña ha sido actualizada exitosamente!");
+                        success.showAndWait();
+                    } else {
+                        showPasswordUpdateError();
+                    }
+                } catch (RuntimeException exception) {
+                    Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, "No se pudo actualizar la contraseña.", exception);
+                    showPasswordUpdateError();
+                } finally {
+                    Arrays.fill(password, '\0');
+                }
+            });
         }
-        
         prod = 0;
         
         List<Text> textos = Arrays.asList(baby_baby, baby_newborn, babyboy_clothing, babyboy_outerwear,babyboy_shoes, babygirl_clothing, babygirl_outerwear, babygirl_shoes,boy1_clothing, boy1_outerwear, 
@@ -193,6 +217,7 @@ public class AccountController implements Initializable {
         
         initializeMenuItem(bd, "bd");
         initializeMenuItem(about, "about");
+        applyDatabaseEntryVisibility();
         ventanaNueva(member, "become_member");
                   
         signin.setOnMouseClicked(e -> {
@@ -417,6 +442,26 @@ public class AccountController implements Initializable {
                 }
             });
         }
+    }
+
+    private void applyDatabaseEntryVisibility() {
+        boolean visible = AdminAccess.currentUserCanAccessDatabase();
+        if (bd != null) {
+            bd.setVisible(visible);
+            bd.setDisable(!visible);
+        }
+        if (bd2 != null) {
+            bd2.setVisible(visible);
+            bd2.setManaged(visible);
+        }
+    }
+
+    private void showPasswordUpdateError() {
+        Alert error = new Alert(AlertType.ERROR);
+        error.setTitle("Error de actualización");
+        error.setHeaderText("Error al actualizar la contraseña");
+        error.setContentText("No se pudo actualizar la contraseña. Comprueba el campo y vuelve a intentarlo.");
+        error.showAndWait();
     }
     
     private void ventanaNueva(Label label, String fxmlFileName) {

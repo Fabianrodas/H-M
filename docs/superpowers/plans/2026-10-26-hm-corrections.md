@@ -44,16 +44,16 @@
 - Excluir: .git/, target/, mysql_login.txt.
 - Añadir el test de `DatabaseConfig` y la implementación mínima necesaria para cargar `.env`; hacer que `DbConnection`, `AccountController` y `TiendaController` consuman esa configuración para que ningún secreto de conexión llegue al primer commit.
 
-- [ ] Consultar origin/main con git ls-remote origin refs/heads/main. Si existe, traer y conservar esa historia; si no existe, mantener la rama local main sin commits.
-- [ ] Antes de copiar código, crear `.env` local con la configuración actual de MySQL y comprobar que Git lo ignora.
-- [ ] Copiar el proyecto desde H-M-old excluyendo metadatos Git, artefactos generados y `mysql_login.txt`. No cambiar FXML, estilos ni dump.sql.
-- [ ] Escribir primero `DatabaseConfigTest` para carga y validación de `.env`; ejecutar y observar los fallos esperados.
-- [ ] Implementar `DatabaseConfig` y reemplazar los valores de conexión incrustados antes de preparar el primer commit. Mantener los valores locales fuera de Git y añadir `.env.example`.
-- [ ] Crear verify-dump-inserts.ps1: filtra líneas que empiezan con INSERT INTO, las une con LF, calcula SHA-256 y falla si no coincide con el hash global.
-- [ ] Ejecutar las pruebas de configuración, el verificador y comparar el inventario de código/recursos.
-- [ ] Revisar el contenido staged: `.env` y `mysql_login.txt` ausentes, sin credenciales incrustadas en fuentes versionadas.
-- [ ] Ejecutar mvn -B test y confirmar compilación/pruebas.
-- [ ] Commit en main: chore: seed app with local environment configuration
+- [x] Consultar origin/main con git ls-remote origin refs/heads/main. Si existe, traer y conservar esa historia; si no existe, mantener la rama local main sin commits.
+- [x] Antes de copiar código, crear `.env` local con la configuración actual de MySQL y comprobar que Git lo ignora.
+- [x] Copiar el proyecto desde H-M-old excluyendo metadatos Git, artefactos generados y `mysql_login.txt`. No cambiar FXML, estilos ni dump.sql.
+- [x] Escribir primero `DatabaseConfigTest` para carga y validación de `.env`; ejecutar y observar los fallos esperados.
+- [x] Implementar `DatabaseConfig` y reemplazar los valores de conexión incrustados antes de preparar el primer commit. Mantener los valores locales fuera de Git y añadir `.env.example`.
+- [x] Crear verify-dump-inserts.ps1: filtra líneas que empiezan con INSERT INTO, las une con LF, calcula SHA-256 y falla si no coincide con el hash global.
+- [x] Ejecutar las pruebas de configuración, el verificador y comparar el inventario de código/recursos.
+- [x] Revisar el contenido staged: `.env` y `mysql_login.txt` ausentes, sin credenciales incrustadas en fuentes versionadas.
+- [x] Ejecutar mvn -B test y confirmar compilación/pruebas.
+- [x] Commit en main: chore: seed app with local environment configuration
 
 ### Tarea 2: Manejar fallos de configuración y conexión DB
 
@@ -66,12 +66,12 @@
 - DatabaseConfig.load(Path) devuelve URL, usuario, contraseña y email de admin validados, o un error descriptivo; la tarea 1 introduce la interfaz.
 - DbConnection.conectar() devuelve Connection activa o lanza SQLException; nunca devuelve false ni expone una conexión nula.
 
-- [ ] Escribir DbConnectionTest.unavailableServerReportsConnectionError.
-- [ ] Ejecutar las pruebas y confirmar que fallan con el comportamiento actual.
-- [ ] Cargar configuración una vez, reportar errores de archivo/controlador/SQL claramente y hacer que desconectar sea seguro si nunca se abrió una conexión.
-- [ ] Capturar el fallo al iniciar y mostrar alerta clara en español con reintentar/cerrar, sin dejar la pantalla de carga colgada ni imprimir el error de FXMLLoader.
-- [ ] Ejecutar pruebas enfocadas, mvn -B test y lanzar con MySQL apagado; no debe producir NullPointerException.
-- [ ] Commit en main: fix: handle database configuration and connection failures
+- [x] Escribir DbConnectionTest.unavailableServerReportsConnectionError.
+- [x] Ejecutar las pruebas y confirmar que fallan con el comportamiento actual.
+- [x] Cargar configuración una vez, reportar errores de archivo/controlador/SQL claramente y hacer que desconectar sea seguro si nunca se abrió una conexión.
+- [x] Capturar el fallo al iniciar y mostrar alerta clara en español con reintentar/cerrar, sin dejar la pantalla de carga colgada ni imprimir el error de FXMLLoader.
+- [x] Ejecutar pruebas enfocadas, mvn -B test y lanzar con MySQL apagado; no debe producir NullPointerException.
+- [x] Commit en main: fix: handle database configuration and connection failures
 
 ### Tarea 3: Proteger contraseñas y limitar BD
 
@@ -80,15 +80,15 @@
 - Modificar: RegistroController.java, AccountController.java, TiendaController.java, ClienteController.java, `.env.example`, accountsettings.fxml y FXML de BD solo si hace falta.
 - Pruebas: migración de contraseñas, acceso de admin y enmascaramiento.
 
-- [ ] Escribir PasswordServiceTest.hashesVerifyWithRandomSalt, PasswordServiceTest.rejectsWrongPassword, PasswordServiceTest.encodedValueFitsExistingColumn, PasswordServiceTest.verifiesLegacyHexAndFlagsUpgrade, AdminAccessTest.deniesNonAdminMenuAndDirectRoute y AdminAccessTest.neverExposesStoredPassword.
-- [ ] Ejecutar las pruebas y confirmar que fallan.
-- [ ] Implementar PBKDF2WithHmacSHA256, 600.000 iteraciones, sal aleatoria, comparación en tiempo constante y formato que quepa en la columna existente.
-- [ ] Las cuentas nuevas y cambios de contraseña guardan hashes. Un inicio válido legacy actualiza esa misma fila sin cambiar el INSERT fuente. El admin con hash legacy debe cambiar contraseña antes de entrar.
-- [ ] Leer admin.email de la configuración local. Ocultar menú/enlace BD a no admins y bloquear también la navegación directa.
-- [ ] Mantener la columna y dimensiones de contraseña en la tabla, pero enviar un texto fijo enmascarado a la vista, nunca el hash.
-- [ ] Cambiar el control de nueva contraseña por uno enmascarado de apariencia equivalente; no reorganizar la pantalla.
-- [ ] Ejecutar pruebas, mvn -B test, digest de INSERTs y pruebas dinámicas de legacy, cambio, admin/no admin y tabla enmascarada.
-- [ ] Commit en main: fix: hash passwords and restrict database screen
+- [x] Escribir pruebas para hash aleatorio, clave incorrecta, límite de columna, migración legacy, acceso admin y máscara de contraseña.
+- [x] Ejecutar las pruebas antes de implementar y confirmar el fallo de compilación por las clases aún inexistentes.
+- [x] Implementar PBKDF2WithHmacSHA256, 600.000 iteraciones, sal aleatoria, comparación en tiempo constante y formato que quepa en la columna existente.
+- [x] Las cuentas nuevas y cambios de contraseña guardan hashes. Un inicio válido legacy actualiza esa misma fila sin cambiar el INSERT fuente. El admin con hash legacy debe cambiar contraseña antes de entrar.
+- [x] Leer admin.email de la configuración local. Ocultar menú/enlace BD a no admins y bloquear también la navegación directa.
+- [x] Mantener la columna y dimensiones de contraseña en la tabla, pero enviar un texto fijo enmascarado a la vista, nunca el hash.
+- [x] Cambiar el control de nueva contraseña por uno enmascarado de apariencia equivalente; no reorganizar la pantalla.
+- [ ] Ejecutar la integración dinámica de legacy, cambio, admin/no admin y tabla enmascarada. La suite local pasa 13/13 y el arranque con MySQL apagado muestra el error esperado; el motor Docker no está disponible en este equipo.
+- [x] Commit en main: fix: hash passwords and restrict database screen
 
 ### Tarea 4: Incluir talla en la identidad del carrito
 

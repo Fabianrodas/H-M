@@ -4,12 +4,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import modelo.AdminAccess;
+import modelo.ClienteSingleton;
 
 public class App extends Application {
 
@@ -32,10 +35,16 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
+        if (!isRouteAllowed(fxml)) {
+            return;
+        }
         scene.setRoot(loadFXML(fxml));
     }
     
     public static void setRootWithTransition(String fxml) throws IOException {
+        if (!isRouteAllowed(fxml)) {
+            return;
+        }
         Parent newRoot = loadFXML(fxml);
         FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), scene.getRoot());
         fadeOut.setFromValue(1.0);
@@ -49,6 +58,27 @@ public class App extends Application {
         });
 
         fadeOut.play();
+    }
+
+    private static boolean isRouteAllowed(String fxml) {
+        ClienteSingleton currentUser = ClienteSingleton.getInstance();
+        if (currentUser.isPasswordChangeRequired() && !"accountsettings".equalsIgnoreCase(fxml)) {
+            showAccessMessage("Actualiza tu contraseña antes de continuar.");
+            return false;
+        }
+        if ("bd".equalsIgnoreCase(fxml) && !AdminAccess.currentUserCanAccessDatabase()) {
+            showAccessMessage("Esta pantalla solo está disponible para la cuenta administradora local.");
+            return false;
+        }
+        return true;
+    }
+
+    private static void showAccessMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Acceso restringido");
+        alert.setHeaderText("No se puede abrir esta pantalla");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

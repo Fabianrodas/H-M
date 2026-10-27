@@ -9,6 +9,7 @@ import controller.ProductoController;
 import controller.SesionController;
 import java.io.IOException;
 import java.net.URL;
+import javafx.application.Platform;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -240,6 +241,8 @@ public class TiendaController implements Initializable {
         } else {
             cliente = ClienteSingleton.getInstance().getCliente();
         }
+        applyPasswordPolicyForCurrentSession();
+        applyDatabaseEntryVisibility();
         
         producto = ProductoSingleton.getInstance().getProducto();
         if (producto != null) {
@@ -453,7 +456,7 @@ public class TiendaController implements Initializable {
                         c.getCorreo(), 
                         c.getZipcode(), 
                         c.getFecha_nacimiento(), 
-                        c.getContrasena(), 
+                        PasswordService.maskForDisplay(c.getContrasena()),
                         c.getGenero(), 
                         c.getImagen()));
                 }
@@ -744,6 +747,55 @@ public class TiendaController implements Initializable {
                     App.setRoot(fxmlFileName);
                 } catch (IOException ex) {
                     Logger.getLogger(TiendaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        }
+    }
+
+    private void applyDatabaseEntryVisibility() {
+        boolean visible = AdminAccess.currentUserCanAccessDatabase();
+        if (bd != null) {
+            bd.setVisible(visible);
+            bd.setDisable(!visible);
+        }
+        if (bd2 != null) {
+            bd2.setVisible(visible);
+            bd2.setManaged(visible);
+        }
+    }
+
+    private void applyPasswordPolicyForCurrentSession() {
+        ClienteSingleton currentUser = ClienteSingleton.getInstance();
+        if (cliente == null) {
+            currentUser.setPasswordChangeRequired(false);
+            return;
+        }
+
+        boolean admin = AdminAccess.canAccessDatabase(
+                cliente.getCorreo(), DatabaseConfig.loadDefault().getAdminEmail());
+        boolean forceChange = PasswordService.requiresPasswordChange(cliente.getContrasena());
+        if (PasswordService.isLegacyHex(cliente.getContrasena())) {
+            try {
+                String upgraded = PasswordService.upgradeLegacyPassword(cliente.getContrasena(), admin);
+                if (clienteController.UpdateContrasena(cliente.getIdCliente(), upgraded) > 0) {
+                    cliente.setContrasena(upgraded);
+                    forceChange = admin;
+                } else if (admin) {
+                    forceChange = true;
+                }
+            } catch (RuntimeException exception) {
+                Logger.getLogger(TiendaController.class.getName()).log(Level.SEVERE, "No se pudo actualizar la contraseña anterior.", exception);
+                forceChange = admin;
+            }
+        }
+
+        currentUser.setPasswordChangeRequired(forceChange);
+        if (forceChange) {
+            Platform.runLater(() -> {
+                try {
+                    App.setRoot("accountsettings");
+                } catch (IOException exception) {
+                    Logger.getLogger(TiendaController.class.getName()).log(Level.SEVERE, null, exception);
                 }
             });
         }

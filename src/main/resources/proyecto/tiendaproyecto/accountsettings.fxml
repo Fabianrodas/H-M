@@ -533,7 +533,7 @@
                                     <VBox prefHeight="83.0" prefWidth="229.0" spacing="10.0">
                                        <children>
                                           <Label styleClass="negrita" text="New Password" />
-                                          <TextField fx:id="newPassword" prefHeight="44.0" prefWidth="229.0" />
+                                          <PasswordField fx:id="newPassword" prefHeight="44.0" prefWidth="229.0" />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="83.0" prefWidth="229.0" spacing="10.0">

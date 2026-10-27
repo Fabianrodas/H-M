@@ -4,7 +4,7 @@ import controller.ClienteController;
 import controller.SesionController;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -24,6 +24,9 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import modelo.Cliente;
 import modelo.ClienteSingleton;
+import modelo.AdminAccess;
+import modelo.DatabaseConfig;
+import modelo.PasswordService;
 
 public class RegistroController {
     
@@ -168,24 +171,6 @@ public class RegistroController {
         stage.close();
     }
     
-    public String encriptarContrasena(String texto){
-         StringBuilder stringBuilder = new StringBuilder();
-        for (char c : texto.toCharArray()) {
-            stringBuilder.append(String.format("%02x", (int) c));
-        }
-        return stringBuilder.toString();
-    }
-    
-    private String desencriptarContrasena(String hexadecimal){
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < hexadecimal.length(); i += 2) {
-            String parteHexadecimal = hexadecimal.substring(i, i + 2);
-            char caracter = (char) Integer.parseInt(parteHexadecimal, 16);
-            stringBuilder.append(caracter);
-        }
-        return stringBuilder.toString();
-    }
-    
     @FXML
     private void registrar() {
         String email = txtemail.getText();
@@ -217,87 +202,119 @@ public class RegistroController {
             alert.setContentText("Por favor ingresa un correo electrónico válido.");
             alert.showAndWait();
         } else {
-            String contrasenaEncriptada = encriptarContrasena(passwordField.getText());
-            Cliente cliente = new Cliente(nombre,apellido,email,zipcode,fecha,contrasenaEncriptada,genero);
-            int result = clienteController.Create(cliente);
-            if (result>0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Registro de Usuarios");
-                alert.setHeaderText("Usuario agregado");
-                alert.setContentText("Te registraste exitosamente, bienvenido a H&M.");
-                alert.showAndWait();
-                try {
-                    switchToSignin();
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
+            char[] password = passwordField.getText().toCharArray();
+            passwordField.clear();
+            if (textField != null) {
+                textField.clear();
+            }
+            try {
+                String hashedPassword = PasswordService.hash(password);
+                Cliente cliente = new Cliente(nombre, apellido, email, zipcode, fecha, hashedPassword, genero);
+                int result = clienteController.Create(cliente);
+                if (result > 0) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Registro de Usuarios");
+                    alert.setHeaderText("Usuario agregado");
+                    alert.setContentText("Te registraste exitosamente, bienvenido a H&M.");
+                    alert.showAndWait();
+                    try {
+                        switchToSignin();
+                    } catch (IOException ex) {
+                        Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Registro de Usuarios");
+                    alert.setHeaderText("Error al registrar");
+                    alert.setContentText("El registro no se ha podido agregar");
+                    alert.showAndWait();
                 }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Registro de Usuarios");
+            } catch (RuntimeException exception) {
+                Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, "No se pudo proteger la contraseña del registro.", exception);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Error al registrar");
-                alert.setContentText("El registro no se ha podido agregar");
-                alert.showAndWait(); 
+                alert.setContentText("No se pudo completar el registro. Vuelve a intentarlo.");
+                alert.showAndWait();
+            } finally {
+                Arrays.fill(password, '\0');
             }
         }
     }
     
     @FXML
     private void signin(){
-        Cliente cliente;
         String email = emailSignin.getText();
-        String contrasena = passwordField.getText();
-        if(email.isBlank() || contrasena.isBlank()) {
+        char[] contrasena = passwordField.getText().toCharArray();
+        if(email.isBlank() || contrasena.length == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Iniciar Sesión");
             alert.setHeaderText("Error al iniciar sesión");
             alert.setContentText("El email y/o contraseña estan vacíos");
             alert.showAndWait();
+            Arrays.fill(contrasena, '\0');
             return;
         }
-        if(clienteController.ReadByEmail(email) == null){
+        Cliente cliente = clienteController.ReadByEmail(email);
+        if(cliente == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Iniciar Sesión");
-            alert.setHeaderText("Error al iniciar sesión (1)");
+            alert.setHeaderText("Error al iniciar sesión");
             alert.setContentText("El email y/o contraseña son incorrectos");
             alert.showAndWait();
+            Arrays.fill(contrasena, '\0');
             return;
         }
-        ArrayList<Cliente> clientes = clienteController.Read();
-        for(Cliente c : clientes) { 
-            if(clienteController.ReadByEmail(email).getIdCliente() == c.getIdCliente()) {
-                cliente = clienteController.ReadByEmail(email);
-                String contrasenaCliente = desencriptarContrasena(cliente.getContrasena());
-                if (contrasenaCliente.equals(contrasena)) {
-                    try {
-                        ClienteSingleton.getInstance().setCliente(cliente);
-                        if(checkbox.isSelected()){
-                            int ses = sesionController.setSesion(cliente.getIdCliente());
-                            if(ses>0){
-                                System.out.println("Sesion almacenada exitosamente");
-                            } else {
-                                System.out.println("Ocurrio un error y no se pudo guardar la sesion");
-                            }
-                        }
-                        cerrarStage();
-                        App.setRoot("account");
-                        return;
-                    } catch (IOException ex) {
-                        Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Iniciar Sesión");
-                    alert.setHeaderText("Error al iniciar sesión (3)");
-                    alert.setContentText("El email y/o contraseña son incorrectos");
-                    alert.showAndWait();
+        try {
+            PasswordService.VerificationResult verification = PasswordService.verify(contrasena, cliente.getContrasena());
+            if (!verification.isValid()) {
+                showInvalidCredentials();
+                return;
+            }
+
+            boolean admin = AdminAccess.canAccessDatabase(
+                    cliente.getCorreo(), DatabaseConfig.loadDefault().getAdminEmail());
+            if (verification.needsUpgrade()) {
+                String upgradedPassword = admin
+                        ? PasswordService.hashForPasswordChangeRequired(contrasena)
+                        : PasswordService.hash(contrasena);
+                if (clienteController.UpdateContrasena(cliente.getIdCliente(), upgradedPassword) <= 0) {
+                    showPasswordUpgradeError();
                     return;
                 }
+                cliente.setContrasena(upgradedPassword);
+                verification = PasswordService.verify(contrasena, upgradedPassword);
             }
+
+            ClienteSingleton currentUser = ClienteSingleton.getInstance();
+            currentUser.setCliente(cliente);
+            currentUser.setPasswordChangeRequired(verification.mustChangePassword());
+            if (!verification.mustChangePassword() && checkbox != null && checkbox.isSelected()) {
+                sesionController.setSesion(cliente.getIdCliente());
+            }
+
+            cerrarStage();
+            App.setRoot(verification.mustChangePassword() ? "accountsettings" : "account");
+        } catch (IOException | IllegalStateException exception) {
+            Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, "No se pudo completar el inicio de sesión.", exception);
+            showPasswordUpgradeError();
+        } finally {
+            Arrays.fill(contrasena, '\0');
         }
+    }
+
+    private void showInvalidCredentials() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Iniciar Sesión");
-        alert.setHeaderText("Error al iniciar sesión (2)");
+        alert.setHeaderText("Error al iniciar sesión");
         alert.setContentText("El email y/o contraseña son incorrectos");
+        alert.showAndWait();
+    }
+
+    private void showPasswordUpgradeError() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Actualizar contraseña");
+        alert.setHeaderText("No se pudo completar el inicio de sesión");
+        alert.setContentText("Vuelve a intentarlo. Si el problema continúa, revisa la conexión con la base de datos.");
         alert.showAndWait();
     }
 }
