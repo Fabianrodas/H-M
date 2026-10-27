@@ -1,9 +1,9 @@
-module proyecto.tiendaproyecto {
+module proyecto.hm {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.base;
     requires java.sql;
 
-    opens proyecto.tiendaproyecto to javafx.fxml;
-    exports proyecto.tiendaproyecto;
+    opens proyecto.hm to javafx.fxml;
+    exports proyecto.hm;
 }

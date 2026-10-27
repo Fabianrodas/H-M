@@ -52,7 +52,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>proyecto.tiendaproyecto.Main</mainClass>
+                    <mainClass>proyecto.hm.Main</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -124,7 +124,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>proyecto.tiendaproyecto.Main</mainClass>
+                            <mainClass>proyecto.hm.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

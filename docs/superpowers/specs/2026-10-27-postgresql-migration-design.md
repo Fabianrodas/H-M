@@ -63,3 +63,10 @@ H-M debe funcionar localmente con PostgreSQL porque MySQL no está disponible en
 - Actualizar la documentación/planning existentes y los pasos de ejecución local para PostgreSQL.
 - Preservar el diseño y verificar todos los FXML después de cambiar solo los mensajes de conexión.
 - Mantener commits separados por tarea y trabajar exclusivamente en `H-M` sobre `main`.
+
+## Decisión posterior: namespace interno de Java
+
+El usuario pidió retirar `tiendaproyecto` del nombre interno. El paquete y módulo Java se renombran a `proyecto.hm`, ya que `H-M` no es un identificador Java válido por el guion. Maven y NetBeans siguen mostrando `H-M`. Las vistas FXML se mueven junto al paquete para mantener sus rutas relativas; se actualizan solo las referencias de paquete. No se rediseñan pantallas ni se cambian imágenes, estilos, consultas o datos.
+## Hallazgo durante la verificación de recursos FXML
+
+`account.fxml` referencia `/imagen_usuario/default_user.jpg`, pero el proyecto solo tenía el archivo bajo `user_images/`, fuera de las ubicaciones empaquetadas por Maven. Se incluirá una copia byte por byte bajo `src/main/resources/imagen_usuario/` y se conservará el archivo original sin cambios.

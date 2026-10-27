@@ -207,3 +207,34 @@
 - Revisar historia: todos los commits de implementación están en main y cada tarea tiene su commit.
 - Detener y borrar únicamente el clúster PostgreSQL de prueba creado en `target/`.
 
+
+### Task 10: Renombrar el namespace interno de la aplicación
+
+**Decisión posterior del usuario:** eliminar `tiendaproyecto` del nombre interno. Java no permite guiones en paquetes ni módulos, por lo que el namespace será `proyecto.hm`; el nombre visible Maven/NetBeans sigue siendo `H-M`. Esta tarea supersede la decisión de Task 8 de conservar los paquetes, sin cambiar las pantallas ni los datos.
+
+**Archivos:**
+- Modificar: `pom.xml`, `src/main/java/module-info.java`, referencias de paquetes/imports, `fx:controller` de FXML y la prueba `AccountDeletionTest`.
+- Mover: `src/main/java/proyecto/tiendaproyecto/` a `src/main/java/proyecto/hm/`, `src/main/resources/proyecto/tiendaproyecto/` a `src/main/resources/proyecto/hm/` y la prueba de cuenta a `src/test/java/proyecto/hm/`.
+- Crear: `src/test/java/modelo/ProjectNamespaceTest.java`.
+
+- [x] Agregar una prueba que verifique que `src/` ya no contiene el nombre interno anterior en rutas ni referencias y que existen el nuevo paquete y el FXML de tienda.
+- [x] Ejecutar solo la prueba nueva y observar que falle por las referencias actuales, no por error de compilación.
+- [x] Mover el paquete y los FXML a `proyecto.hm`; actualizar `module-info.java`, el punto de entrada de Maven, imports, paquetes de prueba y controladores FXML. Preservar el contenido y las rutas relativas de estilos e imágenes.
+- [x] Ejecutar la prueba nueva, `mvn -B -ntp test` y `mvn -B -ntp package`; comprobar que `dump.sql`, las imágenes, estilos y `.env` siguen intactos/ignorados.
+- [x] Commit en main: `refactor: rename internal project namespace to hm`
+
+**Orden:** ejecutar esta tarea antes de cerrar Task 9, por la solicitud posterior del usuario y para que la documentación use el namespace vigente.
+### Task 11: Empaquetar la imagen de perfil predeterminada
+
+**Causa:** `account.fxml` carga `../../imagen_usuario/default_user.jpg`, pero Maven no empaqueta la imagen original que está en `user_images/`.
+
+**Archivos:**
+- Crear: `src/main/resources/imagen_usuario/default_user.jpg` como copia byte por byte de `user_images/default_user.jpg`.
+- Crear: `src/test/java/modelo/DefaultProfileImageResourceTest.java`.
+
+- [x] Escribir una prueba que requiera `/imagen_usuario/default_user.jpg` en el classpath y observar el fallo antes del arreglo.
+- [x] Copiar el recurso existente sin alterarlo.
+- [x] Ejecutar la prueba y `mvn -B -ntp package`; comprobar la igualdad binaria de ambas copias y validar las rutas de recursos FXML.
+- [ ] Commit en main: `fix: package default profile image`
+
+**Orden:** ejecutar antes de cerrar Task 9, junto con Task 10, porque README y capturas documentan la versión empaquetada.
