@@ -235,6 +235,6 @@
 - [x] Escribir una prueba que requiera `/imagen_usuario/default_user.jpg` en el classpath y observar el fallo antes del arreglo.
 - [x] Copiar el recurso existente sin alterarlo.
 - [x] Ejecutar la prueba y `mvn -B -ntp package`; comprobar la igualdad binaria de ambas copias y validar las rutas de recursos FXML.
-- [ ] Commit en main: `fix: package default profile image`
+- [x] Commit en main: `fix: package default profile image`
 
 **Orden:** ejecutar antes de cerrar Task 9, junto con Task 10, porque README y capturas documentan la versión empaquetada.
