@@ -1,6 +1,8 @@
 package proyecto.tiendaproyecto;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -8,9 +10,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import modelo.DatabaseConfig;
 
 public class LoadingController {
 
@@ -54,9 +60,12 @@ public class LoadingController {
                 Platform.runLater(this::startFadeTransition);
                 Platform.runLater(this::startLoadingAnimation);
                 Thread.sleep(5000);
+                checkDatabaseConnection();
                 Platform.runLater(this::transitionToMainScreen);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            } catch (SQLException | IllegalStateException e) {
+                Platform.runLater(this::showDatabaseError);
             }
         });
         loadingThread.setDaemon(true);
@@ -108,5 +117,28 @@ public class LoadingController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void checkDatabaseConnection() throws SQLException {
+        try (Connection ignored = DatabaseConfig.loadDefault().openConnection()) {
+            // Startup continues only after a successful database connection.
+        }
+    }
+
+    private void showDatabaseError() {
+        ButtonType retry = new ButtonType("Reintentar");
+        ButtonType close = new ButtonType("Cerrar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("No se pudo iniciar H-M");
+        alert.setHeaderText("No fue posible acceder a la base de datos");
+        alert.setContentText("Revisa tu archivo .env y confirma que MySQL esté iniciado. Puedes reintentar o cerrar la aplicación.");
+        alert.getButtonTypes().setAll(retry, close);
+        alert.showAndWait().ifPresent(result -> {
+            if (result == retry) {
+                startLoadingThread();
+            } else {
+                Platform.exit();
+            }
+        });
     }
 }

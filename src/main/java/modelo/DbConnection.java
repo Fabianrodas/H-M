@@ -7,15 +7,30 @@ import java.util.logging.Logger;
 
 public class DbConnection {
     private static final Logger LOGGER = Logger.getLogger(DbConnection.class.getName());
+    private final DatabaseConfig config;
     private Connection connection;
 
-    public boolean conectar() {
+    public DbConnection() {
+        this.config = null;
+    }
+
+    public DbConnection(DatabaseConfig config) {
+        if (config == null) {
+            throw new IllegalArgumentException("La configuración de base de datos es obligatoria.");
+        }
+        this.config = config;
+    }
+
+    public Connection conectar() throws SQLException {
         try {
-            connection = DatabaseConfig.loadDefault().openConnection();
-            return true;
-        } catch (IllegalStateException | SQLException exception) {
-            LOGGER.log(Level.SEVERE, "No se pudo conectar con la base de datos local.", exception);
-            return false;
+            if (connection != null && !connection.isClosed()) {
+                return connection;
+            }
+            DatabaseConfig activeConfig = config == null ? DatabaseConfig.loadDefault() : config;
+            connection = activeConfig.openConnection();
+            return connection;
+        } catch (IllegalStateException exception) {
+            throw new SQLException(exception.getMessage(), exception);
         }
     }
 
@@ -25,13 +40,17 @@ public class DbConnection {
         }
         try {
             connection.close();
-            connection = null;
         } catch (SQLException exception) {
             LOGGER.log(Level.SEVERE, "No se pudo cerrar la conexión con la base de datos.", exception);
+        } finally {
+            connection = null;
         }
     }
 
     public Connection getConnection() {
+        if (connection == null) {
+            throw new IllegalStateException("No hay una conexión activa. Conecta con la base de datos primero.");
+        }
         return connection;
     }
 }
