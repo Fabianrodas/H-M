@@ -80,11 +80,11 @@ public class CarritoController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idCarrito");
-                int clienteID = resultSet.getInt("idCliente");
-                int productoID = resultSet.getInt("idProducto");
+                int carritoID = resultSet.getInt("idcarrito");
+                int clienteID = resultSet.getInt("idcliente");
+                int productoID = resultSet.getInt("idproducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("precioUnitario");
+                double precio = resultSet.getDouble("preciounitario");
                 String talla = resultSet.getString("talla");
                 carritos.add(new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla));
             }
@@ -106,11 +106,11 @@ public class CarritoController {
             statement.setInt(2, idProd);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idCarrito");
-                int clienteID = resultSet.getInt("idCliente");
-                int productoID = resultSet.getInt("idProducto");
+                int carritoID = resultSet.getInt("idcarrito");
+                int clienteID = resultSet.getInt("idcliente");
+                int productoID = resultSet.getInt("idproducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("precioUnitario");
+                double precio = resultSet.getDouble("preciounitario");
                 String talla = resultSet.getString("talla");
                 carrito = new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla);
             }
@@ -133,11 +133,11 @@ public class CarritoController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idCarrito");
-                int clienteID = resultSet.getInt("idCliente");
-                int productoID = resultSet.getInt("idProducto");
+                int carritoID = resultSet.getInt("idcarrito");
+                int clienteID = resultSet.getInt("idcliente");
+                int productoID = resultSet.getInt("idproducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("precioUnitario");
+                double precio = resultSet.getDouble("preciounitario");
                 String talla = resultSet.getString("talla");
                 carrito = new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla);
             }
@@ -160,11 +160,11 @@ public class CarritoController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idCarrito");
-                int clienteID = resultSet.getInt("idCliente");
-                int productoID = resultSet.getInt("idProducto");
+                int carritoID = resultSet.getInt("idcarrito");
+                int clienteID = resultSet.getInt("idcliente");
+                int productoID = resultSet.getInt("idproducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("precioUnitario");
+                double precio = resultSet.getDouble("preciounitario");
                 String talla = resultSet.getString("talla");
                 carrito.add(new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla));
             }
@@ -209,7 +209,7 @@ public class CarritoController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int idProd = resultSet.getInt("idProducto");
+                int idProd = resultSet.getInt("idproducto");
                 carrito.add(productoController.GetById(idProd));
             }
         } catch(SQLException e){

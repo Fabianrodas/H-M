@@ -29,29 +29,83 @@ class DatabaseConfigTest {
     @Test
     void rejectsMissingRequiredFields() throws IOException {
         Path envFile = tempDirectory.resolve(".env");
-        Files.writeString(envFile, "DB_URL=jdbc:mysql://localhost/test\nDB_USER=test\nDB_PASSWORD=\n");
+        Files.writeString(envFile,
+                "HM_DB_HOST=localhost\n"
+                + "HM_DB_NAME=hm-db\n"
+                + "HM_DB_USER=test\n"
+                + "HM_DB_PASSWORD=test-password\n");
 
         IllegalStateException error = assertThrows(
                 IllegalStateException.class,
                 () -> DatabaseConfig.load(envFile));
 
-        assertTrue(error.getMessage().contains("ADMIN_EMAIL"));
+        assertTrue(error.getMessage().contains("HM_DB_PORT"));
     }
 
     @Test
     void loadsValuesAndPreservesEqualsInPassword() throws IOException {
         Path envFile = tempDirectory.resolve(".env");
         Files.writeString(envFile,
-                "DB_URL=jdbc:mysql://localhost/test\n"
-                + "DB_USER=test-user\n"
-                + "DB_PASSWORD=sample=key\n"
+                "HM_DB_HOST=localhost\n"
+                + "HM_DB_PORT=5432\n"
+                + "HM_DB_NAME=hm-db\n"
+                + "HM_DB_USER=test-user\n"
+                + "HM_DB_PASSWORD=sample=key\n"
                 + "ADMIN_EMAIL=admin@example.test\n");
 
         DatabaseConfig config = DatabaseConfig.load(envFile);
 
-        assertEquals("jdbc:mysql://localhost/test", config.getUrl());
+        assertEquals("jdbc:postgresql://localhost:5432/hm-db", config.getUrl());
         assertEquals("test-user", config.getUser());
         assertEquals("sample=key", config.getPassword());
         assertEquals("admin@example.test", config.getAdminEmail());
+    }
+
+    @Test
+    void rejectsTheOldDatabaseUrlFormat() throws IOException {
+        Path envFile = tempDirectory.resolve(".env");
+        Files.writeString(envFile,
+                "DB_URL=jdbc:mysql://localhost/test\n"
+                + "DB_USER=test-user\n"
+                + "DB_PASSWORD=test-password\n"
+                + "ADMIN_EMAIL=admin@example.test\n");
+
+        IllegalStateException error = assertThrows(
+                IllegalStateException.class,
+                () -> DatabaseConfig.load(envFile));
+
+        assertTrue(error.getMessage().contains("HM_DB_HOST"));
+    }
+
+    @Test
+    void allowsConnectionSettingsWithoutAdminEmail() throws IOException {
+        Path envFile = tempDirectory.resolve(".env");
+        Files.writeString(envFile,
+                "HM_DB_HOST=localhost\n"
+                + "HM_DB_PORT=5432\n"
+                + "HM_DB_NAME=hm-db\n"
+                + "HM_DB_USER=test-user\n"
+                + "HM_DB_PASSWORD=test-password\n");
+
+        DatabaseConfig config = DatabaseConfig.load(envFile);
+
+        assertEquals("", config.getAdminEmail());
+    }
+
+    @Test
+    void rejectsOutOfRangeDatabasePorts() throws IOException {
+        Path envFile = tempDirectory.resolve(".env");
+        Files.writeString(envFile,
+                "HM_DB_HOST=localhost\n"
+                + "HM_DB_PORT=70000\n"
+                + "HM_DB_NAME=hm-db\n"
+                + "HM_DB_USER=test-user\n"
+                + "HM_DB_PASSWORD=test-password\n");
+
+        IllegalStateException error = assertThrows(
+                IllegalStateException.class,
+                () -> DatabaseConfig.load(envFile));
+
+        assertTrue(error.getMessage().contains("HM_DB_PORT"));
     }
 }

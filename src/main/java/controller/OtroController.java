@@ -20,12 +20,12 @@ public class OtroController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int categoriaID = resultSet.getInt("idCategoria");
+                int categoriaID = resultSet.getInt("idcategoria");
                 String nombre_cat = resultSet.getString("nombre_categoria");
-                int subcategoriaID = resultSet.getInt("idSubcategoria");
-                String nombre_subcat = resultSet.getString("nombre_Subcategoria");
-                int subsubID = resultSet.getInt("idSubsub");
-                String nombre_subsub = resultSet.getString("nombre_Subsub");
+                int subcategoriaID = resultSet.getInt("idsubcategoria");
+                String nombre_subcat = resultSet.getString("nombre_subcategoria");
+                int subsubID = resultSet.getInt("idsubsub");
+                String nombre_subsub = resultSet.getString("nombre_subsub");
                 categorias.add(new Categoria(categoriaID,nombre_cat,subcategoriaID,nombre_subcat,subsubID,nombre_subsub));
             }
         }catch(SQLException e){
@@ -44,7 +44,7 @@ public class OtroController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int generoID = resultSet.getInt("idGenero");
+                int generoID = resultSet.getInt("idgenero");
                 String nombre = resultSet.getString("nombre");
                 generos.add(new Genero(generoID,nombre));
             }

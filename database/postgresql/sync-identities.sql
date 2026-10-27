@@ -1,0 +1,10 @@
+SELECT setval(pg_get_serial_sequence('carrito', 'idcarrito'), GREATEST(COALESCE(MAX(idcarrito), 1), 1), MAX(idcarrito) IS NOT NULL) FROM carrito;
+SELECT setval(pg_get_serial_sequence('categoria', 'idcategoria'), GREATEST(COALESCE(MAX(idcategoria), 1), 1), MAX(idcategoria) IS NOT NULL) FROM categoria;
+SELECT setval(pg_get_serial_sequence('cliente', 'idcliente'), GREATEST(COALESCE(MAX(idcliente), 1), 1), MAX(idcliente) IS NOT NULL) FROM cliente;
+SELECT setval(pg_get_serial_sequence('favorito', 'idfavorito'), GREATEST(COALESCE(MAX(idfavorito), 1), 1), MAX(idfavorito) IS NOT NULL) FROM favorito;
+SELECT setval(pg_get_serial_sequence('genero', 'idgenero'), GREATEST(COALESCE(MAX(idgenero), 1), 1), MAX(idgenero) IS NOT NULL) FROM genero;
+SELECT setval(pg_get_serial_sequence('pedido', 'idpedido'), GREATEST(COALESCE(MAX(idpedido), 1), 1), MAX(idpedido) IS NOT NULL) FROM pedido;
+SELECT setval(pg_get_serial_sequence('producto', 'idproducto'), GREATEST(COALESCE(MAX(idproducto), 1), 1), MAX(idproducto) IS NOT NULL) FROM producto;
+SELECT setval(pg_get_serial_sequence('sesion', 'idsesion'), GREATEST(COALESCE(MAX(idsesion), 1), 1), MAX(idsesion) IS NOT NULL) FROM sesion;
+SELECT setval(pg_get_serial_sequence('subcategoria', 'idsubcategoria'), GREATEST(COALESCE(MAX(idsubcategoria), 1), 1), MAX(idsubcategoria) IS NOT NULL) FROM subcategoria;
+SELECT setval(pg_get_serial_sequence('subsub', 'idsubsub'), GREATEST(COALESCE(MAX(idsubsub), 1), 1), MAX(idsubsub) IS NOT NULL) FROM subsub;

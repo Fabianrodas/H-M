@@ -18,12 +18,12 @@ public class ProductoController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idProducto");
-                String nombreProducto = resultSet.getString("nombre_Producto");
+                int productoID = resultSet.getInt("idproducto");
+                String nombreProducto = resultSet.getString("nombre_producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idSubsub");
-                int generoID = resultSet.getInt("idGenero");
+                int subsubID = resultSet.getInt("idsubsub");
+                int generoID = resultSet.getInt("idgenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 productos.add(new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen));
@@ -46,12 +46,12 @@ public class ProductoController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idProducto");
-                String nombreProducto = resultSet.getString("nombre_Producto");
+                int productoID = resultSet.getInt("idproducto");
+                String nombreProducto = resultSet.getString("nombre_producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idSubsub");
-                int generoID = resultSet.getInt("idGenero");
+                int subsubID = resultSet.getInt("idsubsub");
+                int generoID = resultSet.getInt("idgenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 producto = new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen);
@@ -75,12 +75,12 @@ public class ProductoController {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idProducto");
-                String nombreProducto = resultSet.getString("nombre_Producto");
+                int productoID = resultSet.getInt("idproducto");
+                String nombreProducto = resultSet.getString("nombre_producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idSubsub");
-                int generoID = resultSet.getInt("idGenero");
+                int subsubID = resultSet.getInt("idsubsub");
+                int generoID = resultSet.getInt("idgenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 producto = new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen);
@@ -97,19 +97,19 @@ public class ProductoController {
     
     public ArrayList<Producto> ReadByName(String name){
         ArrayList<Producto> productos = new ArrayList<>();
-        String req = "SELECT * FROM producto WHERE nombre_Producto like ?";
+        String req = "SELECT * FROM producto WHERE nombre_Producto ILIKE ?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setString(1, '%'+name+'%');
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idProducto");
-                String nombreProducto = resultSet.getString("nombre_Producto");
+                int productoID = resultSet.getInt("idproducto");
+                String nombreProducto = resultSet.getString("nombre_producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idSubsub");
-                int generoID = resultSet.getInt("idGenero");
+                int subsubID = resultSet.getInt("idsubsub");
+                int generoID = resultSet.getInt("idgenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 productos.add(new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen));

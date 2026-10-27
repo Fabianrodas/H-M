@@ -42,7 +42,7 @@ public class ClienteController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int clienteID = resultSet.getInt("idCliente");
+                int clienteID = resultSet.getInt("idcliente");
                 String nombre = resultSet.getString("nombre");
                 String apellido = resultSet.getString("apellido");
                 String correo = resultSet.getString("correo");
@@ -71,7 +71,7 @@ public class ClienteController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int clienteID = resultSet.getInt("idCliente");
+                int clienteID = resultSet.getInt("idcliente");
                 String nombre = resultSet.getString("nombre");
                 String apellido = resultSet.getString("apellido");
                 String correo = resultSet.getString("correo");
@@ -94,14 +94,14 @@ public class ClienteController {
     
     public Cliente ReadByEmail(String email){
         Cliente cliente = null;
-        String req = "SELECT * FROM cliente where correo=?";
+        String req = "SELECT * FROM cliente WHERE LOWER(correo)=LOWER(?)";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int clienteID = resultSet.getInt("idCliente");
+                int clienteID = resultSet.getInt("idcliente");
                 String nombre = resultSet.getString("nombre");
                 String apellido = resultSet.getString("apellido");
                 String correo = resultSet.getString("correo");

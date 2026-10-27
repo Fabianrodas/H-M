@@ -27,13 +27,17 @@ public final class DatabaseConfig {
     }
 
     public static DatabaseConfig loadDefault() {
-        return load(Paths.get(".env"));
+        String configuredFile = System.getenv("HM_ENV_FILE");
+        Path envFile = configuredFile == null || configuredFile.trim().isEmpty()
+                ? Paths.get(".env")
+                : Paths.get(configuredFile.trim());
+        return load(envFile);
     }
 
     public static DatabaseConfig load(Path envFile) {
         if (envFile == null || !Files.isRegularFile(envFile)) {
             throw new IllegalStateException(
-                    "No se encontró .env. Copia .env.example a .env y completa la conexión local a MySQL.");
+                    "No se encontró el archivo de configuración. Copia .env.example a .env y completa la conexión local a PostgreSQL.");
         }
 
         Properties properties = new Properties();
@@ -41,13 +45,27 @@ public final class DatabaseConfig {
             properties.load(reader);
         } catch (IOException | IllegalArgumentException exception) {
             throw new IllegalStateException(
-                    "No se pudo leer .env. Revisa su formato y los valores de conexión local.", exception);
+                    "No se pudo leer el archivo de configuración. Revisa su formato y los valores de conexión local.", exception);
         }
 
-        String url = requireNonBlank(properties, "DB_URL", envFile);
-        String user = requireNonBlank(properties, "DB_USER", envFile);
-        String password = requirePresent(properties, "DB_PASSWORD", envFile);
-        String adminEmail = requireNonBlank(properties, "ADMIN_EMAIL", envFile);
+        String host = requireNonBlank(properties, "HM_DB_HOST", envFile);
+        String portValue = requireNonBlank(properties, "HM_DB_PORT", envFile);
+        int port;
+        try {
+            port = Integer.parseInt(portValue);
+        } catch (NumberFormatException exception) {
+            throw new IllegalStateException(
+                    "HM_DB_PORT debe ser un número entre 1 y 65535.", exception);
+        }
+        if (port < 1 || port > 65535) {
+            throw new IllegalStateException("HM_DB_PORT debe ser un número entre 1 y 65535.");
+        }
+        String databaseName = requireNonBlank(properties, "HM_DB_NAME", envFile);
+        String user = requireNonBlank(properties, "HM_DB_USER", envFile);
+        String password = requirePresent(properties, "HM_DB_PASSWORD", envFile);
+        String jdbcHost = host.indexOf(':') >= 0 && !host.startsWith("[") ? "[" + host + "]" : host;
+        String url = "jdbc:postgresql://" + jdbcHost + ":" + port + "/" + databaseName;
+        String adminEmail = properties.getProperty("ADMIN_EMAIL", "").trim();
         return new DatabaseConfig(url, user, password, adminEmail);
     }
 

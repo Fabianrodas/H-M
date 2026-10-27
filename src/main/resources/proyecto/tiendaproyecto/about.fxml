@@ -435,7 +435,7 @@
                         <Font name="Malgun Gothic Bold" size="31.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="199.0" prefHeight="134.0" prefWidth="282.0" text="Este proyecto fue desarrollado utilizando JavaFX 2 y MySQL. Cada sección del proyecto se ha implementado como un archivo FXML independiente, y todos están correctamente integrados entre sí. Este trabajo representa nuestro proyecto de Programación Orientada a Objetos (POO)." wrapText="true" />
+                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="199.0" prefHeight="134.0" prefWidth="282.0" text="Este proyecto fue desarrollado utilizando JavaFX 2 y PostgreSQL. Cada sección del proyecto se ha implementado como un archivo FXML independiente, y todos están correctamente integrados entre sí. Este trabajo representa nuestro proyecto de Programación Orientada a Objetos (POO)." wrapText="true" />
                   <Label alignment="TOP_LEFT" layoutX="398.0" layoutY="157.0" prefHeight="19.0" prefWidth="95.0" text="Special Thanks" wrapText="true">
                      <font>
                         <Font name="System Bold" size="12.0" />

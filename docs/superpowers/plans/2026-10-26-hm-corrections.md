@@ -1,41 +1,42 @@
-# Plan de corrección y documentación de H-M
+# Plan de migración a PostgreSQL y corrección de H-M
 
-> **Para agentes de implementación:** usar superpowers:subagent-driven-development (recomendado) o superpowers:executing-plans. Ejecutar las tareas una por una. Cada tarea termina con verificación y un commit.
+> **Para agentes de implementación:** usar `superpowers:executing-plans` y trabajar las tareas una por una. Cada tarea termina con verificación y un commit.
 
-**Meta:** Corregir los problemas reportados de la aplicación JavaFX/MySQL de H-M, mantener el diseño y los INSERT existentes, y añadir README, capturas, licencia MIT y guía de seguridad.
+**Goal:** Migrar H-M a PostgreSQL y corregir los problemas reportados, conservando el diseño y los datos de los INSERT originales; terminar con README, capturas, licencia MIT y guía de seguridad.
 
-**Arquitectura:** Inicializar H-M con el proyecto de H-M-old sin reemplazar sus metadatos Git. Mantener JavaFX y MySQL, centralizar la configuración local y la gestión de contraseñas, restringir la pantalla BD y añadir solo una migración auxiliar para el detalle de pedidos. Conservar dump.sql y los estilos actuales.
+**Arquitectura:** H-M es la única copia de trabajo y se mantiene sobre main. PostgreSQL será el único motor de la app. `dump.sql` permanece byte por byte intacto; un esquema y seed PostgreSQL separados conservan los mismos valores y orden de los seis INSERT. Se mantienen JavaFX, la presentación, recursos y flujos existentes mientras se corrigen credenciales, contraseñas, carrito, pedidos y borrado de cuentas.
 
-**Tecnologías:** Java 21, Maven, JavaFX 21, MySQL, JUnit 5 y PBKDF2WithHmacSHA256 del JDK.
+**Tech Stack:** Java 21, Maven, JavaFX 21, PostgreSQL 18, pgJDBC 42.7.14, JUnit 5 y PBKDF2WithHmacSHA256 del JDK.
 
-**Diseño:** docs/superpowers/specs/2026-10-26-hm-corrections-design.md
+**Spec:** `docs/superpowers/specs/2026-10-27-postgresql-migration-design.md` (decisión de base) y `docs/superpowers/specs/2026-10-26-hm-corrections-design.md` (correcciones y límites de producto).
 
-## Restricciones globales
+## Global Constraints
 
 - Trabajar solo en H-M; todos los commits de implementación van en main.
-- Preservar layout, colores, imágenes, textos, navegación e INSERT existentes de dump.sql.
+- Preservar layout, colores, imágenes, navegación e INSERT existentes de dump.sql. Solo actualizar menciones técnicas del motor MySQL a PostgreSQL y los avisos de conexión.
 - Verificar los seis INSERT actuales contra SHA-256 A6E739D9885CBEC22754FB0E02503010C3E2E7CC55B901A071B4F67D8819DA05.
 - No copiar .git, target ni mysql_login.txt desde H-M-old.
-- Antes de copiar el código, crear `.env` local con la configuración MySQL actual y añadirlo a `.gitignore`; versionar solo `.env.example` con valores ficticios.
-- Antes del primer commit, eliminar del código los datos de conexión incrustados y excluir `mysql_login.txt`; revisar el contenido staged para evitar contraseñas.
-- Mantener MySQL en esta fase; PostgreSQL queda expresamente fuera de alcance.
+- `.env` permanece local e ignorado; la conexión PostgreSQL usa `HM_DB_HOST`, `HM_DB_PORT`, `HM_DB_NAME`, `HM_DB_USER` y `HM_DB_PASSWORD`. `ADMIN_EMAIL` es opcional y, si falta, el acceso a la pantalla BD permanece cerrado. Usar `HM_ENV_FILE` como override opcional para pruebas temporales.
+- Antes del primer commit ya se quitaron del código los datos MySQL incrustados y se excluyeron `mysql_login.txt` y credenciales; preservar el historial limpio existente.
+- PostgreSQL 18 es el único motor soportado; usar pgJDBC 42.7.14, la versión estable actual consultada en [la página oficial](https://jdbc.postgresql.org/download/).
+- No editar `dump.sql`; generar schema, seed y migraciones nuevas en `database/postgresql/`. Los valores y el orden de sus seis INSERT deben coincidir con los originales.
 - La aplicación es una demo local con datos ficticios, no un servicio público multiusuario.
 - Usar PBKDF2-HMAC-SHA-256, 600.000 iteraciones, sal aleatoria y verificación en tiempo constante; el valor codificado debe caber en la columna existente.
-- No editar dump.sql; agregar cualquier esquema nuevo en otro archivo.
-- Cada tarea termina con verificación y su propio commit.
+- No permitir que la app inicie/aplique migraciones automáticamente. La configuración normal permanece en `.env`; el esquema y seed se importan con pasos documentados.
+- Las pruebas de integración usan solo un clúster PostgreSQL temporal bajo `target/`, con contraseña SCRAM y escucha en loopback; no alterar servicios ni bases locales preexistentes.
+- Cada tarea termina con verificación y su propio commit local sobre main; no hacer push.
 
-## Casos de revisión
+## Review Focus
 
-- Configuración DB ausente/malformada o MySQL apagado: mostrar error útil sin NullPointerException ni error de FXMLLoader. Probar en Tarea 2.
-- Contraseña legacy hex: migrarla al iniciar sesión y obligar al admin legacy a cambiarla antes de continuar. Probar en Tarea 3.
-- Usuario no admin intenta abrir BD directamente; el valor de contraseña nunca debe llegar a la tabla visible. Probar en Tarea 3.
-- Mismo producto en dos tallas frente a la misma combinación producto/talla repetida. Probar en Tarea 4.
-- Falla el guardado del pedido o el vaciado del carrito: transacción revierte y no pierde el carrito ni deja pedido parcial. Probar en Tarea 5.
-- Cuenta con registros relacionados y sesión con ID >500: borrado honesto y sin sesión antigua. Probar en Tarea 6.
+- PostgreSQL convierte identificadores sin comillas a minúsculas: schema, consultas y etiquetas `ResultSet` deben coincidir; smoke test de importación en Tarea 4.
+- Importación de mock data debe conservar los seis INSERT y la secuencia de IDs después de insertarlos; script de equivalencia y smoke test en Tarea 4.
+- PostgreSQL distingue mayúsculas en búsquedas que MySQL ejecutaba sin distinguirlas; correo y búsqueda de producto deben conservar ese comportamiento; integración en Tarea 4.
+- Mismo producto en dos tallas frente a misma combinación producto/talla repetida; integración en Tarea 5.
+- Error en checkout o borrado debe revertir sus transacciones, conservar el carrito/sesión y no informar éxito; pruebas en Tareas 6 y 7.
 
 ---
 
-### Tarea 1: Preparar `.env` y sembrar el proyecto sin credenciales
+### Task 1: Preparar `.env` y sembrar el proyecto sin credenciales
 
 **Archivos:**
 - Crear primero en H-M: `.env` local ignorado, `.env.example` sin secretos y `.gitignore`.
@@ -55,7 +56,7 @@
 - [x] Ejecutar mvn -B test y confirmar compilación/pruebas.
 - [x] Commit en main: chore: seed app with local environment configuration
 
-### Tarea 2: Manejar fallos de configuración y conexión DB
+### Task 2: Manejar fallos de configuración y conexión DB
 
 **Archivos:**
 - Crear: DbConnectionTest.java.
@@ -73,7 +74,7 @@
 - [x] Ejecutar pruebas enfocadas, mvn -B test y lanzar con MySQL apagado; no debe producir NullPointerException.
 - [x] Commit en main: fix: handle database configuration and connection failures
 
-### Tarea 3: Proteger contraseñas y limitar BD
+### Task 3: Proteger contraseñas y limitar BD
 
 **Archivos:**
 - Crear: modelo/PasswordService.java, modelo/AdminAccess.java, PasswordServiceTest.java y AdminAccessTest.java.
@@ -87,70 +88,101 @@
 - [x] Leer admin.email de la configuración local. Ocultar menú/enlace BD a no admins y bloquear también la navegación directa.
 - [x] Mantener la columna y dimensiones de contraseña en la tabla, pero enviar un texto fijo enmascarado a la vista, nunca el hash.
 - [x] Cambiar el control de nueva contraseña por uno enmascarado de apariencia equivalente; no reorganizar la pantalla.
-- [ ] Ejecutar la integración dinámica de legacy, cambio, admin/no admin y tabla enmascarada. La suite local pasa 13/13 y el arranque con MySQL apagado muestra el error esperado; el motor Docker no está disponible en este equipo.
+- [x] Ejecutar integración PostgreSQL temporal para subir una contraseña legacy de cliente y marcar la contraseña legacy de administrador para cambio obligatorio; las pruebas unitarias verifican bloqueo por admin y enmascaramiento. La interacción visual queda pendiente por bloqueo del control de ventanas.
 - [x] Commit en main: fix: hash passwords and restrict database screen
 
-### Tarea 4: Incluir talla en la identidad del carrito
+### Task 4: Migrar la capa de datos a PostgreSQL
 
 **Archivos:**
-- Modificar: controller/CarritoController.java y cada llamada a ReadByCliePro en TiendaController.java y CompraController.java.
+- Modificar: `pom.xml`, `.env.example`, `DatabaseConfig.java`, `DatabaseConfigTest.java`, `LoadingController.java`, controladores DAO y etiquetas de resultados PostgreSQL, `about.fxml` y `.env` local ignorado.
+- Crear: `database/postgresql/schema.sql`, `database/postgresql/seed.sql`, `scripts/verify-postgresql-seed.ps1`, `scripts/test-postgresql.ps1` y `PostgreSqlIntegrationTest.java`.
+
+**Interfaces:**
+- `DatabaseConfig.load(Path)` requiere las cinco variables `HM_DB_*` y construye la URL PostgreSQL; `DatabaseConfig.loadDefault()` usa `.env` o el archivo indicado por `HM_ENV_FILE`.
+- El test runner inicia PostgreSQL 18 en loopback/puerto temporal y prepara su propia configuración mediante `HM_ENV_FILE`.
+- `PostgreSqlIntegrationTest.seedSequencesAdvanceAfterImport`, `findsCustomerByEmailIgnoringCase` y `findsProductByNameIgnoringCase` prueban IDs/consultas reales contra el clúster temporal.
+
+- [x] Agregar pruebas del formato `HM_DB_*`, validación de puerto, override `HM_ENV_FILE` y comparación/orden del seed frente a los seis INSERT originales; observar RED antes de implementar.
+- [x] Reemplazar el driver Maven por `org.postgresql:postgresql:42.7.14` y actualizar la configuración de conexión, mensajes y la mención técnica de About sin mover controles.
+- [x] Crear el esquema de las diez tablas con columnas en minúsculas, claves foráneas e identidades `GENERATED BY DEFAULT`; no cambiar `dump.sql`.
+- [x] Crear el seed PostgreSQL conservando valores, filas y orden; verificar igualdad y SHA-256 aprobado.
+- [x] Alinear etiquetas JDBC con PostgreSQL y mantener las consultas de correo/producto sin distinción de mayúsculas y parametrizadas.
+- [x] Conservar el `.env` local completado por el usuario; comprobar que se ignora y no imprimir ni versionar sus valores.
+- [x] Ejecutar el runner en clúster SCRAM temporal: importación, recuentos, columnas minúsculas, secuencias, búsquedas y `mvn -B -ntp test` (24/24); el runner detiene y elimina solo su clúster.
+- [x] Verificar que `DbConnection` reporta fallo de conexión PostgreSQL cuando el servidor no responde; no se pudo observar la ventana JavaFX porque la herramienta de control bloqueó abrir una consola interactiva.
+- [x] Verificar la conexión de solo lectura a `hm-db`, su motor PostgreSQL y nombre de catálogo, sin modificar datos ni consumir secuencias.
+- [x] Verificar identidad/valores originales de `dump.sql`.
+- [ ] Commit en main: `feat: migrate database layer to PostgreSQL`
+
+### Task 5: Incluir talla en la identidad del carrito
+
+**Archivos:**
+- Modificar: `controller/CarritoController.java`, `TiendaController.java` y `CompraController.java`.
 - Prueba: CarritoControllerTest.java contra una DB de prueba descartable con datos mock.
 
 **Interfaz:**
-- Sustituir ReadByCliePro(int clienteId, int productoId) por ReadByCliePro(int clienteId, int productoId, String talla).
+- Sustituir `ReadByCliePro(int clienteId, int productoId)` por `ReadByCliePro(int clienteId, int productoId, String talla)`; listar las líneas exactas con `ReadByCliente(int clienteId)`.
+- Las pantallas de carrito y checkout recorren líneas `Carrito`; cada fila se enlaza a su `idCarrito`, talla y producto.
 
 - [ ] Agregar CarritoControllerTest.allowsSameProductInDifferentSizes y CarritoControllerTest.rejectsDuplicateProductAndSameSize.
-- [ ] Ejecutar pruebas y confirmar que falla la consulta actual que no considera talla.
-- [ ] Incluir talla en consulta y propagar selección a agregar, mostrar, borrar y consultar al comprar.
+- [ ] Ejecutar las pruebas contra PostgreSQL descartable y confirmar que falla la consulta actual que no considera talla.
+- [ ] Incluir talla en consulta y propagar selección a agregar, mostrar, borrar y consultar al comprar; eliminar por `idCarrito` para no borrar otra talla.
 - [ ] Mantener layout y mensaje actual para duplicados.
-- [ ] Ejecutar pruebas, mvn -B test, digest de INSERT y prueba dinámica de añadir/quitar dos tallas del mismo producto.
+- [ ] Ejecutar pruebas, `mvn -B -ntp test`, verificador de INSERT y prueba dinámica de añadir/quitar dos tallas del mismo producto.
 - [ ] Commit en main: fix: distinguish cart items by size
 
-### Tarea 5: Guardar líneas del pedido con una transacción
+### Task 6: Guardar líneas del pedido con una transacción
 
 **Archivos:**
-- Crear: database/migrations/001_order_details.sql, modelo/PedidoDetalle.java y PedidoCheckoutTest.java.
-- Modificar: controller/PedidoController.java, CompraController.java y lectura/visualización de pedidos.
-- Prueba: PedidoCheckoutTest contra MySQL descartable.
+- Crear: `database/postgresql/migrations/001_order_details.sql`, `modelo/PedidoDetalle.java` y `PedidoCheckoutTest.java`.
+- Modificar: `controller/PedidoController.java`, `CompraController.java`, modelo `Pedido` y lectura/visualización de pedidos.
+- Prueba: PedidoCheckoutTest contra PostgreSQL descartable.
 
 **Interfaz:**
-- PedidoController.crearConDetalle(int clienteId, LocalDate fecha, List<Carrito> lineas) devuelve el ID generado.
+- `PedidoController.crearConDetalle(int clienteId, LocalDate fecha, List<Carrito> lineas)` devuelve el ID generado como `long`.
+- `modelo.Pedido.idPedido` y su getter/setter usan `long` para alinear la columna PostgreSQL `BIGINT`.
 
 - [ ] Agregar PedidoCheckoutTest.successStoresEveryProductSizeAndQuantity y PedidoCheckoutTest.failureRollsBackOrderDetailsAndCart.
 - [ ] Ejecutar pruebas y confirmar que faltan persistencia de detalle y rollback.
-- [ ] Crear pedido_detalle en migración aparte con pedido/producto, talla, cantidad, precio unitario y subtotal de línea. No editar dump.sql ni INSERTs existentes.
-- [ ] Guardar cabecera, líneas y vaciado de carrito en la misma transacción. Revertir ante cualquier fallo. Usar ID generado en lugar de consultar MAX(idPedido).
+- [ ] Crear `pedido_detalle` en migración PostgreSQL aparte con pedido/producto, talla, cantidad, precio unitario y subtotal de línea. No editar dump.sql ni INSERTs existentes.
+- [ ] Guardar cabecera, líneas y vaciado de carrito en la misma transacción. Revertir ante cualquier fallo. Usar ID generado en lugar de consultar `MAX(idPedido)`.
 - [ ] Mantener pantalla, layout e importes/impuesto actuales.
-- [ ] Aplicar migración a DB de prueba limpia; ejecutar pruebas, mvn -B test, digest y checkout normal/fallido.
+- [ ] Aplicar migración a DB PostgreSQL de prueba limpia; ejecutar pruebas, `mvn -B -ntp test`, verificador de INSERT y checkout normal/fallido.
 - [ ] Commit en main: fix: persist order lines atomically
 
-### Tarea 6: Corregir borrado de cuenta y sesiones
+### Task 7: Corregir borrado de cuenta y sesiones
 
 **Archivos:**
-- Modificar: controller/ClienteController.java, controller/SesionController.java, AccountController.java y lógica DB de eliminación.
-- Pruebas: AccountDeletionTest.java y SesionControllerTest.java con DB descartable.
+- Modificar: `controller/ClienteController.java`, `controller/SesionController.java`, `AccountController.java` y lógica PostgreSQL de eliminación.
+- Pruebas: AccountDeletionTest.java y SesionControllerTest.java con DB PostgreSQL descartable.
+
+**Interfaces:**
+- `ClienteController.DeleteAccount(int clienteId)` devuelve `true` solo si borra filas relacionadas y cliente dentro de una transacción confirmada.
+- `SesionController.Delete()` elimina la sesión sin limitar el ID; `DeleteByClient(int clienteId)` elimina la sesión del cliente dentro del borrado de cuenta.
 
 - [ ] Agregar AccountDeletionTest.deletesRelatedMockRowsAndReportsSuccess, AccountDeletionTest.reportsFailureWithoutSigningOut y SesionControllerTest.deletesSessionAboveId500.
 - [ ] Ejecutar pruebas y confirmar que falla el límite de 500 y el resultado no verificado.
 - [ ] Borrar filas mock relacionadas y cuenta en una transacción; mostrar éxito solo si confirma.
 - [ ] Borrar sesión persistida al eliminar cuenta. Quitar rango ID 1–500 y manejar cualquier valor autoincremental.
 - [ ] Preservar confirmación y layout actuales.
-- [ ] Ejecutar pruebas, mvn -B test, digest y prueba dinámica con cuenta que tiene pedido/carrito/favoritos y sesión >500.
+- [ ] Ejecutar pruebas, `mvn -B -ntp test`, verificador de INSERT y prueba dinámica con cuenta que tiene pedido/carrito/favoritos y sesión >500.
 - [ ] Commit en main: fix: delete accounts and sessions consistently
 
-### Tarea 7: Alinear Maven y excluir artefactos generados
+### Task 8: Renombrar el proyecto H-M, alinear Maven y excluir artefactos generados
 
 **Archivos:**
 - Modificar: pom.xml y .gitignore.
-- Dejar de versionar: archivos existentes en target/; conservarlos localmente e ignorados.
+- Establecer `artifactId` y `name` como `H-M` para que NetBeans muestre el nombre pedido; conservar los paquetes Java actuales.
+- Mantener `target/` local e ignorado; confirmar si ya hay algún archivo generado versionado antes de quitarlo del índice sin borrarlo.
 
-- [ ] Unificar release a Java 21 y cambiar la coordenada MySQL obsoleta a com.mysql:mysql-connector-j, manteniendo la versión 8.0.31 salvo que una revisión de seguridad separada justifique actualizarla.
-- [ ] Ignorar /target/ y quitar de Git los 220 archivos target existentes sin borrarlos del disco.
-- [ ] Ejecutar mvn -B test y mvn -B package; esperar build correcto, sin aviso de coordenada relocalizada y target ignorado.
+- [ ] Renombrar el artefacto y el nombre visible de Maven a `H-M` sin renombrar paquetes Java.
+- [ ] Unificar release a Java 21; el driver PostgreSQL ya se añade en Tarea 4.
+- [ ] Confirmar `/target/` ignorado y retirar solo los archivos que ya estuvieran versionados, conservándolos en disco.
+- [ ] Ejecutar `mvn -B -ntp test` y `mvn -B -ntp package`; esperar build correcto y `target/` ignorado.
 - [ ] Verificar estado Git y digest de INSERTs.
-- [ ] Commit en main: chore: align Maven and ignore build output
+- [ ] Commit en main: chore: name project H-M and align Maven
 
-### Tarea 8: Añadir licencia, SECURITY.md, capturas y README
+### Task 9: Añadir licencia, SECURITY.md, capturas y README
 
 **Archivos:**
 - Crear: LICENSE, SECURITY.md, README.md, docs/assets/hm-logo-white.png, docs/assets/readme-header.png y docs/screenshots/.
@@ -158,17 +190,18 @@
 
 - [ ] Recolorear una copia del logo transparente a blanco y ponerlo sobre un encabezado oscuro para README; revisar que se vea nítido. No reemplazar el logo de la app.
 - [ ] Ejecutar con datos mock y capturar tienda, producto, carrito/checkout, cuenta y BD enmascarada. No capturar datos reales.
-- [ ] Escribir README sencillo en español: explicación corta, capturas, requisitos, pasos copiables de Windows para importar dump.sql en DB local nueva, crear config desde plantilla y lanzar con mvn javafx:run.
+- [ ] Escribir README sencillo en español: explicación corta, capturas, requisitos, pasos copiables de Windows para crear PostgreSQL local, importar schema/seed/migraciones, completar `.env` desde plantilla y lanzar con `mvn javafx:run`.
 - [ ] Añadir MIT con titular propuesto Fabian Rodas. SECURITY.md explica reporte privado y recuerda no versionar credenciales locales ni datos reales.
-- [ ] Verificar links, comandos e imágenes; ejecutar mvn -B test y digest de INSERTs.
+- [ ] Verificar links, comandos e imágenes; ejecutar `mvn -B -ntp test`, `mvn -B -ntp package` y los verificadores de INSERT.
 - [ ] Commit en main: docs: add README screenshots and MIT license
 
 ## Verificación final
 
-- Ejecutar mvn -B test y mvn -B package.
-- Ejecutar integración solo contra una DB de prueba descartable.
-- Lanzar con MySQL apagado y confirmar el mensaje de reintentar/cerrar.
-- Probar dinámicamente migración de contraseña, BD admin/no-admin, tallas, checkout normal y revertido, cierre de sesión y borrado de cuenta.
-- Parsear todo FXML; comprobar digest de INSERTs, ausencia de credenciales versionadas y target ignorado.
-- Revisar historia: todos los commits de implementación están en main y cada tarea tiene un commit.
+- Ejecutar `mvn -B -ntp test` y `mvn -B -ntp package`.
+- Ejecutar toda integración contra un clúster PostgreSQL temporal; verificar `schema.sql`, `seed.sql`, migraciones, secuencias y recuentos.
+- Lanzar con PostgreSQL detenido y confirmar el mensaje de reintentar/cerrar.
+- Probar dinámicamente migración de contraseña, BD admin/no-admin, máscara, tallas, checkout normal y revertido, cierre de sesión y borrado de cuenta.
+- Parsear todos los FXML; comparar el digest original y el contenido del seed; comprobar ausencia de `.env` y credenciales reales en Git y que `target/` esté ignorado.
+- Revisar historia: todos los commits de implementación están en main y cada tarea tiene su commit.
+- Detener y borrar únicamente el clúster PostgreSQL de prueba creado en `target/`.
 

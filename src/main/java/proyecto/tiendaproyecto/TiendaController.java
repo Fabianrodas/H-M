@@ -885,7 +885,7 @@ public class TiendaController implements Initializable {
         vboxResultados.getChildren().clear();
         try {
             Connection conn = DatabaseConfig.loadDefault().openConnection();
-            String sql = "SELECT idProducto, nombre_Producto, descripcion, precio, imagen_nombre FROM producto WHERE nombre_Producto LIKE ?";
+            String sql = "SELECT idProducto, nombre_Producto, descripcion, precio, imagen_nombre FROM producto WHERE nombre_Producto ILIKE ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, "%" + searchText + "%");
             ResultSet rs = stmt.executeQuery();
@@ -904,8 +904,8 @@ public class TiendaController implements Initializable {
             double alturaFila = alturaImagen + 3 * alturaLabel + 2 * espaciadoVertical;
             
             while (rs.next()) {
-                int productoID = rs.getInt("idProducto");
-                String nombre = rs.getString("nombre_Producto");
+                int productoID = rs.getInt("idproducto");
+                String nombre = rs.getString("nombre_producto");
                 String descripcion = rs.getString("descripcion");
                 double precio = rs.getDouble("precio");
                 String imagenNombre = rs.getString("imagen_nombre");

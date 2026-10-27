@@ -131,7 +131,7 @@ public class LoadingController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("No se pudo iniciar H-M");
         alert.setHeaderText("No fue posible acceder a la base de datos");
-        alert.setContentText("Revisa tu archivo .env y confirma que MySQL esté iniciado. Puedes reintentar o cerrar la aplicación.");
+        alert.setContentText("Revisa tu archivo .env y confirma que PostgreSQL esté iniciado. Puedes reintentar o cerrar la aplicación.");
         alert.getButtonTypes().setAll(retry, close);
         alert.showAndWait().ifPresent(result -> {
             if (result == retry) {

@@ -57,8 +57,8 @@ public class PedidoController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int pedidoID = resultSet.getInt("idPedido");
-                int clienteID = resultSet.getInt("idCliente");
+                int pedidoID = resultSet.getInt("idpedido");
+                int clienteID = resultSet.getInt("idcliente");
                 String fecha = resultSet.getString("fecha");
                 double total = resultSet.getDouble("total");
                 pedidos.add(new Pedido(pedidoID,clienteID,fecha,total));
@@ -98,7 +98,7 @@ public class PedidoController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                pedidos = resultSet.getInt("pedidosCliente");
+                pedidos = resultSet.getInt("pedidoscliente");
             }
         }catch(SQLException e){
             throw new RuntimeException(e);        

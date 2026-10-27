@@ -1,5 +1,7 @@
 # H-M fixes and documentation — design
 
+> La decisión inicial de mantener MySQL quedó reemplazada por el diseño aprobado de PostgreSQL en `docs/superpowers/specs/2026-10-27-postgresql-migration-design.md`. Las demás restricciones de producto y seguridad de este documento siguen vigentes.
+
 **Estado:** revisado según la aprobación y restricciones del usuario. No se ha cambiado código de la aplicación.
 
 ## Propósito

@@ -58,9 +58,9 @@ public class FavoritoController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int favoritoID = resultSet.getInt("idFavorito");
-                int productoID = resultSet.getInt("idProducto");
-                int clienteID = resultSet.getInt("idCliente");
+                int favoritoID = resultSet.getInt("idfavorito");
+                int productoID = resultSet.getInt("idproducto");
+                int clienteID = resultSet.getInt("idcliente");
                 favoritos.add(new Favorito(favoritoID,productoID,clienteID));
             }
         }catch(SQLException e){
@@ -81,7 +81,7 @@ public class FavoritoController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int idProd = resultSet.getInt("idProducto");
+                int idProd = resultSet.getInt("idproducto");
                 favoritos.add(productoController.GetById(idProd));
             }
         } catch(SQLException e){
@@ -102,9 +102,9 @@ public class FavoritoController {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int favoritoID = resultSet.getInt("idFavorito");
-                int productoID = resultSet.getInt("idProducto");
-                int clienteID = resultSet.getInt("idCliente");
+                int favoritoID = resultSet.getInt("idfavorito");
+                int productoID = resultSet.getInt("idproducto");
+                int clienteID = resultSet.getInt("idcliente");
                 favorito = new Favorito(favoritoID,productoID,clienteID);
             }
         }catch(SQLException e){
@@ -127,9 +127,9 @@ public class FavoritoController {
             statement.setInt(2, idProd);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int favoritoID = resultSet.getInt("idFavorito");
-                int productoID = resultSet.getInt("idProducto");
-                int clienteID = resultSet.getInt("idCliente");
+                int favoritoID = resultSet.getInt("idfavorito");
+                int productoID = resultSet.getInt("idproducto");
+                int clienteID = resultSet.getInt("idcliente");
                 favorito = new Favorito(favoritoID,productoID,clienteID);
             }
         }catch(SQLException e){

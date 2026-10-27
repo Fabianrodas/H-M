@@ -38,8 +38,8 @@ public class SesionController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int sesionID = resultSet.getInt("idSesion");
-                int clienteID = resultSet.getInt("idCliente");
+                int sesionID = resultSet.getInt("idsesion");
+                int clienteID = resultSet.getInt("idcliente");
                 sesion = new Sesion(sesionID,clienteID);
             }
         }catch(SQLException e){
@@ -106,8 +106,8 @@ public class SesionController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int sesionID = resultSet.getInt("idSesion");
-                int clienteID = resultSet.getInt("idCliente");
+                int sesionID = resultSet.getInt("idsesion");
+                int clienteID = resultSet.getInt("idcliente");
                 sesiones.add(new Sesion(sesionID,clienteID));
             }
         }catch(SQLException e){

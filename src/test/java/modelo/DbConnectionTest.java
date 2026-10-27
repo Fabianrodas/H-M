@@ -19,10 +19,11 @@ class DbConnectionTest {
     void unavailableServerReportsConnectionError() throws IOException {
         Path envFile = tempDirectory.resolve(".env");
         Files.writeString(envFile,
-                "DB_URL=jdbc:mysql://127.0.0.1:1/unavailable?connectTimeout=1000\n"
-                + "DB_USER=test-user\n"
-                + "DB_PASSWORD=test-only\n"
-                + "ADMIN_EMAIL=admin@example.test\n");
+                "HM_DB_HOST=127.0.0.1\n"
+                + "HM_DB_PORT=1\n"
+                + "HM_DB_NAME=unavailable\n"
+                + "HM_DB_USER=test-user\n"
+                + "HM_DB_PASSWORD=test-only\n");
         DatabaseConfig config = DatabaseConfig.load(envFile);
         DbConnection database = new DbConnection(config);
 
