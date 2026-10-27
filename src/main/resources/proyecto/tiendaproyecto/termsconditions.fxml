@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorpaneMember" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="445.0" stylesheets="@../../css/estilos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.tiendaproyecto.RegistroController">
+   <children>
+      <ScrollPane fx:id="scrollPane" prefHeight="469.0" prefWidth="445.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3720.0" prefWidth="445.0">
+               <children>
+                  <VBox layoutY="38.0" prefHeight="3962.0" prefWidth="438.0">
+                     <children>
+                        <Label prefWidth="438.0" text="TERMS &amp; CONDITIONS H&amp;M LOYALTY PROGRAM 2.0" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="33.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="437.0" text="1 INTRODUCTION" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <VBox prefHeight="398.0" prefWidth="430.0" spacing="5.0">
+                           <children>
+                              <Label styleClass="negrita" text="1.1 Welcome to the loyalty program of H&amp;M Hennes &amp; Mauritz GBC AB, with number of registration 556070-1715 and registered seat at Mäster Samuelsgatan 46 A, 111 57 Stockholm Sweden (&quot;Loyalty Program&quot;). By becoming a member you agree to be bound by these Terms and Conditions." textAlignment="CENTER" wrapText="true" />
+                              <Label styleClass="negrita" text="1.2 The membership is free of charge and no purchase is necessary to become a member." textAlignment="CENTER" wrapText="true" />
+                              <Label prefHeight="213.0" prefWidth="420.0" styleClass="negrita" text="1.3 By becoming a member of H&amp;M’s Loyalty Program, you will be eligible to take part of exclusive offers, services, events and much more organized by H&amp;M or H&amp;M partner companies. You will also earn points, which correlate to different membership tiers and reward incentives. When you log in as a member, we will give you a tailormade experience, including personalized offers and recommendations. As a member, you will also receive digital receipts for all online and in-store purchases, which you may access in your membership account (&quot;My Account&quot;) on hm.com and in the app. When adding items to your shopping bag, we will save all items between your logged in visits. Please note that items stored in the shopping bag will not be reserved for you and may sell out. You will find more information about current offers under My Account." textAlignment="CENTER" wrapText="true" />
+                              <Label prefHeight="38.0" prefWidth="430.0" styleClass="negrita" text="1.4 You can find information regarding how H&amp;M will process your personal data in the Privacy Notice here." textAlignment="CENTER" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="437.0" text="2 MEMBERSHIP" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <VBox prefHeight="540.0" prefWidth="100.0" spacing="7.0">
+                           <children>
+                              <Label text="2.1 The membership is limited to individuals that are acting in a personal capacity and not in the capacity of a company, who have a current and valid email account and are considered an adult by local legislation in the applicable province or territory of residence, or from 16 years of age who have the consent of the parent(s), guardian or legal representative as applicable. H&amp;M reserves the right to request written confirmation of such consent. Employees, officers, directors, agents and representatives of H&amp;M are eligible for membership but may be excluded from certain promotions." textAlignment="CENTER" wrapText="true" />
+                              <Label text="2.2 By submitting your application, you confirm that you are of at least the age to be considered an adult by local legislation in your province or territory of residence, or 16 years of age and have the consent of your parent(s), guardian or legal representative as applicable, and that you agree to these Terms and Conditions." textAlignment="CENTER" wrapText="true" />
+                              <Label text="2.3 Your membership is personal, non-transferable and subject to these Terms and Conditions as well as any other rules, regulations, policies, and procedures adopted by H&amp;M as approved by you upon taking part of offers, rewards, making purchases and other related services. We apply a limit of one membership per person and registered email address." textAlignment="CENTER" wrapText="true" />
+                              <Label text="2.4 Companies, groups, associations or other entities, or others making commercial or bulk purchases are not eligible for membership. The membership may not be used for reselling or profit." textAlignment="CENTER" wrapText="true" />
+                              <Label text="2.5 It is your responsibility, and a condition for your membership, to keep your email address and contact details up to date." textAlignment="CENTER" wrapText="true" />
+                              <Label text="2.6 You are responsible for all activity that is conducted through your membership account. This means you are responsible for making every effort to keep your email address and password secure and private. We advise using a unique password that has not been used on any other account. If your password or account is compromised, we advise you change it quickly or reach out to Customer Service for further assistance." textAlignment="CENTER" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="437.0" text="3 H&amp;M LOYALTY PROGRAM IN THE US" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <VBox prefHeight="310.0" prefWidth="100.0" spacing="7.0">
+                           <children>
+                              <Label text="3.1 The membership is a national program and limited to purchases made online at hm.com or in the app and in physical H&amp;M-, and H&amp;M HOME-stores, as applicable in the US. You can only earn points by shopping as a logged in member or by performing other point awarding activities in the US as communicated from time to time by H&amp;M. Please note that you will not earn points on purchases of gift cards." textAlignment="CENTER" wrapText="true" />
+                              <Label text="3.2  The points you have earned are personal and cannot be transfered to another person or member." textAlignment="CENTER" wrapText="true" />
+                              <Label text="3.3 The points earned on a purchase of an item will be deducted from My Account if you return the item." textAlignment="CENTER" wrapText="true" />
+                              <Label text="3.4 To receive points you must provide the Member ID associated with your membership to the sales associate at a H&amp;M or H&amp;M HOME store, as applicable, or sign into My Account before making your purchase. You may view your balance at any time by visiting My Account." textAlignment="CENTER" wrapText="true" />
+                              <Label text="3.5 Please note that you cannot use membership rewards, or earn points on purchases, in H&amp;M stores in Puerto Rico." textAlignment="CENTER" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="437.0" text="4  POINTS, TIERS AND BONUS VOUCHERS" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <VBox prefHeight="880.0" prefWidth="100.0" spacing="7.0">
+                           <children>
+                              <Label text="4.1 The points you earn count toward the second tier membership as well as toward bonus vouchers." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.2 The date when you become a member will constitute the “Start Date” of each Membership Year. The “Membership Year” is the 12 months following the Start Date of each year. The tier level of your membership is based on the points earned during the current or previous Membership Year whichever is the highest. If you are a new member, or do not have sufficient points to qualify you to the second membership tier level, your membership tier level will start at the first tier. If you reach the second tier during a Membership Year you will stay at the second membership tier level during the rest of the Membership Year and the following Membership Year. If you during the Membership Year do not accumulate sufficient points to qualify you to the second membership tier level, you will return to the first tier for the following Membership Year." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.3 After the end of each Membership Year all points counting towards the next membership tier level will be reset and start over at 0 at the beginning of each Membership Year." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.4 The points counting towards the bonus voucher are valid until the next Start Date." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.5 When you have earned 200 points, a bonus voucher of $5 will be issued and accessible on My Account. You can use the bonus voucher both in H&amp;M-, H&amp;M HOME-Stores, as applicable, and online." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.6 The bonus voucher will be issued 30 days after the date that the sufficient point limit is reached. You can only obtain 5 bonus vouchers per calender month, and a maximum of 60 bonus vouchers per 12 month period." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.7 Bonus vouchers cannot be exchanged for cash, gift cards or used for purchases that totals an amount less than the value of the bonus voucher. The sum total of the purchase, after the bonus voucher is applied, must exceed $1. Non-Commercial goods, such as shopping bags in store, does not count towards this sum." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.8 Each bonus voucher is only redeemable once and is applied on all articles in the order. The discount is split between the articles so that the discount share per article remains the same for all articles in the order. The respective reduction of the individual articles of a purchase remains, even if some articles of the purchase are returned. The discount advantage of the bonus checks is not redistributed to the remaining articles of the order in case of a return." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.9 In the case of a return, the discount advantage received through the bonus voucher (value of the bonus voucher) expires. Only the amount paid for the article will be refunded, not the savings from the bonus voucher. If you activate the bonus voucher to be used in an physical H&amp;M- or H&amp;M HOME-store, as applicable, the bonus voucher must be redeemed at the checkout within 15 minutes after activation, otherwise it will be irretrievably deleted and expire. Printouts or screenshots of the bonus voucher will not be accepted. Legal recourse is excluded." textAlignment="CENTER" wrapText="true" />
+                              <Label text="4.10 The bonus vouchers cannot be used to purchase H&amp;M Gift Cards, or be applied to past purchases." textAlignment="CENTER" wrapText="true" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" right="5.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
+                        </VBox>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="437.0" text="5 CHANGES, TERMINATION AND/OR REMOVAL FROM H&amp;M LOYALTY PROGRAM" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <VBox prefHeight="650.0" prefWidth="100.0" spacing="7.0">
+                           <children>
+                              <Label text="5.1 You may cancel your membership at any time through My Account or by contacting customer service. Please note that cancelling your membership means that you will only be able to shop shop with us using the guest checkout." textAlignment="CENTER" wrapText="true" />
+                              <Label text="5.2 If you cancel your membership any points which remain in My Account will be forfeited." textAlignment="CENTER" wrapText="true" />
+                              <Label text="5.3 H&amp;M may, at its sole discretion, terminate, alter, limit, suspend or modify the Loyalty Program, and/or the Terms and Conditions at any time, in case of changes to applicable laws, changes in services provided by H&amp;M or introducing new services. Any such change will take effect after 14 days from the date on which you have been informed of such change either in My Account, on hm.com, via mail or a combination thereof. If you do not accept the changes you have the right to cancel your membership." textAlignment="CENTER" wrapText="true" />
+                              <Label text="5.4 H&amp;M reserves the right to make minor changes to the Loyalty program and its Terms and Conditions without providing you with prior notification, provided that these changes does not materially affect the membership in a negative way. Please make sure to stay updated on the Terms and Conditions. You will always find the latest version of the Terms and Conditions on hm.com." textAlignment="CENTER" wrapText="true" />
+                              <Label text="5.5 Any violation of the H&amp;M Loyalty Program rules, proven or probable fraud, non-compliance with the terms, inactivity on the account, provision of incorrect data, or any act detrimental to H&amp;M's interests, may lead to the termination of, and/or impact your ability to participate in the H&amp;M Loyalty Program, including but not limited to the adaptation of payment methods. If your participation in the program is canceled, all points shown on the My Account page will automatically expire." textAlignment="CENTER" wrapText="true" />
+                              <Label text="5.6 We reserve the right to adapt payment methods and/or terminate or restrict access to accounts for the following reasons. Reasons for payment method adaption, termination or restriction may include but are not limited to the following: (1) Abnormal frequent and/or high number of returns; (2) Behavior demonstrating clear intent to resell and/or make a profit by purchasing our products; or (3) Multiple accounts and/or registration of a new account by previously suspended users. We also reserve the right to cancel orders made when shopping as a guest for the same reasons. If your access has been restricted or your order canceled and you think we’ve made a mistake, please get in touch with Customer Service. " textAlignment="CENTER" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="437.0" text="6 LIMITATION OF LIABILITY" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <Label text="6.1 H&amp;M will not be liable for any system failure or malfunction of the Loyalty Program or any consequences thereof. H&amp;M accepts no liability for any loss or damages arising from suspension, variation or termination or in any other way relating to the Loyalty Program, except for any liability which cannot be excluded by law." textAlignment="CENTER" wrapText="true" />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="437.0" text="7 APPLICABLE LAW AND JURISDICTION" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <VBox prefHeight="230.0" prefWidth="100.0" spacing="7.0">
+                           <children>
+                              <Label text="7.1 These Terms and Conditions shall be governed by the laws of Sweden, without regards to any rules or principles on conflicts of laws. However, if you are resident in another country than Sweden these Terms and Conditions can be subject to mandatory consumer protection laws and regulations in force in the country of residence which may provide you with additional rights. Any dispute, claim or controversy arising from or relating to these Terms and Conditions or your membership shall be resolved by the applicable courts in Sweden, unless otherwise stipulated in applicable mandatory laws of your country of residence." textAlignment="CENTER" wrapText="true" />
+                              <Label text="7.2 The invalidity or unenforceability of individual contractual provisions shall not affect the validity of the remaining contractual provisions. In such case, the ineffective or unenforceable provision shall be replaced by the parties by an effective or practicable new provision." textAlignment="CENTER" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="437.0" text="8 CONTACT US" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <Label text="8.1 If you have any questions regarding the Loyalty Program you may contact customer service at H&amp;M on 855-466-7467 (Toll-free). All correspondence regarding the Loyalty Program should be addressed to customerservice.us@hm.com." textAlignment="CENTER" wrapText="true">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="437.0" text="27/04/2022" textAlignment="CENTER" translateY="40.0" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="cerrar" layoutX="360.0" layoutY="16.0" mnemonicParsing="false" onAction="#cerrarStage" prefHeight="50.0" prefWidth="58.0" text="☓">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="23.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

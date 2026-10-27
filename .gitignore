@@ -1,0 +1,14 @@
+# Local environment and credentials
+/.env
+/mysql_login.txt
+
+# Maven build output
+/target/
+/.superpowers/
+
+# IDE and operating system files
+/.idea/
+/.vscode/
+*.iml
+Thumbs.db
+desktop.ini

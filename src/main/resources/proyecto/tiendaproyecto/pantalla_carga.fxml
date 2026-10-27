@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" style="-fx-background-color: #6F000F;" stylesheets="@../../css/estilos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.tiendaproyecto.LoadingController">
+   <children>
+      <StackPane layoutX="275.0" layoutY="102.0" prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="imageView1" fitHeight="197.0" fitWidth="207.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../imagenes/logoCarga.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageView2" fitHeight="184.0" fitWidth="232.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../imagenes/ueeslogo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <HBox alignment="TOP_CENTER" layoutX="156.0" layoutY="316.0" prefHeight="58.0" prefWidth="435.0">
+         <children>
+            <Label fx:id="loadingLabel" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Italic" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <ProgressBar fx:id="progressBar" layoutX="12.0" layoutY="416.0" prefHeight="14.0" prefWidth="726.0" progress="0.0" />
+   </children>
+</AnchorPane>
