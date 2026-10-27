@@ -141,24 +141,22 @@ public class AccountController implements Initializable {
                     alert.setContentText("¿Está seguro de que desea eliminar el usuario?");
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
-                        clienteController.Delete(clienteID);
-                        Alert cuadroDialogo = new Alert(AlertType.INFORMATION);
-                        cuadroDialogo.setTitle("Eliminar cuenta");
-                        cuadroDialogo.setHeaderText("Eliminación de cuenta exitosa");
-                        cuadroDialogo.setContentText("La cuenta ha sido eliminada de nuestra base de datos.");
-                        cuadroDialogo.showAndWait();
-                        try {
-                            ClienteSingleton.getInstance().signOut();
-                            App.setRoot("tienda");
-                        } catch (IOException ex) {
-                            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+                        if (deleteAccountAndSignOut(clienteID)) {
+                            Alert cuadroDialogo = new Alert(AlertType.INFORMATION);
+                            cuadroDialogo.setTitle("Eliminar cuenta");
+                            cuadroDialogo.setHeaderText("Eliminación de cuenta exitosa");
+                            cuadroDialogo.setContentText("La cuenta ha sido eliminada de nuestra base de datos.");
+                            cuadroDialogo.showAndWait();
+                            try {
+                                App.setRoot("tienda");
+                            } catch (IOException ex) {
+                                Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            showAccountDeletionFailure();
                         }                          
                     } else {
-                        Alert cuadroDialogo2 = new Alert(AlertType.ERROR);
-                        cuadroDialogo2.setTitle("Eliminar cuenta");
-                        cuadroDialogo2.setHeaderText("Eliminación de cuenta fallida");
-                        cuadroDialogo2.setContentText("El proceso ha fallado y su cuenta no ha sido eliminada.");
-                        cuadroDialogo2.showAndWait();
+                        showAccountDeletionFailure();
                     }
 
             });       
@@ -311,6 +309,22 @@ public class AccountController implements Initializable {
        
 }    
    
+    boolean deleteAccountAndSignOut(int accountId) {
+        if (!clienteController.DeleteAccount(accountId)) {
+            return false;
+        }
+        ClienteSingleton.getInstance().signOut();
+        return true;
+    }
+
+    private void showAccountDeletionFailure() {
+        Alert cuadroDialogo = new Alert(AlertType.ERROR);
+        cuadroDialogo.setTitle("Eliminar cuenta");
+        cuadroDialogo.setHeaderText("Eliminación de cuenta fallida");
+        cuadroDialogo.setContentText("El proceso ha fallado y su cuenta no ha sido eliminada.");
+        cuadroDialogo.showAndWait();
+    }
+
     @FXML
     private void subirImagen() {
         FileChooser fileChooser = new FileChooser();

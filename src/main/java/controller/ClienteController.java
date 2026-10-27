@@ -1,14 +1,18 @@
 package controller;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Cliente;
 import modelo.DbConnection;
 
 public class ClienteController {
-    private DbConnection connection = new DbConnection();
+    private static final Logger LOGGER = Logger.getLogger(ClienteController.class.getName());
+    private final DbConnection connection = new DbConnection();
     
     public int Create(Cliente cliente) {
         int result = 0;
@@ -143,23 +147,74 @@ public class ClienteController {
     return imagen;
     }
 
-    public int Delete(int id) {
-        int result = 0;
-        String req = "DELETE FROM cliente WHERE idCliente=?";
-        try{
-            this.connection.conectar();
-            PreparedStatement statement =this.connection.getConnection().prepareStatement(req);
-            statement.setInt(1, id);
-            result = statement.executeUpdate();
-        } catch (SQLException e){
-            throw new RuntimeException (e);
+    public boolean DeleteAccount(int clienteId) {
+        if (clienteId <= 0) {
+            return false;
         }
-        finally {
-            if(this.connection != null){
-                this.connection.desconectar();
+
+        Connection database = null;
+        try {
+            database = this.connection.conectar();
+            database.setAutoCommit(false);
+
+            try (PreparedStatement deleteOrderDetails = database.prepareStatement(
+                    "DELETE FROM pedido_detalle WHERE idpedido IN "
+                    + "(SELECT idpedido FROM pedido WHERE idcliente = ?)")) {
+                deleteOrderDetails.setInt(1, clienteId);
+                deleteOrderDetails.executeUpdate();
             }
+            try (PreparedStatement deleteOrders = database.prepareStatement(
+                    "DELETE FROM pedido WHERE idcliente = ?")) {
+                deleteOrders.setInt(1, clienteId);
+                deleteOrders.executeUpdate();
+            }
+            try (PreparedStatement deleteCart = database.prepareStatement(
+                    "DELETE FROM carrito WHERE idcliente = ?")) {
+                deleteCart.setInt(1, clienteId);
+                deleteCart.executeUpdate();
+            }
+            try (PreparedStatement deleteFavorites = database.prepareStatement(
+                    "DELETE FROM favorito WHERE idcliente = ?")) {
+                deleteFavorites.setInt(1, clienteId);
+                deleteFavorites.executeUpdate();
+            }
+            new SesionController().DeleteByClient(database, clienteId);
+
+            int deletedCustomers;
+            try (PreparedStatement deleteCustomer = database.prepareStatement(
+                    "DELETE FROM cliente WHERE idcliente = ?")) {
+                deleteCustomer.setInt(1, clienteId);
+                deletedCustomers = deleteCustomer.executeUpdate();
+            }
+            if (deletedCustomers != 1) {
+                database.rollback();
+                return false;
+            }
+
+            database.commit();
+            return true;
+        } catch (SQLException exception) {
+            rollback(database, exception);
+            LOGGER.log(Level.WARNING, "No se pudo eliminar la cuenta completa.", exception);
+            return false;
+        } finally {
+            this.connection.desconectar();
         }
-        return result;
+    }
+
+    private static void rollback(Connection database, SQLException cause) {
+        if (database == null) {
+            return;
+        }
+        try {
+            database.rollback();
+        } catch (SQLException rollbackError) {
+            cause.addSuppressed(rollbackError);
+        }
+    }
+
+    public int Delete(int id) {
+        return DeleteAccount(id) ? 1 : 0;
     }
     
     public int UpdateContrasena(int id, String nuevaContra) {

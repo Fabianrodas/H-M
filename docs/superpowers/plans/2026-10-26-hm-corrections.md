@@ -162,13 +162,13 @@
 - `ClienteController.DeleteAccount(int clienteId)` devuelve `true` solo si borra filas relacionadas y cliente dentro de una transacción confirmada.
 - `SesionController.Delete()` elimina la sesión sin limitar el ID; `DeleteByClient(int clienteId)` elimina la sesión del cliente dentro del borrado de cuenta.
 
-- [ ] Agregar AccountDeletionTest.deletesRelatedMockRowsAndReportsSuccess, AccountDeletionTest.reportsFailureWithoutSigningOut y SesionControllerTest.deletesSessionAboveId500.
-- [ ] Ejecutar pruebas y confirmar que falla el límite de 500 y el resultado no verificado.
-- [ ] Borrar filas mock relacionadas y cuenta en una transacción; mostrar éxito solo si confirma.
-- [ ] Borrar sesión persistida al eliminar cuenta. Quitar rango ID 1–500 y manejar cualquier valor autoincremental.
-- [ ] Preservar confirmación y layout actuales.
-- [ ] Ejecutar pruebas, `mvn -B -ntp test`, verificador de INSERT y prueba dinámica con cuenta que tiene pedido/carrito/favoritos y sesión >500.
-- [ ] Commit en main: fix: delete accounts and sessions consistently
+- [x] Agregar AccountDeletionTest.deletesRelatedMockRowsAndReportsSuccess, AccountDeletionTest.reportsFailureWithoutSigningOut y SesionControllerTest.deletesSessionAboveId500.
+- [x] Ejecutar pruebas y confirmar que falla el límite de 500 y falta el resultado de borrado verificable.
+- [x] Borrar filas relacionadas y cuenta en una transacción; mostrar éxito solo si confirma.
+- [x] Borrar la sesión dentro de la transacción de cuenta; quitar el rango ID 1–500.
+- [x] Preservar confirmación y layout actuales; un borrado fallido mantiene la sesión activa.
+- [x] Ejecutar 31 pruebas en PostgreSQL temporal, verificar INSERTs y probar borrado de cuenta con pedido/carrito/favoritos y sesión >500.
+- [x] Commit en main: `fix: delete accounts and sessions consistently`
 
 ### Task 8: Renombrar el proyecto H-M, alinear Maven y excluir artefactos generados
 

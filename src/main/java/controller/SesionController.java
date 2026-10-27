@@ -3,12 +3,13 @@ package controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import modelo.DbConnection;
 import modelo.Sesion;
 
 public class SesionController {
-    private DbConnection connection = new DbConnection();
+    private final DbConnection connection = new DbConnection();
     
     public boolean haySesion(){
         int sesiones = 0;
@@ -77,24 +78,37 @@ public class SesionController {
     }
     
     public int Delete() {
-        if(haySesion()){
-            int result = 0;
-            String req = "DELETE FROM sesion WHERE idSesion BETWEEN 1 AND 500;";
-            try{
-                this.connection.conectar();
-                PreparedStatement statement =this.connection.getConnection().prepareStatement(req);
+        int result;
+        try {
+            this.connection.conectar();
+            try (PreparedStatement statement = this.connection.getConnection()
+                    .prepareStatement("DELETE FROM sesion")) {
                 result = statement.executeUpdate();
-            } catch (SQLException e){
-                throw new RuntimeException (e);
             }
-            finally {
-                if(this.connection != null){
-                    this.connection.desconectar();
-                }
-            }
-            return result;
-        } else {
-            return 1;
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
+            this.connection.desconectar();
+        }
+        return result > 0 ? result : 1;
+    }
+
+    public int DeleteByClient(int clienteId) {
+        try {
+            Connection database = this.connection.conectar();
+            return DeleteByClient(database, clienteId);
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
+            this.connection.desconectar();
+        }
+    }
+
+    public int DeleteByClient(Connection database, int clienteId) throws SQLException {
+        try (PreparedStatement statement = database.prepareStatement(
+                "DELETE FROM sesion WHERE idcliente = ?")) {
+            statement.setInt(1, clienteId);
+            return statement.executeUpdate();
         }
     }
     
