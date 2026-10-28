@@ -22,7 +22,7 @@ Las capturas reales de la tienda, un producto, el carrito, la cuenta y la zona d
 
 ### Lo que necesitas
 
-- Java 21.
+- Java 23 o posterior (probado con Java 25).
 - Maven 3.9 o posterior.
 - PostgreSQL 18.
 
