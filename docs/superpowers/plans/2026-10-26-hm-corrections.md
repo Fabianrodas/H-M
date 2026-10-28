@@ -262,7 +262,7 @@
 - [x] Probar el alta mediante `ClienteController.Create` con fecha ISO y confirmar el error PostgreSQL `date` frente a `character varying`.
 - [x] Vincular el valor como tipo JDBC `DATE` sin cambiar la tabla ni los INSERT existentes.
 - [x] Repetir la prueba de alta y toda la suite PostgreSQL temporal (36/36); comprobar lectura de la fecha y borrar el cliente de prueba.
-- [ ] Commit en main: `fix: bind customer birth dates for PostgreSQL`
+- [x] Commit en main: `fix: bind customer birth dates for PostgreSQL`
 
 ### Task 14: Cargar imágenes desde los recursos del proyecto
 
