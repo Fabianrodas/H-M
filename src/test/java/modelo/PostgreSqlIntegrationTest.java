@@ -78,6 +78,23 @@ class PostgreSqlIntegrationTest {
     }
 
     @Test
+    void createsCustomerWithDateThroughController() throws SQLException {
+        String email = "integration-registration-" + UUID.randomUUID() + "@example.test";
+        Cliente customer = new Cliente(
+                "Integration", "Registration", email, "00000", "2000-01-01",
+                "mock-registration-password", "Otro");
+
+        try {
+            assertEquals(1, new ClienteController().Create(customer));
+            Cliente stored = new ClienteController().ReadByEmail(email);
+            assertNotNull(stored);
+            assertEquals("2000-01-01", stored.getFecha_nacimiento());
+        } finally {
+            deleteCustomerByEmail(email);
+        }
+    }
+
+    @Test
     void upgradesLegacyCustomerPasswordInPostgreSql() throws SQLException {
         String email = "integration-" + UUID.randomUUID() + "@example.test";
         int customerId = createLegacyCustomer(email);
@@ -156,6 +173,15 @@ class PostgreSqlIntegrationTest {
                 PreparedStatement statement = connection.prepareStatement(
                         "DELETE FROM cliente WHERE idcliente = ?")) {
             statement.setInt(1, customerId);
+            statement.executeUpdate();
+        }
+    }
+
+    private static void deleteCustomerByEmail(String email) throws SQLException {
+        try (Connection connection = DatabaseConfig.loadDefault().openConnection();
+                PreparedStatement statement = connection.prepareStatement(
+                        "DELETE FROM cliente WHERE correo = ?")) {
+            statement.setString(1, email);
             statement.executeUpdate();
         }
     }

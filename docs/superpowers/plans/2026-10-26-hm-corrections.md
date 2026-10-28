@@ -250,7 +250,7 @@
 - [x] Cargar la vista real de detalles como visitante contra PostgreSQL temporal y confirmar el NPE en `cliente.getIdCliente()` antes del arreglo.
 - [x] Evitar consultar favoritos cuando no hay cliente; mantener las acciones de inicio de sesión y el diseño actual.
 - [x] Repetir la prueba de integración y la suite PostgreSQL completa (35/35); no tocar los INSERT originales.
-- [ ] Commit en main: `fix: allow guests to open product details`
+- [x] Commit en main: `335a527 fix: allow guests to open product details`
 
 ### Task 13: Guardar la fecha de nacimiento en PostgreSQL
 
@@ -259,9 +259,9 @@
 **Archivos:**
 - Modificar: `src/main/java/controller/ClienteController.java` y `src/test/java/modelo/PostgreSqlIntegrationTest.java`.
 
-- [ ] Probar el alta mediante `ClienteController.Create` con fecha ISO y observar el error de tipo PostgreSQL.
-- [ ] Vincular el valor como tipo JDBC `DATE` sin cambiar la tabla ni los INSERT existentes.
-- [ ] Repetir la prueba de alta y toda la suite PostgreSQL temporal; comprobar lectura de la fecha y borrar el cliente de prueba.
+- [x] Probar el alta mediante `ClienteController.Create` con fecha ISO y confirmar el error PostgreSQL `date` frente a `character varying`.
+- [x] Vincular el valor como tipo JDBC `DATE` sin cambiar la tabla ni los INSERT existentes.
+- [x] Repetir la prueba de alta y toda la suite PostgreSQL temporal (36/36); comprobar lectura de la fecha y borrar el cliente de prueba.
 - [ ] Commit en main: `fix: bind customer birth dates for PostgreSQL`
 
 ### Task 14: Cargar imágenes desde los recursos del proyecto

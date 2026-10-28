@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class ClienteController {
             statement.setString(2, cliente.getApellido());
             statement.setString(3, cliente.getCorreo());
             statement.setString(4, cliente.getZipcode());
-            statement.setString(5, cliente.getFecha_nacimiento());
+            statement.setDate(5, Date.valueOf(cliente.getFecha_nacimiento()));
             statement.setString(6, cliente.getContrasena());
             statement.setString(7, cliente.getGenero());
             result = statement.executeUpdate();
