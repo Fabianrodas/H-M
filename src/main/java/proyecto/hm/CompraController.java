@@ -119,7 +119,7 @@ public class CompraController implements Initializable {
             inVbox.setSpacing(5); 
             inHbox.setSpacing(2);
             inVbox.setAlignment(Pos.CENTER_LEFT);
-            ImageView imagen = new ImageView(new Image("/imagenes/" + producto.getImagen()));
+            ImageView imagen = new ImageView(ImageResources.load("/imagenes/" + producto.getImagen()));
             Label nombre = new Label(producto.getNombre());
             nombre.setMaxWidth(205);
             Label precio = new Label("$" + String.valueOf(carrito.getPrecio()));

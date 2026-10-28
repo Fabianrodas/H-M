@@ -252,7 +252,7 @@ public class TiendaController implements Initializable {
                 nombre_producto.setText(producto.getNombre());
                 descripcion_producto.setText(producto.getDescripcion());
                 precio_producto.setText("$" + producto.getPrecio());
-                imagen_producto.setImage(new Image("/imagenes/"+producto.getImagen()));
+                imagen_producto.setImage(ImageResources.load("/imagenes/" + producto.getImagen()));
                 labelGenero.setText(productoController.getGenero(producto.getIdProd()));
                 labelSeccion.setText(productoController.getCategoria(producto.getIdProd()));
                 labelNom_producto.setText(producto.getNombre());
@@ -908,7 +908,7 @@ public class TiendaController implements Initializable {
                 String imagenNombre = rs.getString("imagen_nombre");
                 VBox productVBox = new VBox();
                 productVBox.setSpacing(5);
-                ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/imagenes/" + imagenNombre)));
+                ImageView imageView = new ImageView(ImageResources.load("/imagenes/" + imagenNombre));
                 imageView.setFitWidth(150);
                 imageView.setFitHeight(150);
                 imageView.setPreserveRatio(true);
@@ -1058,7 +1058,7 @@ public class TiendaController implements Initializable {
             inVbox.setSpacing(10); 
             inHbox.setSpacing(5);
             inVbox.setAlignment(Pos.CENTER);
-            ImageView imagen = new ImageView(new Image("/imagenes/" + producto.getImagen()));
+            ImageView imagen = new ImageView(ImageResources.load("/imagenes/" + producto.getImagen()));
             imagen.setId("imagen"+producto.getIdGenero());
             Label nombre = new Label(producto.getNombre());
             Label precio = new Label("$" + String.valueOf(producto.getPrecio()));
@@ -1129,7 +1129,7 @@ public class TiendaController implements Initializable {
             inVbox.setSpacing(5); 
             inHbox.setSpacing(2);
             inVbox.setAlignment(Pos.CENTER_LEFT);
-            ImageView imagen = new ImageView(new Image("/imagenes/" + producto.getImagen()));
+            ImageView imagen = new ImageView(ImageResources.load("/imagenes/" + producto.getImagen()));
             imagen.setId("imagen"+producto.getIdGenero());
             Label nombre = new Label(producto.getNombre());
             nombre.setMaxWidth(205);

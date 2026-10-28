@@ -43,8 +43,8 @@ public class LoadingController {
 
     @FXML
     public void initialize() {
-        Image image2 = new Image("/imagenes/logoCarga.png");
-        Image image1 = new Image("/imagenes/ueeslogo.png");
+        Image image2 = ImageResources.load("/imagenes/logoCarga.png");
+        Image image1 = ImageResources.load("/imagenes/ueeslogo.png");
         imageView1.setImage(image1);
         imageView2.setImage(image2);
         imageView1.setOpacity(1.0);

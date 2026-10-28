@@ -238,3 +238,44 @@
 - [x] Commit en main: `fix: package default profile image`
 
 **Orden:** ejecutar antes de cerrar Task 9, junto con Task 10, porque README y capturas documentan la versión empaquetada.
+
+### Task 12: Permitir abrir detalles de productos como visitante
+
+**Causa:** al cargar `comprar_producto.fxml` sin sesión, `TiendaController.initialize` consulta favoritos usando `cliente.getIdCliente()` aunque `cliente` sea nulo.
+
+**Archivos:**
+- Modificar: `src/main/java/proyecto/hm/TiendaController.java`.
+- Crear: `src/test/java/proyecto/hm/TiendaControllerGuestIntegrationTest.java`.
+
+- [ ] Cargar la vista real de detalles como visitante contra PostgreSQL temporal y confirmar que falla con el NPE actual.
+- [ ] Evitar consultar favoritos cuando no hay cliente; mantener las acciones de inicio de sesión y el diseño actual.
+- [ ] Repetir la prueba de integración y la suite PostgreSQL completa; no tocar los INSERT originales.
+- [ ] Commit en main: `fix: allow guests to open product details`
+
+### Task 13: Guardar la fecha de nacimiento en PostgreSQL
+
+**Causa:** `ClienteController.Create` envía `fecha_nacimiento` mediante `setString`, pero PostgreSQL define esa columna como `date`.
+
+**Archivos:**
+- Modificar: `src/main/java/controller/ClienteController.java` y `src/test/java/modelo/PostgreSqlIntegrationTest.java`.
+
+- [ ] Probar el alta mediante `ClienteController.Create` con fecha ISO y observar el error de tipo PostgreSQL.
+- [ ] Vincular el valor como tipo JDBC `DATE` sin cambiar la tabla ni los INSERT existentes.
+- [ ] Repetir la prueba de alta y toda la suite PostgreSQL temporal; comprobar lectura de la fecha y borrar el cliente de prueba.
+- [ ] Commit en main: `fix: bind customer birth dates for PostgreSQL`
+
+### Task 14: Cargar imágenes desde los recursos del proyecto
+
+**Hallazgo durante la verificación dinámica:** al abrir el detalle real de un producto, JavaFX rechaza `new Image("/imagenes/...jpg")` como URL inválida. El detalle falla antes de poder comprobar el flujo de visitante. El mismo patrón aparece en las pantallas de carga, carrito, favoritos y pedido.
+
+**Archivos:**
+- Crear: `src/main/java/proyecto/hm/ImageResources.java`.
+- Modificar: `LoadingController.java`, `TiendaController.java` y `CompraController.java`.
+- Modificar: `src/test/java/proyecto/hm/TiendaControllerGuestIntegrationTest.java` para probar el detalle como cliente autenticado y como visitante.
+
+- [x] Cargar imágenes con URLs obtenidas del classpath sin cambiar el diseño.
+- [x] Verificar la vista real de detalle autenticada; la regresión de visitante ahora alcanza el NPE esperado en `TiendaController.java:394`.
+- [x] Ejecutar la suite PostgreSQL temporal (34/34) y comprobar que los 119 nombres de imagen de producto distintos existen en recursos.
+- [ ] Commit en main: `fix: load application images from classpath`
+
+**Orden:** completar antes de Task 12 para que el error de imágenes no oculte el fallo real de visitante.
