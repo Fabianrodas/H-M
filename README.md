@@ -8,7 +8,9 @@ Todo el contenido de ejemplo es ficticio. No uses información personal ni contr
 
 ## Capturas de pantalla
 
-Las capturas reales de la tienda, un producto, el carrito, la cuenta y la zona de administración se añadirán después de revisar esas pantallas en la aplicación.
+### Inicio de la tienda
+
+![Pantalla inicial de la tienda H-M](docs/screenshots/store.jpg)
 
 ## Qué puedes probar
 
