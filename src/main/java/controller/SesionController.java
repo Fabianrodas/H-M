@@ -13,7 +13,7 @@ public class SesionController {
     
     public boolean haySesion(){
         int sesiones = 0;
-        String req = "SELECT COUNT(idSesion) AS sesiones FROM sesion";
+        String req = "SELECT COUNT(*) AS sesiones FROM sesion";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -39,8 +39,8 @@ public class SesionController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int sesionID = resultSet.getInt("idsesion");
-                int clienteID = resultSet.getInt("idcliente");
+                int sesionID = resultSet.getInt("idSesion");
+                int clienteID = resultSet.getInt("idCliente");
                 sesion = new Sesion(sesionID,clienteID);
             }
         }catch(SQLException e){
@@ -57,7 +57,7 @@ public class SesionController {
         int borrar = Delete();
         if(borrar>0){
             int result = 0;
-            String req = "INSERT INTO sesion(idCliente)" + "VALUES (?)";
+            String req = "INSERT INTO sesion(\"idCliente\") VALUES (?)";
             try {
                 connection.conectar();
                 PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -106,7 +106,7 @@ public class SesionController {
 
     public int DeleteByClient(Connection database, int clienteId) throws SQLException {
         try (PreparedStatement statement = database.prepareStatement(
-                "DELETE FROM sesion WHERE idcliente = ?")) {
+                "DELETE FROM sesion WHERE \"idCliente\" = ?")) {
             statement.setInt(1, clienteId);
             return statement.executeUpdate();
         }
@@ -120,8 +120,8 @@ public class SesionController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int sesionID = resultSet.getInt("idsesion");
-                int clienteID = resultSet.getInt("idcliente");
+                int sesionID = resultSet.getInt("idSesion");
+                int clienteID = resultSet.getInt("idCliente");
                 sesiones.add(new Sesion(sesionID,clienteID));
             }
         }catch(SQLException e){

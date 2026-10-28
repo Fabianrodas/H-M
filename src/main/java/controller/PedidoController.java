@@ -47,7 +47,7 @@ public class PedidoController {
             database.setAutoCommit(false);
 
             long orderId;
-            String insertOrder = "INSERT INTO pedido (idcliente, fecha, total) VALUES (?, ?, ?) RETURNING idpedido";
+            String insertOrder = "INSERT INTO pedido (\"idCliente\", fecha, total) VALUES (?, ?, ?) RETURNING \"idPedido\"";
             try (PreparedStatement statement = database.prepareStatement(insertOrder)) {
                 statement.setInt(1, clienteId);
                 statement.setDate(2, Date.valueOf(fecha));
@@ -56,12 +56,12 @@ public class PedidoController {
                     if (!result.next()) {
                         throw new SQLException("PostgreSQL no devolvió el número del pedido creado.");
                     }
-                    orderId = result.getLong("idpedido");
+                    orderId = result.getLong("idPedido");
                 }
             }
 
             String insertDetail = "INSERT INTO pedido_detalle "
-                    + "(idpedido, idproducto, talla, cantidad, precio_unitario, subtotal) "
+                    + "(\"idPedido\", \"idProducto\", talla, cantidad, \"precioUnitario\", subtotal) "
                     + "VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement statement = database.prepareStatement(insertDetail)) {
                 for (PedidoDetalle detalle : detalles) {
@@ -79,8 +79,8 @@ public class PedidoController {
 
             int removedCartLines;
             try (PreparedStatement statement = database.prepareStatement(
-                    "DELETE FROM carrito WHERE idcliente = ? AND idcarrito = ? AND idproducto = ? "
-                    + "AND cantidad = ? AND preciounitario = ? AND talla = ?")) {
+                    "DELETE FROM carrito WHERE \"idCliente\" = ? AND \"idCarrito\" = ? AND \"idProducto\" = ? "
+                    + "AND cantidad = ? AND \"precioUnitario\" = ? AND talla = ?")) {
                 removedCartLines = 0;
                 for (int index = 0; index < lineas.size(); index++) {
                     Carrito linea = lineas.get(index);
@@ -124,8 +124,8 @@ public class PedidoController {
 
     public int Delete(long id) {
         int result = 0;
-        String deleteDetails = "DELETE FROM pedido_detalle WHERE idpedido=?";
-        String deleteOrder = "DELETE FROM pedido WHERE idPedido=?";
+        String deleteDetails = "DELETE FROM pedido_detalle WHERE \"idPedido\"=?";
+        String deleteOrder = "DELETE FROM pedido WHERE \"idPedido\"=?";
         Connection database = null;
         try {
             database = this.connection.conectar();
@@ -155,8 +155,8 @@ public class PedidoController {
             try (PreparedStatement statement = database.prepareStatement(request);
                     ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    long pedidoId = resultSet.getLong("idpedido");
-                    int clienteId = resultSet.getInt("idcliente");
+                    long pedidoId = resultSet.getLong("idPedido");
+                    int clienteId = resultSet.getInt("idCliente");
                     String fecha = resultSet.getString("fecha");
                     double total = resultSet.getDouble("total");
                     pedidos.add(new Pedido(pedidoId, clienteId, fecha, total));
@@ -172,7 +172,7 @@ public class PedidoController {
 
     public int totalPedidos(int id) {
         int pedidos = 0;
-        String request = "SELECT COUNT(idPedido) AS pedidosCliente FROM pedido WHERE idCliente=?";
+        String request = "SELECT COUNT(*) AS pedidosCliente FROM pedido WHERE \"idCliente\"=?";
         try {
             this.connection.conectar();
             try (PreparedStatement statement = this.connection.getConnection().prepareStatement(request)) {

@@ -18,12 +18,12 @@ public class ProductoController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idproducto");
-                String nombreProducto = resultSet.getString("nombre_producto");
+                int productoID = resultSet.getInt("idProducto");
+                String nombreProducto = resultSet.getString("nombre_Producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idsubsub");
-                int generoID = resultSet.getInt("idgenero");
+                int subsubID = resultSet.getInt("idSubsub");
+                int generoID = resultSet.getInt("idGenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 productos.add(new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen));
@@ -39,19 +39,19 @@ public class ProductoController {
     
     public Producto GetById(int id){
         Producto producto = null;
-        String req = "SELECT * FROM producto where idProducto=?";
+        String req = "SELECT * FROM producto where \"idProducto\"=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idproducto");
-                String nombreProducto = resultSet.getString("nombre_producto");
+                int productoID = resultSet.getInt("idProducto");
+                String nombreProducto = resultSet.getString("nombre_Producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idsubsub");
-                int generoID = resultSet.getInt("idgenero");
+                int subsubID = resultSet.getInt("idSubsub");
+                int generoID = resultSet.getInt("idGenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 producto = new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen);
@@ -68,19 +68,19 @@ public class ProductoController {
     
     public Producto GetByName(String name){
         Producto producto = null;
-        String req = "SELECT * FROM producto where nombre_Producto=?";
+        String req = "SELECT * FROM producto where \"nombre_Producto\"=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idproducto");
-                String nombreProducto = resultSet.getString("nombre_producto");
+                int productoID = resultSet.getInt("idProducto");
+                String nombreProducto = resultSet.getString("nombre_Producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idsubsub");
-                int generoID = resultSet.getInt("idgenero");
+                int subsubID = resultSet.getInt("idSubsub");
+                int generoID = resultSet.getInt("idGenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 producto = new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen);
@@ -97,19 +97,19 @@ public class ProductoController {
     
     public ArrayList<Producto> ReadByName(String name){
         ArrayList<Producto> productos = new ArrayList<>();
-        String req = "SELECT * FROM producto WHERE nombre_Producto ILIKE ?";
+        String req = "SELECT * FROM producto WHERE \"nombre_Producto\" ILIKE ?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setString(1, '%'+name+'%');
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int productoID = resultSet.getInt("idproducto");
-                String nombreProducto = resultSet.getString("nombre_producto");
+                int productoID = resultSet.getInt("idProducto");
+                String nombreProducto = resultSet.getString("nombre_Producto");
                 String descripcion = resultSet.getString("descripcion");
                 double precio = resultSet.getDouble("precio");
-                int subsubID = resultSet.getInt("idsubsub");
-                int generoID = resultSet.getInt("idgenero");
+                int subsubID = resultSet.getInt("idSubsub");
+                int generoID = resultSet.getInt("idGenero");
                 String imagen = resultSet.getString("imagen_nombre");
                 productos.add(new Producto(productoID, nombreProducto, descripcion, precio,
                 subsubID,generoID,imagen));
@@ -126,7 +126,7 @@ public class ProductoController {
     
     public String getGenero(int id){
         String genero = "";
-        String req = "SELECT g.nombre FROM genero g JOIN producto p ON g.idGenero = p.idGenero WHERE p.idProducto = ?";
+        String req = "SELECT g.nombre FROM genero g JOIN producto p ON g.\"idGenero\" = p.\"idGenero\" WHERE p.\"idProducto\" = ?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -147,7 +147,7 @@ public class ProductoController {
     
     public String getCategoria(int id){
         String categoria = "";
-        String req = "SELECT c.nombre_categoria FROM categoria c JOIN subcategoria s ON c.idCategoria = s.idCategoria JOIN subsub ss ON s.idSubcategoria = ss.idSubcategoria JOIN producto p ON ss.idSubsub = p.idSubsub WHERE p.idProducto = ?";
+        String req = "SELECT c.nombre_categoria FROM categoria c JOIN subcategoria s ON c.\"idCategoria\" = s.\"idCategoria\" JOIN subsub ss ON s.\"idSubcategoria\" = ss.\"idSubcategoria\" JOIN producto p ON ss.\"idSubsub\" = p.\"idSubsub\" WHERE p.\"idProducto\" = ?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -168,14 +168,14 @@ public class ProductoController {
     
     public String getSubsub(int id){
         String subsub = "";
-        String req = "SELECT nombre_subsub FROM subsub ss JOIN producto p ON ss.idSubsub = p.idSubsub WHERE p.idProducto = ?;";
+        String req = "SELECT ss.\"nombre_Subsub\" FROM subsub ss JOIN producto p ON ss.\"idSubsub\" = p.\"idSubsub\" WHERE p.\"idProducto\" = ?;";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                subsub = resultSet.getString("nombre_subsub");
+                subsub = resultSet.getString("nombre_Subsub");
             }
         }catch(SQLException e){
             throw new RuntimeException(e);

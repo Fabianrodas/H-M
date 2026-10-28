@@ -30,11 +30,19 @@ class PostgreSqlIntegrationTest {
     }
 
     @Test
+    void preservesImportedQuotedColumnNames() throws SQLException {
+        assertTrue(hasColumn("sesion", "idSesion"));
+        assertTrue(hasColumn("cliente", "idCliente"));
+        assertTrue(hasColumn("producto", "nombre_Producto"));
+        assertTrue(hasColumn("carrito", "precioUnitario"));
+    }
+
+    @Test
     void seedSequencesAdvanceAfterImport() throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT (SELECT COALESCE(MAX(idcategoria), 0) + 1 FROM categoria), "
-                        + "nextval(pg_get_serial_sequence('categoria', 'idcategoria'))");
+                        "SELECT (SELECT COALESCE(MAX(\"idCategoria\"), 0) + 1 FROM categoria), "
+                        + "nextval(pg_get_serial_sequence('categoria', 'idCategoria'))");
                 ResultSet result = statement.executeQuery()) {
             assertTrue(result.next());
             assertEquals(result.getLong(1), result.getLong(2));
@@ -47,7 +55,7 @@ class PostgreSqlIntegrationTest {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "SELECT correo FROM cliente WHERE correo IS NOT NULL "
-                        + "AND correo ~ '[a-z]' ORDER BY idcliente LIMIT 1");
+                        + "AND correo ~ '[a-z]' ORDER BY \"idCliente\" LIMIT 1");
                 ResultSet result = statement.executeQuery()) {
             assertTrue(result.next(), "Seed must contain a mock email with lowercase letters");
             email = result.getString(1);
@@ -61,8 +69,8 @@ class PostgreSqlIntegrationTest {
         String name;
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT nombre_producto FROM producto WHERE nombre_producto ~ '[a-z]' "
-                        + "ORDER BY idproducto LIMIT 1");
+                        "SELECT \"nombre_Producto\" FROM producto WHERE \"nombre_Producto\" ~ '[a-z]' "
+                        + "ORDER BY \"idProducto\" LIMIT 1");
                 ResultSet result = statement.executeQuery()) {
             assertTrue(result.next(), "Seed must contain a product name with lowercase letters");
             name = result.getString(1);
@@ -141,7 +149,7 @@ class PostgreSqlIntegrationTest {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO cliente (nombre, apellido, correo, zipcode, fecha_nacimiento, contrasena, genero) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idcliente")) {
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING \"idCliente\"")) {
             statement.setString(1, "Integration");
             statement.setString(2, "Customer");
             statement.setString(3, email);
@@ -156,10 +164,24 @@ class PostgreSqlIntegrationTest {
         }
     }
 
+    private static boolean hasColumn(String tableName, String columnName) throws SQLException {
+        try (Connection connection = DatabaseConfig.loadDefault().openConnection();
+                PreparedStatement statement = connection.prepareStatement(
+                        "SELECT EXISTS (SELECT 1 FROM information_schema.columns "
+                        + "WHERE table_schema = 'public' AND table_name = ? AND column_name = ?)")) {
+            statement.setString(1, tableName);
+            statement.setString(2, columnName);
+            try (ResultSet result = statement.executeQuery()) {
+                assertTrue(result.next());
+                return result.getBoolean(1);
+            }
+        }
+    }
+
     private static String readCustomerPassword(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT contrasena FROM cliente WHERE idcliente = ?")) {
+                        "SELECT contrasena FROM cliente WHERE \"idCliente\" = ?")) {
             statement.setInt(1, customerId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
@@ -171,7 +193,7 @@ class PostgreSqlIntegrationTest {
     private static void deleteCustomer(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "DELETE FROM cliente WHERE idcliente = ?")) {
+                        "DELETE FROM cliente WHERE \"idCliente\" = ?")) {
             statement.setInt(1, customerId);
             statement.executeUpdate();
         }

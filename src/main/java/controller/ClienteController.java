@@ -47,7 +47,7 @@ public class ClienteController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int clienteID = resultSet.getInt("idcliente");
+                int clienteID = resultSet.getInt("idCliente");
                 String nombre = resultSet.getString("nombre");
                 String apellido = resultSet.getString("apellido");
                 String correo = resultSet.getString("correo");
@@ -69,14 +69,14 @@ public class ClienteController {
 
     public Cliente ReadById(int id){
         Cliente cliente = null;
-        String req = "SELECT * FROM cliente where idCliente=?";
+        String req = "SELECT * FROM cliente where \"idCliente\"=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int clienteID = resultSet.getInt("idcliente");
+                int clienteID = resultSet.getInt("idCliente");
                 String nombre = resultSet.getString("nombre");
                 String apellido = resultSet.getString("apellido");
                 String correo = resultSet.getString("correo");
@@ -106,7 +106,7 @@ public class ClienteController {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int clienteID = resultSet.getInt("idcliente");
+                int clienteID = resultSet.getInt("idCliente");
                 String nombre = resultSet.getString("nombre");
                 String apellido = resultSet.getString("apellido");
                 String correo = resultSet.getString("correo");
@@ -128,7 +128,7 @@ public class ClienteController {
     }
     public String getImagenCliente(int idCliente) {
       String imagen = null;
-      String req = "SELECT imagen_usuario FROM cliente where idCliente=?";
+      String req = "SELECT imagen_usuario FROM cliente where \"idCliente\"=?";
       try {
           this.connection.conectar();
           PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -159,23 +159,23 @@ public class ClienteController {
             database.setAutoCommit(false);
 
             try (PreparedStatement deleteOrderDetails = database.prepareStatement(
-                    "DELETE FROM pedido_detalle WHERE idpedido IN "
-                    + "(SELECT idpedido FROM pedido WHERE idcliente = ?)")) {
+                    "DELETE FROM pedido_detalle WHERE \"idPedido\" IN "
+                    + "(SELECT \"idPedido\" FROM pedido WHERE \"idCliente\" = ?)")) {
                 deleteOrderDetails.setInt(1, clienteId);
                 deleteOrderDetails.executeUpdate();
             }
             try (PreparedStatement deleteOrders = database.prepareStatement(
-                    "DELETE FROM pedido WHERE idcliente = ?")) {
+                    "DELETE FROM pedido WHERE \"idCliente\" = ?")) {
                 deleteOrders.setInt(1, clienteId);
                 deleteOrders.executeUpdate();
             }
             try (PreparedStatement deleteCart = database.prepareStatement(
-                    "DELETE FROM carrito WHERE idcliente = ?")) {
+                    "DELETE FROM carrito WHERE \"idCliente\" = ?")) {
                 deleteCart.setInt(1, clienteId);
                 deleteCart.executeUpdate();
             }
             try (PreparedStatement deleteFavorites = database.prepareStatement(
-                    "DELETE FROM favorito WHERE idcliente = ?")) {
+                    "DELETE FROM favorito WHERE \"idCliente\" = ?")) {
                 deleteFavorites.setInt(1, clienteId);
                 deleteFavorites.executeUpdate();
             }
@@ -183,7 +183,7 @@ public class ClienteController {
 
             int deletedCustomers;
             try (PreparedStatement deleteCustomer = database.prepareStatement(
-                    "DELETE FROM cliente WHERE idcliente = ?")) {
+                    "DELETE FROM cliente WHERE \"idCliente\" = ?")) {
                 deleteCustomer.setInt(1, clienteId);
                 deletedCustomers = deleteCustomer.executeUpdate();
             }
@@ -220,7 +220,7 @@ public class ClienteController {
     
     public int UpdateContrasena(int id, String nuevaContra) {
         int result = 0;
-        String req = "UPDATE cliente SET contrasena=? WHERE idCliente=?";
+        String req = "UPDATE cliente SET contrasena=? WHERE \"idCliente\"=?";
         try{
             this.connection.conectar();
             PreparedStatement statement =this.connection.getConnection().prepareStatement(req);

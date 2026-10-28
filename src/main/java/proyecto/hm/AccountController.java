@@ -355,7 +355,7 @@ public class AccountController implements Initializable {
 
     private void guardarImagenBD(String imageName) {
         // Código para actualizar la base de datos con la ruta de la imagen del usuario
-        String sql = "UPDATE cliente SET imagen_usuario = ? WHERE idCliente = ?";
+        String sql = "UPDATE cliente SET imagen_usuario = ? WHERE \"idCliente\" = ?";
 
         try (Connection conn = DatabaseConfig.loadDefault().openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -396,7 +396,7 @@ public class AccountController implements Initializable {
     }   
     
     private void actualizarImagenBD(String imageName) {
-        String sql = "UPDATE cliente SET imagen_usuario = ? WHERE idCliente = ?";
+        String sql = "UPDATE cliente SET imagen_usuario = ? WHERE \"idCliente\" = ?";
     
             try (Connection conn = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {

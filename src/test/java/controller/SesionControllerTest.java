@@ -35,7 +35,7 @@ class SesionControllerTest {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO cliente (nombre, apellido, correo, zipcode, fecha_nacimiento, contrasena, genero) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idcliente")) {
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING \"idCliente\"")) {
             statement.setString(1, "Session");
             statement.setString(2, "Integration");
             statement.setString(3, email);
@@ -53,7 +53,7 @@ class SesionControllerTest {
     private static void insertSession(int sessionId, int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO sesion (idsesion, idcliente) VALUES (?, ?)")) {
+                        "INSERT INTO sesion (\"idSesion\", \"idCliente\") VALUES (?, ?)")) {
             statement.setInt(1, sessionId);
             statement.setInt(2, customerId);
             statement.executeUpdate();
@@ -63,7 +63,7 @@ class SesionControllerTest {
     private static long countSessions(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT COUNT(*) FROM sesion WHERE idcliente = ?")) {
+                        "SELECT COUNT(*) FROM sesion WHERE \"idCliente\" = ?")) {
             statement.setInt(1, customerId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
@@ -75,12 +75,12 @@ class SesionControllerTest {
     private static void deleteCustomer(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection()) {
             try (PreparedStatement deleteSession = connection.prepareStatement(
-                    "DELETE FROM sesion WHERE idcliente = ?")) {
+                    "DELETE FROM sesion WHERE \"idCliente\" = ?")) {
                 deleteSession.setInt(1, customerId);
                 deleteSession.executeUpdate();
             }
             try (PreparedStatement deleteCustomer = connection.prepareStatement(
-                    "DELETE FROM cliente WHERE idcliente = ?")) {
+                    "DELETE FROM cliente WHERE \"idCliente\" = ?")) {
                 deleteCustomer.setInt(1, customerId);
                 deleteCustomer.executeUpdate();
             }

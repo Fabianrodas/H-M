@@ -279,3 +279,20 @@
 - [x] Commit en main: `0417fbd fix: load application images from classpath`
 
 **Orden:** completar antes de Task 12 para que el error de imágenes no oculte el fallo real de visitante.
+
+### Task 15: Compatibilizar el esquema importado de PostgreSQL
+
+**Hallazgo en NetBeans y en el catálogo de `hm-db`:** la importación de MySQL conserva columnas con mayúsculas entre comillas (`"idSesion"`, `"idCliente"`, `"nombre_Producto"`, entre otras). PostgreSQL distingue estas columnas; las consultas sin comillas las convierten a minúsculas y fallan. Además, la base aún no contiene la tabla `pedido_detalle` que agrega la migración ya aprobada para checkout.
+
+**Archivos:**
+- Modificar: consultas SQL, mapeo JDBC, `database/postgresql/schema.sql`, `sync-identities.sql`, migración `001_order_details.sql`, verificadores y pruebas para reflejar exactamente los identificadores importados.
+- Preservar: `dump.sql`, el dump PostgreSQL del usuario y los datos de `hm-db`.
+
+- [x] Confirmar el fallo contra una prueba PostgreSQL temporal con nombres de columna entre comillas, sin cambiar datos de `hm-db`.
+- [x] Citar los identificadores mixtos en consultas y alinear el esquema de prueba y las migraciones.
+- [x] Ejecutar la suite completa en PostgreSQL temporal (37/37); comprobar que los seis INSERT originales permanecen iguales.
+- [x] Verificar lectura de catálogo en NetBeans contra `hm-db` y aplicar solo la migración aditiva `001_order_details.sql` para habilitar el checkout solicitado.
+- [x] Ejecutar de nuevo desde NetBeans y recorrer los flujos principales; no se crearon registros durante las pruebas manuales.
+- [x] Commit en main: `fix: match imported PostgreSQL identifiers`
+
+**Validación dinámica:** NetBeans abrió H-M con el catálogo de `hm-db`. Se recorrieron categorías de mujer y hombre, detalle e imágenes, búsqueda, favoritos, registro e inicio de sesión y la bolsa como invitado. Las validaciones de invitado bloquearon favoritos y carrito sin escribir datos. La suite de integración cubrió checkout y operaciones de cuenta sobre una base temporal.

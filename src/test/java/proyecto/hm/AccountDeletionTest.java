@@ -43,11 +43,11 @@ class AccountDeletionTest {
             assertTrue(new AccountController().deleteAccountAndSignOut(customerId));
 
             assertFalse(singleton.isFull());
-            assertEquals(0, count("SELECT COUNT(*) FROM cliente WHERE idcliente = ?", customerId));
-            assertEquals(0, count("SELECT COUNT(*) FROM sesion WHERE idcliente = ?", customerId));
-            assertEquals(0, count("SELECT COUNT(*) FROM favorito WHERE idcliente = ?", customerId));
-            assertEquals(0, count("SELECT COUNT(*) FROM carrito WHERE idcliente = ?", customerId));
-            assertEquals(0, count("SELECT COUNT(*) FROM pedido WHERE idcliente = ?", customerId));
+            assertEquals(0, count("SELECT COUNT(*) FROM cliente WHERE \"idCliente\" = ?", customerId));
+            assertEquals(0, count("SELECT COUNT(*) FROM sesion WHERE \"idCliente\" = ?", customerId));
+            assertEquals(0, count("SELECT COUNT(*) FROM favorito WHERE \"idCliente\" = ?", customerId));
+            assertEquals(0, count("SELECT COUNT(*) FROM carrito WHERE \"idCliente\" = ?", customerId));
+            assertEquals(0, count("SELECT COUNT(*) FROM pedido WHERE \"idCliente\" = ?", customerId));
             assertEquals(0, countOrderDetails(orderId));
         } finally {
             singleton.signOut();
@@ -68,8 +68,8 @@ class AccountDeletionTest {
 
             assertTrue(singleton.isFull());
             assertEquals(customerId, singleton.getCliente().getIdCliente());
-            assertEquals(1, count("SELECT COUNT(*) FROM cliente WHERE idcliente = ?", customerId));
-            assertEquals(1, count("SELECT COUNT(*) FROM sesion WHERE idcliente = ?", customerId));
+            assertEquals(1, count("SELECT COUNT(*) FROM cliente WHERE \"idCliente\" = ?", customerId));
+            assertEquals(1, count("SELECT COUNT(*) FROM sesion WHERE \"idCliente\" = ?", customerId));
         } finally {
             singleton.signOut();
             deleteCustomer(customerId);
@@ -88,7 +88,7 @@ class AccountDeletionTest {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO cliente (nombre, apellido, correo, zipcode, fecha_nacimiento, contrasena, genero) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idcliente")) {
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING \"idCliente\"")) {
             statement.setString(1, "Deletion");
             statement.setString(2, "Integration");
             statement.setString(3, email);
@@ -106,7 +106,7 @@ class AccountDeletionTest {
     private static void insertFavorite(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO favorito (idproducto, idcliente) VALUES (1, ?)")) {
+                        "INSERT INTO favorito (\"idProducto\", \"idCliente\") VALUES (1, ?)")) {
             statement.setInt(1, customerId);
             statement.executeUpdate();
         }
@@ -115,7 +115,7 @@ class AccountDeletionTest {
     private static void insertSession(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO sesion (idcliente) VALUES (?)")) {
+                        "INSERT INTO sesion (\"idCliente\") VALUES (?)")) {
             statement.setInt(1, customerId);
             statement.executeUpdate();
         }
@@ -135,7 +135,7 @@ class AccountDeletionTest {
     private static long countOrderDetails(long orderId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT COUNT(*) FROM pedido_detalle WHERE idpedido = ?")) {
+                        "SELECT COUNT(*) FROM pedido_detalle WHERE \"idPedido\" = ?")) {
             statement.setLong(1, orderId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
@@ -147,20 +147,20 @@ class AccountDeletionTest {
     private static void deleteCustomer(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection()) {
             try (PreparedStatement deleteDetails = connection.prepareStatement(
-                    "DELETE FROM pedido_detalle WHERE idpedido IN "
-                    + "(SELECT idpedido FROM pedido WHERE idcliente = ?)")) {
+                    "DELETE FROM pedido_detalle WHERE \"idPedido\" IN "
+                    + "(SELECT \"idPedido\" FROM pedido WHERE \"idCliente\" = ?)")) {
                 deleteDetails.setInt(1, customerId);
                 deleteDetails.executeUpdate();
             }
             for (String table : new String[]{"sesion", "favorito", "carrito", "pedido"}) {
                 try (PreparedStatement statement = connection.prepareStatement(
-                        "DELETE FROM " + table + " WHERE idcliente = ?")) {
+                        "DELETE FROM " + table + " WHERE \"idCliente\" = ?")) {
                     statement.setInt(1, customerId);
                     statement.executeUpdate();
                 }
             }
             try (PreparedStatement deleteCustomer = connection.prepareStatement(
-                    "DELETE FROM cliente WHERE idcliente = ?")) {
+                    "DELETE FROM cliente WHERE \"idCliente\" = ?")) {
                 deleteCustomer.setInt(1, customerId);
                 deleteCustomer.executeUpdate();
             }

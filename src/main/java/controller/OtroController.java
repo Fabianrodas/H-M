@@ -13,19 +13,19 @@ public class OtroController {
     
     public ArrayList<Categoria> ReadCategorias(){
         ArrayList<Categoria> categorias = new ArrayList<>();
-        String req = "SELECT c.idCategoria,c.nombre_categoria,s.idSubcategoria,s.nombre_Subcategoria,ss.idSubsub,ss.nombre_Subsub" +
-        " FROM Categoria c JOIN Subcategoria s ON c.idCategoria = s.idCategoria JOIN Subsub ss ON s.idSubcategoria = ss.idSubcategoria;";
+        String req = "SELECT c.\"idCategoria\",c.nombre_categoria,s.\"idSubcategoria\",s.\"nombre_Subcategoria\",ss.\"idSubsub\",ss.\"nombre_Subsub\"" +
+        " FROM categoria c JOIN subcategoria s ON c.\"idCategoria\" = s.\"idCategoria\" JOIN subsub ss ON s.\"idSubcategoria\" = ss.\"idSubcategoria\";";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int categoriaID = resultSet.getInt("idcategoria");
+                int categoriaID = resultSet.getInt("idCategoria");
                 String nombre_cat = resultSet.getString("nombre_categoria");
-                int subcategoriaID = resultSet.getInt("idsubcategoria");
-                String nombre_subcat = resultSet.getString("nombre_subcategoria");
-                int subsubID = resultSet.getInt("idsubsub");
-                String nombre_subsub = resultSet.getString("nombre_subsub");
+                int subcategoriaID = resultSet.getInt("idSubcategoria");
+                String nombre_subcat = resultSet.getString("nombre_Subcategoria");
+                int subsubID = resultSet.getInt("idSubsub");
+                String nombre_subsub = resultSet.getString("nombre_Subsub");
                 categorias.add(new Categoria(categoriaID,nombre_cat,subcategoriaID,nombre_subcat,subsubID,nombre_subsub));
             }
         }catch(SQLException e){
@@ -44,7 +44,7 @@ public class OtroController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int generoID = resultSet.getInt("idgenero");
+                int generoID = resultSet.getInt("idGenero");
                 String nombre = resultSet.getString("nombre");
                 generos.add(new Genero(generoID,nombre));
             }

@@ -14,7 +14,7 @@ public class FavoritoController {
     
     public int Create(Favorito favorito) {
         int result = 0;
-        String req = "INSERT INTO favorito(idProducto,idCliente)" + "VALUES (?, ?)";
+        String req = "INSERT INTO favorito(\"idProducto\",\"idCliente\") VALUES (?, ?)";
         try {
             connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -33,7 +33,7 @@ public class FavoritoController {
     
     public int Delete(int id) {
         int result = 0;
-        String req = "DELETE FROM favorito WHERE idFavorito=?";
+        String req = "DELETE FROM favorito WHERE \"idFavorito\"=?";
         try{
             this.connection.conectar();
             PreparedStatement statement =this.connection.getConnection().prepareStatement(req);
@@ -58,9 +58,9 @@ public class FavoritoController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int favoritoID = resultSet.getInt("idfavorito");
-                int productoID = resultSet.getInt("idproducto");
-                int clienteID = resultSet.getInt("idcliente");
+                int favoritoID = resultSet.getInt("idFavorito");
+                int productoID = resultSet.getInt("idProducto");
+                int clienteID = resultSet.getInt("idCliente");
                 favoritos.add(new Favorito(favoritoID,productoID,clienteID));
             }
         }catch(SQLException e){
@@ -74,14 +74,14 @@ public class FavoritoController {
     
     public ArrayList<Producto> favoritosCliente(int id) {
         ArrayList<Producto> favoritos = new ArrayList<>();
-        String req = "SELECT idProducto FROM favorito WHERE idCliente=?";
+        String req = "SELECT \"idProducto\" FROM favorito WHERE \"idCliente\"=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int idProd = resultSet.getInt("idproducto");
+                int idProd = resultSet.getInt("idProducto");
                 favoritos.add(productoController.GetById(idProd));
             }
         } catch(SQLException e){
@@ -95,16 +95,16 @@ public class FavoritoController {
     
     public Favorito GetById(int id){
         Favorito favorito = null;
-        String req = "SELECT * FROM favorito where idFavorito=?";
+        String req = "SELECT * FROM favorito where \"idFavorito\"=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int favoritoID = resultSet.getInt("idfavorito");
-                int productoID = resultSet.getInt("idproducto");
-                int clienteID = resultSet.getInt("idcliente");
+                int favoritoID = resultSet.getInt("idFavorito");
+                int productoID = resultSet.getInt("idProducto");
+                int clienteID = resultSet.getInt("idCliente");
                 favorito = new Favorito(favoritoID,productoID,clienteID);
             }
         }catch(SQLException e){
@@ -119,7 +119,7 @@ public class FavoritoController {
     
     public Favorito GetByClieProd(int idClie, int idProd){
         Favorito favorito = null;
-        String req = "SELECT * FROM favorito where idCliente=? AND idProducto=?";
+        String req = "SELECT * FROM favorito where \"idCliente\"=? AND \"idProducto\"=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -127,9 +127,9 @@ public class FavoritoController {
             statement.setInt(2, idProd);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int favoritoID = resultSet.getInt("idfavorito");
-                int productoID = resultSet.getInt("idproducto");
-                int clienteID = resultSet.getInt("idcliente");
+                int favoritoID = resultSet.getInt("idFavorito");
+                int productoID = resultSet.getInt("idProducto");
+                int clienteID = resultSet.getInt("idCliente");
                 favorito = new Favorito(favoritoID,productoID,clienteID);
             }
         }catch(SQLException e){
@@ -144,7 +144,7 @@ public class FavoritoController {
     
     public boolean tieneFavorito(int id) {
         int resultado = 0;
-        String req = "SELECT COUNT(idCliente) AS cliente FROM favorito WHERE idCliente=?";
+        String req = "SELECT COUNT(*) AS cliente FROM favorito WHERE \"idCliente\"=?";
         try {
            this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);

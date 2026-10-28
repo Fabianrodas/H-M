@@ -75,7 +75,7 @@ class CarritoControllerTest {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO cliente (nombre, apellido, correo, zipcode, fecha_nacimiento, contrasena, genero) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idcliente")) {
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING \"idCliente\"")) {
             statement.setString(1, "Cart");
             statement.setString(2, "Integration");
             statement.setString(3, email);
@@ -93,9 +93,9 @@ class CarritoControllerTest {
     private static void deleteCustomer(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement deleteCart = connection.prepareStatement(
-                        "DELETE FROM carrito WHERE idcliente = ?");
+                        "DELETE FROM carrito WHERE \"idCliente\" = ?");
                 PreparedStatement deleteCustomer = connection.prepareStatement(
-                        "DELETE FROM cliente WHERE idcliente = ?")) {
+                        "DELETE FROM cliente WHERE \"idCliente\" = ?")) {
             deleteCart.setInt(1, customerId);
             deleteCart.executeUpdate();
             deleteCustomer.setInt(1, customerId);

@@ -76,11 +76,11 @@ class PedidoCheckoutTest {
             throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT idcliente, fecha, total FROM pedido WHERE idpedido = ?")) {
+                        "SELECT \"idCliente\", fecha, total FROM pedido WHERE \"idPedido\" = ?")) {
             statement.setLong(1, orderId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
-                assertEquals(customerId, result.getInt("idcliente"));
+                assertEquals(customerId, result.getInt("idCliente"));
                 assertEquals(Date.valueOf(date), result.getDate("fecha"));
                 assertEquals(total, result.getBigDecimal("total"));
             }
@@ -90,22 +90,22 @@ class PedidoCheckoutTest {
     private static void assertOrderDetails(long orderId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT idproducto, talla, cantidad, precio_unitario, subtotal "
-                        + "FROM pedido_detalle WHERE idpedido = ? ORDER BY talla")) {
+                        "SELECT \"idProducto\", talla, cantidad, \"precioUnitario\", subtotal "
+                        + "FROM pedido_detalle WHERE \"idPedido\" = ? ORDER BY talla")) {
             statement.setLong(1, orderId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
-                assertEquals(1, result.getInt("idproducto"));
+                assertEquals(1, result.getInt("idProducto"));
                 assertEquals("L", result.getString("talla"));
                 assertEquals(1, result.getInt("cantidad"));
-                assertEquals(new BigDecimal("21.10"), result.getBigDecimal("precio_unitario"));
+                assertEquals(new BigDecimal("21.10"), result.getBigDecimal("precioUnitario"));
                 assertEquals(new BigDecimal("21.10"), result.getBigDecimal("subtotal"));
 
                 assertTrue(result.next());
-                assertEquals(1, result.getInt("idproducto"));
+                assertEquals(1, result.getInt("idProducto"));
                 assertEquals("M", result.getString("talla"));
                 assertEquals(2, result.getInt("cantidad"));
-                assertEquals(new BigDecimal("12.50"), result.getBigDecimal("precio_unitario"));
+                assertEquals(new BigDecimal("12.50"), result.getBigDecimal("precioUnitario"));
                 assertEquals(new BigDecimal("25.00"), result.getBigDecimal("subtotal"));
                 assertFalse(result.next());
             }
@@ -115,7 +115,7 @@ class PedidoCheckoutTest {
     private static long countOrders(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT COUNT(*) FROM pedido WHERE idcliente = ?")) {
+                        "SELECT COUNT(*) FROM pedido WHERE \"idCliente\" = ?")) {
             statement.setInt(1, customerId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
@@ -127,7 +127,7 @@ class PedidoCheckoutTest {
     private static long countOrderDetails(long orderId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT COUNT(*) FROM pedido_detalle WHERE idpedido = ?")) {
+                        "SELECT COUNT(*) FROM pedido_detalle WHERE \"idPedido\" = ?")) {
             statement.setLong(1, orderId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
@@ -140,7 +140,8 @@ class PedidoCheckoutTest {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "SELECT COUNT(*) FROM pedido_detalle detalle "
-                        + "JOIN pedido ON pedido.idpedido = detalle.idpedido WHERE pedido.idcliente = ?")) {
+                        + "JOIN pedido ON pedido.\"idPedido\" = detalle.\"idPedido\" "
+                        + "WHERE pedido.\"idCliente\" = ?")) {
             statement.setInt(1, customerId);
             try (ResultSet result = statement.executeQuery()) {
                 assertTrue(result.next());
@@ -154,7 +155,7 @@ class PedidoCheckoutTest {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO cliente (nombre, apellido, correo, zipcode, fecha_nacimiento, contrasena, genero) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idcliente")) {
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING \"idCliente\"")) {
             statement.setString(1, "Checkout");
             statement.setString(2, "Integration");
             statement.setString(3, email);
@@ -172,23 +173,23 @@ class PedidoCheckoutTest {
     private static void deleteCustomer(int customerId) throws SQLException {
         try (Connection connection = DatabaseConfig.loadDefault().openConnection()) {
             try (PreparedStatement deleteDetails = connection.prepareStatement(
-                    "DELETE FROM pedido_detalle WHERE idpedido IN "
-                    + "(SELECT idpedido FROM pedido WHERE idcliente = ?)")) {
+                    "DELETE FROM pedido_detalle WHERE \"idPedido\" IN "
+                    + "(SELECT \"idPedido\" FROM pedido WHERE \"idCliente\" = ?)")) {
                 deleteDetails.setInt(1, customerId);
                 deleteDetails.executeUpdate();
             }
             try (PreparedStatement deleteOrders = connection.prepareStatement(
-                    "DELETE FROM pedido WHERE idcliente = ?")) {
+                    "DELETE FROM pedido WHERE \"idCliente\" = ?")) {
                 deleteOrders.setInt(1, customerId);
                 deleteOrders.executeUpdate();
             }
             try (PreparedStatement deleteCart = connection.prepareStatement(
-                    "DELETE FROM carrito WHERE idcliente = ?")) {
+                    "DELETE FROM carrito WHERE \"idCliente\" = ?")) {
                 deleteCart.setInt(1, customerId);
                 deleteCart.executeUpdate();
             }
             try (PreparedStatement deleteCustomer = connection.prepareStatement(
-                    "DELETE FROM cliente WHERE idcliente = ?")) {
+                    "DELETE FROM cliente WHERE \"idCliente\" = ?")) {
                 deleteCustomer.setInt(1, customerId);
                 deleteCustomer.executeUpdate();
             }

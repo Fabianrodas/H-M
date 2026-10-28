@@ -78,10 +78,10 @@ try {
         throw "Unexpected PostgreSQL seed row counts: $($rowCounts -join '')."
     }
 
-    $uppercaseColumnCount = & $psql -X -A -t -h 127.0.0.1 -p $port -U hm_test -d hm-db -c `
-        "SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' AND column_name <> LOWER(column_name)"
-    if ($LASTEXITCODE -ne 0 -or $uppercaseColumnCount.Trim() -ne '0') {
-        throw 'PostgreSQL column names must be lowercase.'
+    $mixedCaseColumnCount = & $psql -X -A -t -h 127.0.0.1 -p $port -U hm_test -d hm-db -c `
+        "SELECT COUNT(*) FROM information_schema.columns WHERE table_schema='public' AND column_name ~ '[A-Z]'"
+    if ($LASTEXITCODE -ne 0 -or $mixedCaseColumnCount.Trim() -ne '24') {
+        throw "Expected 24 case-sensitive imported columns; found $($mixedCaseColumnCount -join '')."
     }
 
     $identityColumnCount = & $psql -X -A -t -h 127.0.0.1 -p $port -U hm_test -d hm-db -c `
@@ -89,7 +89,7 @@ try {
     if ($LASTEXITCODE -ne 0 -or $identityColumnCount.Trim() -ne '10') {
         throw "Expected ten PostgreSQL identity columns; found $($identityColumnCount -join '')."
     }
-    Write-Output 'Verified PostgreSQL seed row counts, lowercase columns, and ten identity columns.'
+    Write-Output 'Verified PostgreSQL seed row counts, quoted imported column names, and ten identity columns.'
 
     foreach ($sqlFile in $migrationFiles) {
         & $psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p $port -U hm_test -d hm-db -f $sqlFile

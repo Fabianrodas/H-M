@@ -15,7 +15,7 @@ public class CarritoController {
             return 0;
         }
         int result = 0;
-        String req = "INSERT INTO carrito(idCliente,idProducto,cantidad,precioUnitario,talla)" + "VALUES (?, ?, ?, ?, ?)";
+        String req = "INSERT INTO carrito(\"idCliente\",\"idProducto\",cantidad,\"precioUnitario\",talla) VALUES (?, ?, ?, ?, ?)";
         try {
             connection.conectar();
             try (PreparedStatement statement = this.connection.getConnection().prepareStatement(req)) {
@@ -38,7 +38,7 @@ public class CarritoController {
     
     public int Delete(int id) {
         int result = 0;
-        String req = "DELETE FROM carrito WHERE idCarrito=?";
+        String req = "DELETE FROM carrito WHERE \"idCarrito\"=?";
         try{
             this.connection.conectar();
             PreparedStatement statement =this.connection.getConnection().prepareStatement(req);
@@ -57,7 +57,7 @@ public class CarritoController {
     
     public int borrarCarritos(int id) {
         int result = 0;
-        String req = "DELETE FROM carrito WHERE idCliente=?";
+        String req = "DELETE FROM carrito WHERE \"idCliente\"=?";
         try{
             this.connection.conectar();
             PreparedStatement statement =this.connection.getConnection().prepareStatement(req);
@@ -82,11 +82,11 @@ public class CarritoController {
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idcarrito");
-                int clienteID = resultSet.getInt("idcliente");
-                int productoID = resultSet.getInt("idproducto");
+                int carritoID = resultSet.getInt("idCarrito");
+                int clienteID = resultSet.getInt("idCliente");
+                int productoID = resultSet.getInt("idProducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("preciounitario");
+                double precio = resultSet.getDouble("precioUnitario");
                 String talla = resultSet.getString("talla");
                 carritos.add(new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla));
             }
@@ -100,7 +100,7 @@ public class CarritoController {
 
     public Carrito ReadByCliePro(int idClie, int idProd, String tallaBuscada){
         Carrito carrito = null;
-        String req = "SELECT * FROM carrito WHERE idCliente=? AND idProducto=? AND talla=?";
+        String req = "SELECT * FROM carrito WHERE \"idCliente\"=? AND \"idProducto\"=? AND talla=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
@@ -109,11 +109,11 @@ public class CarritoController {
             statement.setString(3, tallaBuscada);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idcarrito");
-                int clienteID = resultSet.getInt("idcliente");
-                int productoID = resultSet.getInt("idproducto");
+                int carritoID = resultSet.getInt("idCarrito");
+                int clienteID = resultSet.getInt("idCliente");
+                int productoID = resultSet.getInt("idProducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("preciounitario");
+                double precio = resultSet.getDouble("precioUnitario");
                 String talla = resultSet.getString("talla");
                 carrito = new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla);
             }
@@ -129,18 +129,18 @@ public class CarritoController {
     
     public Carrito ReadById(int id){
         Carrito carrito = null;
-        String req = "SELECT * FROM carrito where idCarrito=?";
+        String req = "SELECT * FROM carrito where \"idCarrito\"=?";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idcarrito");
-                int clienteID = resultSet.getInt("idcliente");
-                int productoID = resultSet.getInt("idproducto");
+                int carritoID = resultSet.getInt("idCarrito");
+                int clienteID = resultSet.getInt("idCliente");
+                int productoID = resultSet.getInt("idProducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("preciounitario");
+                double precio = resultSet.getDouble("precioUnitario");
                 String talla = resultSet.getString("talla");
                 carrito = new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla);
             }
@@ -156,18 +156,18 @@ public class CarritoController {
     
     public ArrayList<Carrito> ReadByCliente(int id){
         ArrayList<Carrito> carrito = new ArrayList<>();
-        String req = "SELECT * FROM carrito WHERE idCliente=? ORDER BY idCarrito";
+        String req = "SELECT * FROM carrito WHERE \"idCliente\"=? ORDER BY \"idCarrito\"";
         try {
             this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int carritoID = resultSet.getInt("idcarrito");
-                int clienteID = resultSet.getInt("idcliente");
-                int productoID = resultSet.getInt("idproducto");
+                int carritoID = resultSet.getInt("idCarrito");
+                int clienteID = resultSet.getInt("idCliente");
+                int productoID = resultSet.getInt("idProducto");
                 int cantidad = resultSet.getInt("cantidad");
-                double precio = resultSet.getDouble("preciounitario");
+                double precio = resultSet.getDouble("precioUnitario");
                 String talla = resultSet.getString("talla");
                 carrito.add(new Carrito(carritoID,clienteID,productoID,cantidad,precio,talla));
             }
@@ -184,7 +184,7 @@ public class CarritoController {
     
     public boolean tieneCarrito(int id) {
         int resultado = 0;
-        String req = "SELECT COUNT(idCliente) AS cliente FROM carrito WHERE idCliente=?";
+        String req = "SELECT COUNT(*) AS cliente FROM carrito WHERE \"idCliente\"=?";
         try {
            this.connection.conectar();
             PreparedStatement statement = this.connection.getConnection().prepareStatement(req);
