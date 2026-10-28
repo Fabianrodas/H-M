@@ -34,7 +34,7 @@ public class RegistroController {
     @FXML private PasswordField passwordField;
     @FXML private TextField textField, txtemail, txtnombre, txtapellido, txtzipcode, emailSignin;
     @FXML private DatePicker datePicker;
-    @FXML private ComboBox cmbGenero;
+    @FXML private ComboBox<String> cmbGenero;
     @FXML private ClienteController clienteController = new ClienteController();
     @FXML private SesionController sesionController = new SesionController();
     @FXML private CheckBox checkbox;

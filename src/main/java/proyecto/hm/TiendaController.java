@@ -403,7 +403,7 @@ public class TiendaController implements Initializable {
             }
         }
 
-        tableNames = new ArrayList(Arrays.asList("Producto","Cliente","Carrito","Favorito","Categoría (JOIN)","Sesión","Género","Pedido"));
+        tableNames = new ArrayList<>(Arrays.asList("Producto","Cliente","Carrito","Favorito","Categoría (JOIN)","Sesión","Género","Pedido"));
         
         if(stackPane != null) {
             cidproducto.setCellValueFactory(cellData -> cellData.getValue().getIdProd());
