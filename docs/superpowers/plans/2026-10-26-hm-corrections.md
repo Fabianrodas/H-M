@@ -245,11 +245,11 @@
 
 **Archivos:**
 - Modificar: `src/main/java/proyecto/hm/TiendaController.java`.
-- Crear: `src/test/java/proyecto/hm/TiendaControllerGuestIntegrationTest.java`.
+- Modificar: `src/test/java/proyecto/hm/TiendaProductImageIntegrationTest.java`.
 
-- [ ] Cargar la vista real de detalles como visitante contra PostgreSQL temporal y confirmar que falla con el NPE actual.
-- [ ] Evitar consultar favoritos cuando no hay cliente; mantener las acciones de inicio de sesión y el diseño actual.
-- [ ] Repetir la prueba de integración y la suite PostgreSQL completa; no tocar los INSERT originales.
+- [x] Cargar la vista real de detalles como visitante contra PostgreSQL temporal y confirmar el NPE en `cliente.getIdCliente()` antes del arreglo.
+- [x] Evitar consultar favoritos cuando no hay cliente; mantener las acciones de inicio de sesión y el diseño actual.
+- [x] Repetir la prueba de integración y la suite PostgreSQL completa (35/35); no tocar los INSERT originales.
 - [ ] Commit en main: `fix: allow guests to open product details`
 
 ### Task 13: Guardar la fecha de nacimiento en PostgreSQL
@@ -271,11 +271,11 @@
 **Archivos:**
 - Crear: `src/main/java/proyecto/hm/ImageResources.java`.
 - Modificar: `LoadingController.java`, `TiendaController.java` y `CompraController.java`.
-- Modificar: `src/test/java/proyecto/hm/TiendaControllerGuestIntegrationTest.java` para probar el detalle como cliente autenticado y como visitante.
+- Modificar: `src/test/java/proyecto/hm/TiendaProductImageIntegrationTest.java` para probar el detalle como cliente autenticado y como visitante.
 
 - [x] Cargar imágenes con URLs obtenidas del classpath sin cambiar el diseño.
 - [x] Verificar la vista real de detalle autenticada; la regresión de visitante ahora alcanza el NPE esperado en `TiendaController.java:394`.
 - [x] Ejecutar la suite PostgreSQL temporal (34/34) y comprobar que los 119 nombres de imagen de producto distintos existen en recursos.
-- [ ] Commit en main: `fix: load application images from classpath`
+- [x] Commit en main: `0417fbd fix: load application images from classpath`
 
 **Orden:** completar antes de Task 12 para que el error de imágenes no oculte el fallo real de visitante.

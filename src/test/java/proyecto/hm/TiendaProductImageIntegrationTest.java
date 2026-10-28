@@ -57,6 +57,25 @@ class TiendaProductImageIntegrationTest {
         assertNotNull(product, "The PostgreSQL seed must contain a product");
         ProductoSingleton.getInstance().setProducto(product);
 
+        Throwable loadFailure = loadProductDetails();
+
+        assertNull(loadFailure, () -> describeFailure(loadFailure));
+    }
+
+    @Test
+    void guestCanOpenProductDetails() throws InterruptedException {
+        ClienteSingleton.getInstance().signOut();
+        new SesionController().Delete();
+        Producto product = new ProductoController().Read().get(0);
+        assertNotNull(product, "The PostgreSQL seed must contain a product");
+        ProductoSingleton.getInstance().setProducto(product);
+
+        Throwable loadFailure = loadProductDetails();
+
+        assertNull(loadFailure, () -> describeFailure(loadFailure));
+    }
+
+    private Throwable loadProductDetails() throws InterruptedException {
         AtomicReference<Throwable> loadFailure = new AtomicReference<>();
         CountDownLatch loadFinished = new CountDownLatch(1);
         Platform.runLater(() -> {
@@ -74,7 +93,7 @@ class TiendaProductImageIntegrationTest {
         });
 
         assertTrue(loadFinished.await(15, TimeUnit.SECONDS), "Product details loading must finish");
-        assertNull(loadFailure.get(), () -> describeFailure(loadFailure.get()));
+        return loadFailure.get();
     }
 
     private static String describeFailure(Throwable failure) {

@@ -390,7 +390,7 @@ public class TiendaController implements Initializable {
         }
         
         
-        if(btnFavorito != null){
+        if(btnFavorito != null && cliente != null){
             ArrayList<Producto> productosFavoritos = favoritoController.favoritosCliente(cliente.getIdCliente());
             for(Producto p : productosFavoritos){
                 if(p.getIdProd() == producto.getIdProd()) {
