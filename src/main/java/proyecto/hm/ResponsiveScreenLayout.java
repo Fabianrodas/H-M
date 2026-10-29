@@ -65,15 +65,15 @@ final class ResponsiveScreenLayout {
             return;
         }
 
-        Button resetButton = new Button("100%");
+        Button resetButton = new Button("Original size");
         resetButton.setId("resetWindowSizeButton");
         resetButton.setMnemonicParsing(false);
         resetButton.setAccessibleText("Restore original window size");
         resetButton.setTooltip(new Tooltip("Restore original window size"));
         resetButton.getStyleClass().add("reset-size-button");
-        resetButton.setPrefWidth(52);
-        resetButton.setMinWidth(52);
-        resetButton.setMaxWidth(52);
+        resetButton.setPrefWidth(90);
+        resetButton.setMinWidth(90);
+        resetButton.setMaxWidth(90);
         resetButton.setPrefHeight(themeButton.prefHeight(-1));
 
         double themeButtonWidth = themeButton.prefWidth(-1);

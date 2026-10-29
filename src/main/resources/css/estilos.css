@@ -191,9 +191,9 @@
 }
 
 .reset-size-button {
-    -fx-pref-width: 52px;
-    -fx-min-width: 52px;
-    -fx-max-width: 52px;
+    -fx-pref-width: 90px;
+    -fx-min-width: 90px;
+    -fx-max-width: 90px;
     -fx-pref-height: 26px;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
