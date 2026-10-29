@@ -1,0 +1,227 @@
+/* H&M dark palette, attached only while the app-wide dark theme is active. */
+.theme-dark {
+    -fx-background-color: #171717;
+    -fx-base: #232323;
+    -fx-background: #171717;
+    -fx-control-inner-background: #252525;
+    -fx-control-inner-background-alt: #2d2d2d;
+    -fx-text-base-color: #f2f2f2;
+    -fx-text-background-color: #f2f2f2;
+    -fx-accent: #8b1e2d;
+    -fx-focus-color: #b33b49;
+    -fx-faint-focus-color: rgba(179, 59, 73, 0.22);
+}
+
+.theme-dark .scroll-pane,
+.theme-dark .scroll-pane > .viewport,
+.theme-dark .split-pane,
+.theme-dark .tab-pane > .tab-content-area,
+.theme-dark .titled-pane > .content,
+.theme-dark .accordion {
+    -fx-background-color: #171717;
+}
+
+.theme-dark .label {
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .text {
+    -fx-fill: #f0f0f0;
+}
+
+.theme-dark .text-field,
+.theme-dark .password-field,
+.theme-dark .text-area .content,
+.theme-dark .combo-box-base,
+.theme-dark .date-picker,
+.theme-dark .spinner,
+.theme-dark #cmbGenero {
+    -fx-background-color: #252525;
+    -fx-control-inner-background: #252525;
+    -fx-text-fill: #f2f2f2;
+    -fx-prompt-text-fill: #a4a4a4;
+    -fx-border-color: #555555;
+}
+
+.theme-dark .combo-box .list-cell,
+.theme-dark .list-view,
+.theme-dark .list-cell,
+.theme-dark .choice-box,
+.theme-dark .choice-box .menu-item {
+    -fx-background-color: #252525;
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .combo-box-popup .list-view .list-cell:hover,
+.theme-dark .list-cell:filled:selected,
+.theme-dark .menu-item:focused {
+    -fx-background-color: #454545;
+    -fx-text-fill: #ffffff;
+}
+
+.theme-dark .button {
+    -fx-background-color: #303030;
+    -fx-border-color: #555555;
+    -fx-text-fill: #f5f5f5;
+}
+
+.theme-dark .button:hover {
+    -fx-background-color: #414141;
+}
+
+.theme-dark .button:focused {
+    -fx-border-color: #b33b49;
+    -fx-border-width: 2px;
+}
+
+.theme-dark #signin1,
+.theme-dark #btnRegistrar,
+.theme-dark #changePicture,
+.theme-dark #btnsignin,
+.theme-dark #btnSavePassword,
+.theme-dark #btnComprar,
+.theme-dark #btnPedido,
+.theme-dark #btnBrowse,
+.theme-dark #addBag,
+.theme-dark .alert-action-primary {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #f0f0f0;
+    -fx-text-fill: #111111;
+}
+
+.theme-dark #signin2,
+.theme-dark #become_member,
+.theme-dark #btnSignin,
+.theme-dark #deletePicture,
+.theme-dark #checkoutButton,
+.theme-dark .alert-action-secondary {
+    -fx-background-color: #292929;
+    -fx-border-color: #777777;
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark #btnsearch {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f0f0f0;
+    -fx-prompt-text-fill: #b0b0b0;
+}
+
+.theme-dark .menu-bar,
+.theme-dark .context-menu {
+    -fx-background-color: #222222;
+}
+
+.theme-dark .menu,
+.theme-dark .menu-item,
+.theme-dark .custom-menu-item {
+    -fx-background-color: #222222;
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .menu:hover,
+.theme-dark .custom-menu-item:hover,
+.theme-dark .menu-item:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: #ffffff;
+}
+
+.theme-dark .scroll-bar,
+.theme-dark .scroll-bar:vertical,
+.theme-dark .scroll-bar:horizontal,
+.theme-dark .scroll-bar .track {
+    -fx-background-color: #202020;
+}
+
+.theme-dark .scroll-bar .thumb {
+    -fx-background-color: #666666;
+    -fx-background-radius: 7px;
+}
+
+.theme-dark .separator .line {
+    -fx-border-color: #555555;
+}
+
+.theme-dark .rectangle {
+    -fx-fill: #242424;
+    -fx-stroke: #414141;
+}
+
+.theme-dark .table-view,
+.theme-dark .table-view .virtual-flow .clipped-container,
+.theme-dark .table-row-cell,
+.theme-dark .column-header-background,
+.theme-dark .filler {
+    -fx-background-color: #222222;
+    -fx-border-color: #414141;
+}
+
+.theme-dark .table-cell,
+.theme-dark .column-header {
+    -fx-text-fill: #eeeeee;
+}
+
+.theme-dark .table-row-cell:odd {
+    -fx-background-color: #292929;
+}
+
+.theme-dark .table-row-cell:selected {
+    -fx-background-color: #5d2630;
+}
+
+.theme-dark .table-view .table-cell {
+    -fx-text-fill: #eeeeee;
+}
+
+.theme-dark .check-box .box,
+.theme-dark .radio-button .radio {
+    -fx-background-color: #292929;
+    -fx-border-color: #777777;
+}
+
+.theme-dark .progress-bar .track {
+    -fx-background-color: #3a3a3a;
+}
+
+.theme-dark #anchorpaneMember,
+.theme-dark #vboxSignin {
+    -fx-background-color: #202020;
+    -fx-border-color: #555555;
+}
+
+.theme-dark .negrita {
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .theme-toggle-button {
+    -fx-background-color: #262626;
+    -fx-border-color: #929292;
+    -fx-text-fill: #ffffff;
+}
+
+.theme-dark .theme-toggle-button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.theme-dark .hero-cta {
+    -fx-text-fill: #111111;
+}
+
+.theme-dark .hm-alert-window,
+.theme-dark .hm-alert-content-panel {
+    -fx-background-color: #202020;
+    -fx-border-color: #4b4b4b;
+}
+
+.theme-dark .hm-alert-window-title,
+.theme-dark .hm-alert-heading,
+.theme-dark .hm-alert-content {
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .hm-alert-close-button {
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .hm-alert-close-button:hover {
+    -fx-background-color: #3a3a3a;
+}

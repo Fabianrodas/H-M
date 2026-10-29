@@ -118,6 +118,7 @@ public class RegistroController {
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+        ThemeManager.apply(scene);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -136,6 +137,7 @@ public class RegistroController {
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+        ThemeManager.apply(scene);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -153,6 +155,7 @@ public class RegistroController {
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+        ThemeManager.apply(scene);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(javafx.stage.StageStyle.UNDECORATED);

@@ -99,6 +99,7 @@ public final class HmAlert {
 
             Scene scene = new Scene(root);
             scene.setFill(Color.TRANSPARENT);
+            ThemeManager.apply(scene);
             scene.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE) {
                     controller.dismiss();

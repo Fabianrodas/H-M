@@ -51,7 +51,7 @@ public class TiendaController implements Initializable {
     @FXML private Rectangle rectanguloPie;
     @FXML private MenuItem bd, about;
     @FXML private ImageView logoHM, imagen_producto, imagenPie;
-    @FXML private Button btnNext, btnPrevious, btnsearch, btnsignin, btnFavorito, btnxs, btns, btnm, btnl, btnxl, btnxxl, btnPedido;
+    @FXML private Button btnNext, btnPrevious, btnsearch, btnsignin, btnFavorito, btnxs, btns, btnm, btnl, btnxl, btnxxl, btnPedido, themeToggleButton;
     @FXML private Label cliente_nombre, labelLlena, preciototal, labelCantidad, nombre_producto, descripcion_producto,
     precio_producto, labelPie, labelGenero, labelSeccion, labelNom_producto, labelid_producto;
 
@@ -155,6 +155,8 @@ public class TiendaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {        
         
         prod = 0;
+        configureThemeToggleButton();
+        updateThemeToggleButton();
         
         List<Text> textos = Arrays.asList(baby_baby, baby_newborn, babyboy_clothing, babyboy_outerwear,babyboy_shoes, babygirl_clothing, babygirl_outerwear, babygirl_shoes,boy1_clothing, boy1_outerwear, 
         boy1_shoes, boy2_clothing, boy2_outerwear, boy2_shoes,girl1_clothing, girl1_outerwear, girl1_shoes, girl2_clothing, girl2_outerwear,girl2_shoes,kids1, kids2, men_clothes, men_dress_shoes, men_gym, men_hoodies,men_jeans, men_pants, men_running, men_shirts, men_shoes, 
@@ -216,6 +218,7 @@ public class TiendaController implements Initializable {
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
                     scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                    ThemeManager.apply(scene);
                     stage.setScene(scene);
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -284,6 +287,7 @@ public class TiendaController implements Initializable {
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
                     scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                    ThemeManager.apply(scene);
                     stage.setScene(scene);
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -348,6 +352,7 @@ public class TiendaController implements Initializable {
                             Scene scene = new Scene(fxmlLoader.load());
                             Stage stage = new Stage();
                             scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                            ThemeManager.apply(scene);
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -607,6 +612,44 @@ public class TiendaController implements Initializable {
             b.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
         }
     }
+
+    @FXML
+    private void toggleTheme() {
+        ThemeManager.toggle();
+        updateThemeToggleButton();
+    }
+
+    private void configureThemeToggleButton() {
+        if (themeToggleButton != null || logoHM == null) {
+            return;
+        }
+
+        Node ancestor = logoHM.getParent();
+        while (ancestor != null && !(ancestor instanceof AnchorPane)) {
+            ancestor = ancestor.getParent();
+        }
+        if (!(ancestor instanceof AnchorPane header)) {
+            return;
+        }
+
+        themeToggleButton = new Button();
+        themeToggleButton.setLayoutX(26.0);
+        themeToggleButton.setLayoutY(34.0);
+        themeToggleButton.setPrefSize(118.0, 28.0);
+        themeToggleButton.getStyleClass().add("theme-toggle-button");
+        themeToggleButton.setOnAction(event -> toggleTheme());
+        header.getChildren().add(themeToggleButton);
+    }
+
+    private void updateThemeToggleButton() {
+        if (themeToggleButton == null) {
+            return;
+        }
+        boolean darkMode = ThemeManager.isDarkMode();
+        themeToggleButton.setText(darkMode ? "Modo claro" : "Modo oscuro");
+        themeToggleButton.setAccessibleText(
+                darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+    }
     
     @FXML
     private void agregarUno(){
@@ -792,6 +835,7 @@ public class TiendaController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
                 scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                ThemeManager.apply(scene);
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -1180,6 +1224,7 @@ public class TiendaController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
                 scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                ThemeManager.apply(scene);
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initStyle(javafx.stage.StageStyle.UNDECORATED);

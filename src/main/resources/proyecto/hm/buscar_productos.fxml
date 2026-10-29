@@ -467,25 +467,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="26.0" layoutY="34.0" prefHeight="26.0" prefWidth="216.0" spacing="5.0">
-                     <children>
-                        <HBox prefHeight="26.0" prefWidth="56.0">
-                           <children>
-                              <Label prefHeight="18.0" prefWidth="53.0" text="Fabián R." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="26.0" prefWidth="52.0">
-                           <children>
-                              <Label text="Paula B." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="26.0" prefWidth="98.0">
-                           <children>
-                              <Label text="Proyecto2P (POO)" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
+                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
                   <ImageView fx:id="imagenPie" fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="532.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />

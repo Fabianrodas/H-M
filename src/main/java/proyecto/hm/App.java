@@ -22,6 +22,7 @@ public class App extends Application {
         Image icon = new Image(getClass().getResourceAsStream("/imagenes/h&m.png"));
         String css = getClass().getResource("/css/estilos.css").toExternalForm();
         scene.getStylesheets().add(css);
+        ThemeManager.apply(scene);
         stage.setScene(scene);
         stage.setTitle("H&M Store");
         stage.getIcons().add(icon);
@@ -38,6 +39,7 @@ public class App extends Application {
             return;
         }
         scene.setRoot(loadFXML(fxml));
+        ThemeManager.apply(scene);
     }
     
     public static void setRootWithTransition(String fxml) throws IOException {
@@ -50,6 +52,7 @@ public class App extends Application {
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(event -> {
             scene.setRoot(newRoot);
+            ThemeManager.apply(scene);
             FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), scene.getRoot());
             fadeIn.setFromValue(0.0);
             fadeIn.setToValue(1.0);

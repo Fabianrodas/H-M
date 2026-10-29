@@ -404,25 +404,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="26.0" layoutY="34.0" prefHeight="26.0" prefWidth="216.0" spacing="5.0">
-                     <children>
-                        <HBox prefHeight="26.0" prefWidth="56.0">
-                           <children>
-                              <Label prefHeight="18.0" prefWidth="53.0" text="Fabián R." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="26.0" prefWidth="52.0">
-                           <children>
-                              <Label text="Paula B." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="26.0" prefWidth="98.0">
-                           <children>
-                              <Label text="Proyecto2P (POO)" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
+                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
                   <Label layoutX="324.0" layoutY="143.0" text="HM.com / " />
                   <ImageView fitHeight="256.0" fitWidth="449.0" layoutX="149.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true" translateY="35.0">
                      <image>
@@ -434,7 +416,7 @@
                         <Font name="Franklin Gothic Heavy" size="24.0" />
                      </font>
                   </Label>
-                  <Button layoutX="337.0" layoutY="713.0" mnemonicParsing="false" onAction="#switchToMen_clothes" style="-fx-background-color: white; -fx-border-color: white;" text="Shop now" translateY="10.0">
+                  <Button layoutX="337.0" layoutY="713.0" mnemonicParsing="false" onAction="#switchToMen_clothes" style="-fx-background-color: white; -fx-border-color: white;" styleClass="hero-cta" text="Shop now" translateY="10.0">
                      <font>
                         <Font name="Leelawadee UI Bold" size="12.0" />
                      </font>
@@ -449,7 +431,7 @@
                         <Font name="Franklin Gothic Heavy" size="24.0" />
                      </font>
                   </Label>
-                  <Button layoutX="335.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToMen_shirts" style="-fx-background-color: white; -fx-border-color: white;" text="Shop now">
+                  <Button layoutX="335.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToMen_shirts" style="-fx-background-color: white; -fx-border-color: white;" styleClass="hero-cta" text="Shop now">
                      <font>
                         <Font name="Leelawadee UI Bold" size="12.0" />
                      </font>

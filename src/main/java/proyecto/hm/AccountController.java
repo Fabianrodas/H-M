@@ -46,7 +46,7 @@ import modelo.DatabaseConfig;
 
 
 public class AccountController implements Initializable {
-    @FXML private Button changePicture, btnSavePassword, btnAccountSettings, btnsearch, btnsignin;       
+    @FXML private Button changePicture, btnSavePassword, btnAccountSettings, btnsearch, btnsignin, themeToggleButton;
     @FXML private ImageView fotoUsuario, logoHM;    
     @FXML private TextField accName, accApellido, accEmail, accGenero, accFecha;
     @FXML private PasswordField accPassword, newPassword;
@@ -71,6 +71,7 @@ public class AccountController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        updateThemeToggleButton();
      
         if(sesionController.haySesion()){
             cliente = clienteController.ReadById(sesionController.getSesion().getIdCliente());
@@ -229,6 +230,7 @@ public class AccountController implements Initializable {
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
                     scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                    ThemeManager.apply(scene);
                     stage.setScene(scene);
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -269,6 +271,7 @@ public class AccountController implements Initializable {
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
                     scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                    ThemeManager.apply(scene);
                     stage.setScene(scene);
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
@@ -347,6 +350,21 @@ public class AccountController implements Initializable {
             Image image = new Image(destino.toURI().toString());
             fotoUsuario.setImage(image);
         }
+    }
+
+    @FXML
+    private void toggleTheme() {
+        ThemeManager.toggle();
+    }
+
+    private void updateThemeToggleButton() {
+        if (themeToggleButton == null) {
+            return;
+        }
+        boolean darkMode = ThemeManager.isDarkMode();
+        themeToggleButton.setText(darkMode ? "Modo claro" : "Modo oscuro");
+        themeToggleButton.setAccessibleText(
+                darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
     }
 
     private void guardarImagenBD(String imageName) {
@@ -467,6 +485,7 @@ public class AccountController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
                 scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+                ThemeManager.apply(scene);
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initStyle(javafx.stage.StageStyle.UNDECORATED);

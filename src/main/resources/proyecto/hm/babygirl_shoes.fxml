@@ -404,25 +404,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="26.0" layoutY="34.0" prefHeight="26.0" prefWidth="216.0" spacing="5.0">
-                     <children>
-                        <HBox prefHeight="26.0" prefWidth="56.0">
-                           <children>
-                              <Label prefHeight="18.0" prefWidth="53.0" text="Fabián R." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="26.0" prefWidth="52.0">
-                           <children>
-                              <Label text="Paula B." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="26.0" prefWidth="98.0">
-                           <children>
-                              <Label text="Proyecto2P (POO)" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
+                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
                   <Label layoutX="271.0" layoutY="143.0" text="HM.com / Baby / Baby girl /" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="175.0" width="741.0" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="330.0">
