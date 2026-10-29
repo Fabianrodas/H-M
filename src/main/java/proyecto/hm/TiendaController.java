@@ -242,7 +242,6 @@ public class TiendaController implements Initializable {
             cliente = ClienteSingleton.getInstance().getCliente();
         }
         applyPasswordPolicyForCurrentSession();
-        applyDatabaseEntryVisibility();
         
         producto = ProductoSingleton.getInstance().getProducto();
         if (producto != null) {
@@ -749,18 +748,6 @@ public class TiendaController implements Initializable {
         }
     }
 
-    private void applyDatabaseEntryVisibility() {
-        boolean visible = AdminAccess.currentUserCanAccessDatabase();
-        if (bd != null) {
-            bd.setVisible(visible);
-            bd.setDisable(!visible);
-        }
-        if (bd2 != null) {
-            bd2.setVisible(visible);
-            bd2.setManaged(visible);
-        }
-    }
-
     private void applyPasswordPolicyForCurrentSession() {
         ClienteSingleton currentUser = ClienteSingleton.getInstance();
         if (cliente == null) {
@@ -768,7 +755,7 @@ public class TiendaController implements Initializable {
             return;
         }
 
-        boolean admin = AdminAccess.canAccessDatabase(
+        boolean admin = AdminAccess.isConfiguredAdmin(
                 cliente.getCorreo(), DatabaseConfig.loadDefault().getAdminEmail());
         boolean forceChange = PasswordService.requiresPasswordChange(cliente.getContrasena());
         if (PasswordService.isLegacyHex(cliente.getContrasena())) {

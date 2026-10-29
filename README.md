@@ -18,7 +18,7 @@ Todo el contenido de ejemplo es ficticio. No uses información personal ni contr
 - Añadir distintas tallas de una prenda al carrito.
 - Revisar el carrito y completar un pedido.
 - Crear y administrar una cuenta de demostración.
-- Consultar la zona de administración con una cuenta autorizada.
+- Consultar las tablas de la base de datos desde la sección BD.
 
 ## Ejecutar en Windows
 

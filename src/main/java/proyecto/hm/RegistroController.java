@@ -271,7 +271,7 @@ public class RegistroController {
                 return;
             }
 
-            boolean admin = AdminAccess.canAccessDatabase(
+            boolean admin = AdminAccess.isConfiguredAdmin(
                     cliente.getCorreo(), DatabaseConfig.loadDefault().getAdminEmail());
             if (verification.needsUpgrade()) {
                 String upgradedPassword = admin

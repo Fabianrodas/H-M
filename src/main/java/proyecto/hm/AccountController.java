@@ -43,7 +43,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Producto;
-import modelo.AdminAccess;
 import modelo.PasswordService;
 import modelo.DatabaseConfig;
 
@@ -215,7 +214,6 @@ public class AccountController implements Initializable {
         
         initializeMenuItem(bd, "bd");
         initializeMenuItem(about, "about");
-        applyDatabaseEntryVisibility();
         ventanaNueva(member, "become_member");
                   
         signin.setOnMouseClicked(e -> {
@@ -452,18 +450,6 @@ public class AccountController implements Initializable {
                     Logger.getLogger(TiendaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-        }
-    }
-
-    private void applyDatabaseEntryVisibility() {
-        boolean visible = AdminAccess.currentUserCanAccessDatabase();
-        if (bd != null) {
-            bd.setVisible(visible);
-            bd.setDisable(!visible);
-        }
-        if (bd2 != null) {
-            bd2.setVisible(visible);
-            bd2.setManaged(visible);
         }
     }
 

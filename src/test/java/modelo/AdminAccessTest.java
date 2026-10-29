@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 class AdminAccessTest {
 
     @Test
-    void deniesNonAdminMenuAndDirectRoute() {
-        assertFalse(AdminAccess.canAccessDatabase("customer@example.test", "admin@example.test"));
-        assertFalse(AdminAccess.canAccessDatabase(null, "admin@example.test"));
-        assertFalse(AdminAccess.canAccessDatabase("admin@example.test", ""));
+    void doesNotRecognizeDifferentOrMissingAdminEmails() {
+        assertFalse(AdminAccess.isConfiguredAdmin("customer@example.test", "admin@example.test"));
+        assertFalse(AdminAccess.isConfiguredAdmin(null, "admin@example.test"));
+        assertFalse(AdminAccess.isConfiguredAdmin("admin@example.test", ""));
     }
 
     @Test
-    void allowsConfiguredAdminWithoutCaseSensitivity() {
-        assertTrue(AdminAccess.canAccessDatabase("Admin@example.test", "admin@example.test"));
+    void recognizesConfiguredAdminWithoutCaseSensitivity() {
+        assertTrue(AdminAccess.isConfiguredAdmin("Admin@example.test", "admin@example.test"));
     }
 }

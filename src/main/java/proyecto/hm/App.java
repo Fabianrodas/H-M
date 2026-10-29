@@ -11,7 +11,6 @@ import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-import modelo.AdminAccess;
 import modelo.ClienteSingleton;
 
 public class App extends Application {
@@ -62,12 +61,10 @@ public class App extends Application {
 
     private static boolean isRouteAllowed(String fxml) {
         ClienteSingleton currentUser = ClienteSingleton.getInstance();
-        if (currentUser.isPasswordChangeRequired() && !"accountsettings".equalsIgnoreCase(fxml)) {
+        if (currentUser.isPasswordChangeRequired()
+                && !"accountsettings".equalsIgnoreCase(fxml)
+                && !"bd".equalsIgnoreCase(fxml)) {
             showAccessMessage("Actualiza tu contraseña antes de continuar.");
-            return false;
-        }
-        if ("bd".equalsIgnoreCase(fxml) && !AdminAccess.currentUserCanAccessDatabase()) {
-            showAccessMessage("Esta pantalla solo está disponible para la cuenta administradora local.");
             return false;
         }
         return true;
