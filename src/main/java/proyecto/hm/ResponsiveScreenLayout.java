@@ -14,6 +14,7 @@ import java.util.Set;
 final class ResponsiveScreenLayout {
 
     private static final double DESIGN_WIDTH = 750;
+    private static final double MAX_BODY_WIDTH = 1280;
     private static final String BASE_TRANSLATE_X = "responsive-base-translate-x";
     private static final String BASE_FOOTER_RIGHT = "responsive-base-footer-right";
 
@@ -97,20 +98,34 @@ final class ResponsiveScreenLayout {
             }
             double newWidth = content.getWidth();
             double horizontalGrowth = newWidth - DESIGN_WIDTH;
+            double centeredCanvasOffset = horizontalGrowth / 2;
+            double bodyOffset = responsivePanels.isEmpty()
+                    ? centeredCanvasOffset
+                    : Math.max(0, (newWidth - Math.min(newWidth, MAX_BODY_WIDTH)) / 2);
+            double footerTop = footerTop(content);
             for (Node node : content.getChildren()) {
-                if (responsivePanels.contains(node) || isHorizontallyAnchored(node)) {
+                if (responsivePanels.contains(node)) {
+                    double left = (double) node.getProperties().get(ResponsiveProductGrid.BASE_PANEL_LEFT);
+                    double right = (double) node.getProperties().get(ResponsiveProductGrid.BASE_PANEL_RIGHT);
+                    AnchorPane.setLeftAnchor(node, bodyOffset + left);
+                    AnchorPane.setRightAnchor(node, bodyOffset + right);
+                    continue;
+                }
+                if (isHorizontallyAnchored(node)) {
                     continue;
                 }
 
                 double baseTranslateX = (double) node.getProperties().get(BASE_TRANSLATE_X);
-                if (node.getStyleClass().contains("footer-background")) {
+                if (isFooterNode(node, footerTop)) {
                     node.setTranslateX(baseTranslateX);
                 } else if ("themeToggleButton".equals(node.getId())) {
                     node.setTranslateX(baseTranslateX);
                 } else if ("hboxCuenta".equals(node.getId()) || "vboxSearch".equals(node.getId())) {
                     node.setTranslateX(baseTranslateX + horizontalGrowth);
+                } else if (isBodyNode(node, footerTop)) {
+                    node.setTranslateX(baseTranslateX + bodyOffset);
                 } else {
-                    node.setTranslateX(baseTranslateX + horizontalGrowth / 2);
+                    node.setTranslateX(baseTranslateX + centeredCanvasOffset);
                 }
 
                 if (node instanceof javafx.scene.shape.Rectangle rectangle
@@ -134,6 +149,29 @@ final class ResponsiveScreenLayout {
 
     private static boolean isHorizontallyAnchored(Node node) {
         return AnchorPane.getLeftAnchor(node) != null || AnchorPane.getRightAnchor(node) != null;
+    }
+
+    private static boolean isBodyNode(Node node, double footerTop) {
+        return node.getLayoutY() >= 175 && !isFooterNode(node, footerTop);
+    }
+
+    private static boolean isFooterNode(Node node, double footerTop) {
+        if (node.getStyleClass().contains("footer-background")
+                || node.getStyleClass().contains("footer-copyright")
+                || "hboxPie".equals(node.getId())
+                || "imagenPie".equals(node.getId())) {
+            return true;
+        }
+        return Double.isFinite(footerTop)
+                && node.getLayoutY() + node.getTranslateY() >= footerTop - 1;
+    }
+
+    private static double footerTop(AnchorPane content) {
+        return content.getChildren().stream()
+                .filter(node -> node.getStyleClass().contains("footer-background"))
+                .mapToDouble(node -> node.getLayoutY() + node.getTranslateY())
+                .min()
+                .orElse(Double.POSITIVE_INFINITY);
     }
 
     private static void centerFixedSplashContent(AnchorPane screen) {

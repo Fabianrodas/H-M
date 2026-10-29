@@ -26,8 +26,11 @@ final class ResponsiveProductGrid {
     private static final double CATALOG_CARD_MAX_WIDTH = 260;
     private static final double SEARCH_CARD_MAX_WIDTH = 220;
     private static final double SEARCH_CARD_GAP = 14;
+    private static final double CATALOG_CARD_GAP = 12;
     private static final double FONT_SCALE_REFERENCE_WIDTH = 192;
     private static final String BASE_FONT = "responsive-grid-base-font";
+    static final String BASE_PANEL_LEFT = "responsive-grid-base-left";
+    static final String BASE_PANEL_RIGHT = "responsive-grid-base-right";
 
     private ResponsiveProductGrid() {
     }
@@ -77,7 +80,7 @@ final class ResponsiveProductGrid {
             FlowPane grid = new FlowPane();
             grid.setAlignment(Pos.TOP_CENTER);
             grid.setRowValignment(VPos.TOP);
-            grid.setHgap(0);
+            grid.setHgap(CATALOG_CARD_GAP);
             grid.setVgap(12);
             grid.setMinWidth(0);
             grid.setMaxWidth(Double.MAX_VALUE);
@@ -89,6 +92,8 @@ final class ResponsiveProductGrid {
             panel.setMinWidth(0);
             panel.setMaxWidth(Double.MAX_VALUE);
             panel.setPrefWidth(originalWidth);
+            panel.getProperties().put(BASE_PANEL_LEFT, originalX);
+            panel.getProperties().put(BASE_PANEL_RIGHT, rightInset);
             AnchorPane.setLeftAnchor(panel, originalX);
             AnchorPane.setRightAnchor(panel, rightInset);
             responsivePanels.add(panel);
@@ -100,7 +105,7 @@ final class ResponsiveProductGrid {
                     .map(Node::getTranslateY)
                     .toList();
 
-            makeResponsive(grid, cards, 3, CATALOG_CARD_MAX_WIDTH, 0, width -> {
+            makeResponsive(grid, cards, 3, CATALOG_CARD_MAX_WIDTH, CATALOG_CARD_GAP, width -> {
                 double newGridHeight = grid.prefHeight(width);
                 double heightChange = newGridHeight - baseGridHeight;
                 panel.setPrefHeight(newGridHeight);
