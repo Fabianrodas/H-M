@@ -959,7 +959,7 @@ public class TiendaController implements Initializable {
             double baseHBoxTranslateY = hboxPie.getTranslateY();
             double baseLabelTranslateY = labelPie.getTranslateY();
             double baseImageTranslateY = imagenPie.getTranslateY();
-            FlowPane resultGrid = ResponsiveProductGrid.createSearchGrid(productCards, gridHeight -> {
+            FlowPane resultGrid = ProductSearchGrid.create(productCards, gridHeight -> {
                 double resultBottom = vboxResultados.getLayoutY() + gridHeight;
                 double footerOffset = Math.max(0, resultBottom + 24 - footerY);
                 rectanguloPie.setTranslateY(baseFooterTranslateY + footerOffset);

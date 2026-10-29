@@ -1,22 +1,14 @@
 package proyecto.hm;
 
-import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
-import java.util.HashSet;
-import java.util.Set;
-
-/** Applies width-based layout constraints without scaling the rendered scene. */
+/** Installs uniform browser-style zoom while preserving each FXML screen's original proportions. */
 final class ResponsiveScreenLayout {
 
     private static final double DESIGN_WIDTH = 750;
-    private static final double MAX_BODY_WIDTH = 1280;
-    private static final String BASE_TRANSLATE_X = "responsive-base-translate-x";
-    private static final String BASE_FOOTER_RIGHT = "responsive-base-footer-right";
 
     private ResponsiveScreenLayout() {
     }
@@ -28,6 +20,8 @@ final class ResponsiveScreenLayout {
 
         screen.setMinWidth(0);
         screen.setMaxWidth(Double.MAX_VALUE);
+        screen.setMinHeight(0);
+        screen.setMaxHeight(Double.MAX_VALUE);
         ScrollPane scrollPane = screen.getChildrenUnmodifiable().stream()
                 .filter(ScrollPane.class::isInstance)
                 .map(ScrollPane.class::cast)
@@ -35,8 +29,7 @@ final class ResponsiveScreenLayout {
                 .orElse(null);
 
         if (scrollPane == null) {
-            centerFixedSplashContent(screen);
-            return screen;
+            return new ResponsiveZoomPane(screen, DESIGN_WIDTH);
         }
 
         scrollPane.setMinSize(0, 0);
@@ -49,142 +42,10 @@ final class ResponsiveScreenLayout {
         AnchorPane.setBottomAnchor(scrollPane, 0.0);
         AnchorPane.setLeftAnchor(scrollPane, 0.0);
 
-        if (!(scrollPane.getContent() instanceof AnchorPane content)) {
-            return screen;
+        if (scrollPane.getContent() instanceof Region content) {
+            scrollPane.setContent(null);
+            scrollPane.setContent(new ResponsiveZoomPane(content, DESIGN_WIDTH));
         }
-
-        content.setMinWidth(0);
-        content.setMaxWidth(Double.MAX_VALUE);
-        Set<Node> responsivePanels = new HashSet<>(ResponsiveProductGrid.installCatalogGrids(content));
-        configureSearchLayout(content);
-        installWidthLayout(content, responsivePanels);
         return screen;
-    }
-
-    private static void configureSearchLayout(AnchorPane content) {
-        Node searchField = directChildById(content, "txtbuscar");
-        if (searchField != null) {
-            AnchorPane.setLeftAnchor(searchField, 30.0);
-            AnchorPane.setRightAnchor(searchField, 33.0);
-            if (searchField instanceof Region region) {
-                region.setMinWidth(0);
-                region.setMaxWidth(Double.MAX_VALUE);
-            }
-        }
-
-        Node results = directChildById(content, "vboxResultados");
-        if (results != null) {
-            AnchorPane.setLeftAnchor(results, 30.0);
-            AnchorPane.setRightAnchor(results, 32.0);
-            if (results instanceof Region region) {
-                region.setMinWidth(0);
-                region.setMaxWidth(Double.MAX_VALUE);
-            }
-        }
-    }
-
-    private static void installWidthLayout(AnchorPane content, Set<Node> responsivePanels) {
-        for (Node node : content.getChildren()) {
-            node.getProperties().putIfAbsent(BASE_TRANSLATE_X, node.getTranslateX());
-            if (node.getStyleClass().contains("footer-background") && node instanceof javafx.scene.shape.Rectangle rectangle) {
-                double rightInset = content.getPrefWidth() - rectangle.getLayoutX() - rectangle.getWidth();
-                rectangle.getProperties().putIfAbsent(BASE_FOOTER_RIGHT, rightInset);
-            }
-        }
-
-        Runnable updateLayout = () -> {
-            if (content.getWidth() <= 0) {
-                return;
-            }
-            double newWidth = content.getWidth();
-            double horizontalGrowth = newWidth - DESIGN_WIDTH;
-            double centeredCanvasOffset = horizontalGrowth / 2;
-            double bodyOffset = responsivePanels.isEmpty()
-                    ? centeredCanvasOffset
-                    : Math.max(0, (newWidth - Math.min(newWidth, MAX_BODY_WIDTH)) / 2);
-            double footerTop = footerTop(content);
-            for (Node node : content.getChildren()) {
-                if (responsivePanels.contains(node)) {
-                    double left = (double) node.getProperties().get(ResponsiveProductGrid.BASE_PANEL_LEFT);
-                    double right = (double) node.getProperties().get(ResponsiveProductGrid.BASE_PANEL_RIGHT);
-                    AnchorPane.setLeftAnchor(node, bodyOffset + left);
-                    AnchorPane.setRightAnchor(node, bodyOffset + right);
-                    continue;
-                }
-                if (isHorizontallyAnchored(node)) {
-                    continue;
-                }
-
-                double baseTranslateX = (double) node.getProperties().get(BASE_TRANSLATE_X);
-                if (isFooterNode(node, footerTop)) {
-                    node.setTranslateX(baseTranslateX);
-                } else if ("themeToggleButton".equals(node.getId())) {
-                    node.setTranslateX(baseTranslateX);
-                } else if ("hboxCuenta".equals(node.getId()) || "vboxSearch".equals(node.getId())) {
-                    node.setTranslateX(baseTranslateX + horizontalGrowth);
-                } else if (isBodyNode(node, footerTop)) {
-                    node.setTranslateX(baseTranslateX + bodyOffset);
-                } else {
-                    node.setTranslateX(baseTranslateX + centeredCanvasOffset);
-                }
-
-                if (node instanceof javafx.scene.shape.Rectangle rectangle
-                        && node.getStyleClass().contains("footer-background")) {
-                    double rightInset = (double) node.getProperties().get(BASE_FOOTER_RIGHT);
-                    rectangle.setWidth(Math.max(0, newWidth - rectangle.getLayoutX() - rightInset));
-                }
-            }
-        };
-        content.widthProperty().addListener((observable, oldWidth, newWidth) -> updateLayout.run());
-        Platform.runLater(updateLayout);
-
-    }
-
-    private static Node directChildById(AnchorPane parent, String id) {
-        return parent.getChildren().stream()
-                .filter(node -> id.equals(node.getId()))
-                .findFirst()
-                .orElse(null);
-    }
-
-    private static boolean isHorizontallyAnchored(Node node) {
-        return AnchorPane.getLeftAnchor(node) != null || AnchorPane.getRightAnchor(node) != null;
-    }
-
-    private static boolean isBodyNode(Node node, double footerTop) {
-        return node.getLayoutY() >= 175 && !isFooterNode(node, footerTop);
-    }
-
-    private static boolean isFooterNode(Node node, double footerTop) {
-        if (node.getStyleClass().contains("footer-background")
-                || node.getStyleClass().contains("footer-copyright")
-                || "hboxPie".equals(node.getId())
-                || "imagenPie".equals(node.getId())) {
-            return true;
-        }
-        return Double.isFinite(footerTop)
-                && node.getLayoutY() + node.getTranslateY() >= footerTop - 1;
-    }
-
-    private static double footerTop(AnchorPane content) {
-        return content.getChildren().stream()
-                .filter(node -> node.getStyleClass().contains("footer-background"))
-                .mapToDouble(node -> node.getLayoutY() + node.getTranslateY())
-                .min()
-                .orElse(Double.POSITIVE_INFINITY);
-    }
-
-    private static void centerFixedSplashContent(AnchorPane screen) {
-        for (Node node : screen.getChildren()) {
-            node.getProperties().putIfAbsent(BASE_TRANSLATE_X, node.getTranslateX());
-        }
-        screen.widthProperty().addListener((observable, oldWidth, newWidth) -> {
-            double offset = (newWidth.doubleValue() - DESIGN_WIDTH) / 2;
-            for (Node node : screen.getChildren()) {
-                if (!isHorizontallyAnchored(node)) {
-                    node.setTranslateX((double) node.getProperties().get(BASE_TRANSLATE_X) + offset);
-                }
-            }
-        });
     }
 }
