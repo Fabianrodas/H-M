@@ -32,7 +32,11 @@
                <children>
                   <Label fx:id="windowTitle" styleClass="hm-alert-window-title" text="H&amp;M" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="closeButton" accessibleText="Cerrar alerta" focusTraversable="false" mnemonicParsing="false" onAction="#closeAlert" styleClass="hm-alert-close-button" text="×" />
+                  <Button fx:id="closeButton" accessibleText="Cerrar alerta" focusTraversable="false" mnemonicParsing="false" onAction="#closeAlert" styleClass="hm-alert-close-button">
+                     <graphic>
+                        <Label styleClass="hm-alert-close-icon" text="×" />
+                     </graphic>
+                  </Button>
                </children>
                <VBox.margin>
                   <Insets bottom="11.0" />

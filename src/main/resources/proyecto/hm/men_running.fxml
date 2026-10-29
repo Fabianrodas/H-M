@@ -406,14 +406,14 @@
                   </HBox>
                   <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
                   <Label layoutX="271.0" layoutY="143.0" text="HM.com / Men / Sport /" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="175.0" width="741.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="175.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="330.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="243.0" layoutY="565.0" text="Ecuador | Todos los derechos reservados 2024 © " translateY="360.0" />
-                  <Label layoutX="402.0" layoutY="143.0" text="Running" textFill="RED">
+                  <Label layoutX="402.0" layoutY="143.0" text="Running" styleClass="brand-accent-text" >
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

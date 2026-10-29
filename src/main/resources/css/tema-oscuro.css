@@ -89,6 +89,21 @@
     -fx-text-fill: #111111;
 }
 
+.theme-dark #signin1 .text,
+.theme-dark #btnRegistrar .text,
+.theme-dark #changePicture .text,
+.theme-dark #btnsignin .text,
+.theme-dark #btnSavePassword .text,
+.theme-dark #btnComprar .text,
+.theme-dark #btnPedido .text,
+.theme-dark #btnBrowse .text,
+.theme-dark #addBag .text,
+.theme-dark .alert-action-primary .text,
+.theme-dark .hero-cta .text,
+.theme-dark .size-option.selected .text {
+    -fx-fill: #111111;
+}
+
 .theme-dark #signin2,
 .theme-dark #become_member,
 .theme-dark #btnSignin,
@@ -144,6 +159,49 @@
 .theme-dark .rectangle {
     -fx-fill: #242424;
     -fx-stroke: #414141;
+}
+
+.theme-dark .footer-background {
+    -fx-fill: #242424;
+    -fx-stroke: #414141;
+}
+
+.theme-dark .brand-accent-text {
+    -fx-text-fill: #ff6876;
+}
+
+.theme-dark .brand-accent-text .text {
+    -fx-fill: #ff6876;
+}
+
+.theme-dark .muted-text {
+    -fx-text-fill: #b5b5b5;
+}
+
+.theme-dark .muted-text .text {
+    -fx-fill: #b5b5b5;
+}
+
+.theme-dark .validation-marker,
+.theme-dark .danger-text {
+    -fx-text-fill: #ff7782;
+}
+
+.theme-dark .validation-marker .text,
+.theme-dark .danger-text .text {
+    -fx-fill: #ff7782;
+}
+
+.theme-dark .hero-image-dark-text {
+    -fx-text-fill: #303030;
+}
+
+.theme-dark .hero-image-dark-text .text {
+    -fx-fill: #303030;
+}
+
+.theme-dark .brand-mark-backplate {
+    -fx-fill: #f0f0f0;
 }
 
 .theme-dark .table-view,
@@ -202,10 +260,6 @@
     -fx-background-color: #3a3a3a;
 }
 
-.theme-dark .hero-cta {
-    -fx-text-fill: #111111;
-}
-
 .theme-dark .hm-alert-window,
 .theme-dark .hm-alert-content-panel {
     -fx-background-color: #202020;
@@ -218,10 +272,179 @@
     -fx-text-fill: #f0f0f0;
 }
 
-.theme-dark .hm-alert-close-button {
+.theme-dark .hm-alert-content-panel .hm-alert-close-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-text-fill: #f0f0f0;
 }
 
-.theme-dark .hm-alert-close-button:hover {
+.theme-dark .hm-alert-content-panel .hm-alert-close-icon {
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .hm-alert-content-panel .hm-alert-close-icon .text {
+    -fx-fill: #f0f0f0;
+}
+
+.theme-dark .hm-alert-content-panel .hm-alert-close-button:hover {
     -fx-background-color: #3a3a3a;
+}
+
+.theme-dark .hm-alert-content-panel .hm-alert-close-button:focused {
+    -fx-border-color: #b33b49;
+    -fx-border-radius: 14px;
+    -fx-border-width: 2px;
+}
+
+.theme-dark .size-option {
+    -fx-background-color: #292929;
+    -fx-border-color: #777777;
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark .size-option:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.theme-dark .size-option.selected {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #f0f0f0;
+    -fx-text-fill: #111111;
+}
+
+.theme-dark .order-summary {
+    -fx-border-color: #777777;
+}
+
+.theme-dark .order-line {
+    -fx-border-color: #555555;
+}
+
+.theme-dark .cart-line {
+    -fx-border-color: #777777;
+}
+
+.theme-dark .future-date {
+    -fx-background-color: #414141;
+    -fx-text-fill: #eeeeee;
+}
+
+
+/* Keep navigation hover states readable in dark mode. */
+.theme-dark #about2:hover,
+.theme-dark #baby:hover,
+.theme-dark #baby_baby2:hover,
+.theme-dark #baby_newborn2:hover,
+.theme-dark #babyboy_clothing2:hover,
+.theme-dark #babyboy_outerwear2:hover,
+.theme-dark #babyboy_shoes2:hover,
+.theme-dark #babygirl_clothing2:hover,
+.theme-dark #babygirl_outerwear2:hover,
+.theme-dark #babygirl_shoes2:hover,
+.theme-dark #bd2:hover,
+.theme-dark #boy1_clothing2:hover,
+.theme-dark #boy1_outerwear2:hover,
+.theme-dark #boy1_shoes2:hover,
+.theme-dark #boy2_clothing2:hover,
+.theme-dark #boy2_outerwear2:hover,
+.theme-dark #boy2_shoes2:hover,
+.theme-dark #girl1_clothing2:hover,
+.theme-dark #girl1_outerwear2:hover,
+.theme-dark #girl1_shoes2:hover,
+.theme-dark #girl2_clothing2:hover,
+.theme-dark #girl2_outerwear2:hover,
+.theme-dark #girl2_shoes2:hover,
+.theme-dark #kids:hover,
+.theme-dark #kids12:hover,
+.theme-dark #kids22:hover,
+.theme-dark #member:hover,
+.theme-dark #men:hover,
+.theme-dark #men_clothes2:hover,
+.theme-dark #men_dress_shoes2:hover,
+.theme-dark #men_gym2:hover,
+.theme-dark #men_hoodies2:hover,
+.theme-dark #men_jeans2:hover,
+.theme-dark #men_pants2:hover,
+.theme-dark #men_running2:hover,
+.theme-dark #men_shirts2:hover,
+.theme-dark #men_shoes2:hover,
+.theme-dark #men_sneakers2:hover,
+.theme-dark #men_sport_shorts2:hover,
+.theme-dark #men_sports2:hover,
+.theme-dark #newborn_clothing2:hover,
+.theme-dark #newborn_outerwear2:hover,
+.theme-dark #newborn_shoes2:hover,
+.theme-dark #women:hover,
+.theme-dark #women_blouses2:hover,
+.theme-dark #women_boots2:hover,
+.theme-dark #women_clothes2:hover,
+.theme-dark #women_dresses2:hover,
+.theme-dark #women_gym2:hover,
+.theme-dark #women_jeans2:hover,
+.theme-dark #women_leggings2:hover,
+.theme-dark #women_running2:hover,
+.theme-dark #women_shoes2:hover,
+.theme-dark #women_sneakers2:hover,
+.theme-dark #women_sportbra2:hover,
+.theme-dark #women_sports2:hover,
+.theme-dark #women_tops2:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: #f0f0f0;
+}
+
+.theme-dark #baby_baby:hover,
+.theme-dark #baby_newborn:hover,
+.theme-dark #baby2:hover,
+.theme-dark #babyboy_clothing:hover,
+.theme-dark #babyboy_outerwear:hover,
+.theme-dark #babyboy_shoes:hover,
+.theme-dark #babygirl_clothing:hover,
+.theme-dark #babygirl_outerwear:hover,
+.theme-dark #babygirl_shoes:hover,
+.theme-dark #boy1_clothing:hover,
+.theme-dark #boy1_outerwear:hover,
+.theme-dark #boy1_shoes:hover,
+.theme-dark #boy2_clothing:hover,
+.theme-dark #boy2_outerwear:hover,
+.theme-dark #boy2_shoes:hover,
+.theme-dark #girl1_clothing:hover,
+.theme-dark #girl1_outerwear:hover,
+.theme-dark #girl1_shoes:hover,
+.theme-dark #girl2_clothing:hover,
+.theme-dark #girl2_outerwear:hover,
+.theme-dark #girl2_shoes:hover,
+.theme-dark #kid:hover,
+.theme-dark #kids1:hover,
+.theme-dark #kids2:hover,
+.theme-dark #men_clothes:hover,
+.theme-dark #men_dress_shoes:hover,
+.theme-dark #men_gym:hover,
+.theme-dark #men_hoodies:hover,
+.theme-dark #men_jeans:hover,
+.theme-dark #men_pants:hover,
+.theme-dark #men_running:hover,
+.theme-dark #men_shirts:hover,
+.theme-dark #men_shoes:hover,
+.theme-dark #men_sneakers:hover,
+.theme-dark #men_sport_shorts:hover,
+.theme-dark #men_sports:hover,
+.theme-dark #men2:hover,
+.theme-dark #newborn_clothing:hover,
+.theme-dark #newborn_outerwear:hover,
+.theme-dark #newborn_shoes:hover,
+.theme-dark #women_blouses:hover,
+.theme-dark #women_boots:hover,
+.theme-dark #women_clothes:hover,
+.theme-dark #women_dresses:hover,
+.theme-dark #women_gym:hover,
+.theme-dark #women_jeans:hover,
+.theme-dark #women_leggings:hover,
+.theme-dark #women_running:hover,
+.theme-dark #women_shoes:hover,
+.theme-dark #women_sneakers:hover,
+.theme-dark #women_sportbra:hover,
+.theme-dark #women_sports:hover,
+.theme-dark #women_tops:hover,
+.theme-dark #women2:hover {
+    -fx-fill: #f0f0f0;
 }

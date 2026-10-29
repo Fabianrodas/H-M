@@ -416,7 +416,7 @@
                         <Font name="Franklin Gothic Heavy" size="24.0" />
                      </font>
                   </Label>
-                  <Button layoutX="337.0" layoutY="713.0" mnemonicParsing="false" onAction="#switchToMen" style="-fx-background-color: white; -fx-border-color: white;" styleClass="hero-cta" text="SHOP NOW" translateY="10.0">
+                  <Button layoutX="337.0" layoutY="713.0" mnemonicParsing="false" onAction="#switchToMen" style="-fx-background-color: white; -fx-border-color: white; -fx-text-fill: #111111;" styleClass="hero-cta" text="SHOP NOW" translateY="10.0">
                      <font>
                         <Font name="Leelawadee UI Bold" size="12.0" />
                      </font>
@@ -426,17 +426,17 @@
                         <Image url="@../../imagenes/kids.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="275.0" layoutY="390.0" text="BACK TO SCHOOL" textFill="WHITE">
+                  <Label layoutX="275.0" layoutY="390.0" styleClass="hero-image-dark-text" text="BACK TO SCHOOL">
                      <font>
                         <Font name="Franklin Gothic Heavy" size="24.0" />
                      </font>
                   </Label>
-                  <Button layoutX="335.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToKids" style="-fx-background-color: white; -fx-border-color: white;" styleClass="hero-cta" text="SHOP NOW">
+                  <Button layoutX="335.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToKids" style="-fx-background-color: white; -fx-border-color: white; -fx-text-fill: #111111;" styleClass="hero-cta" text="SHOP NOW">
                      <font>
                         <Font name="Leelawadee UI Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="300.0" width="741.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="300.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="450.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />

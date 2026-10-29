@@ -87,6 +87,15 @@
     -fx-border-width: 2px;
 }
 
+.hm-alert-close-icon {
+    -fx-font-size: 19px;
+    -fx-text-fill: #303030;
+}
+
+.hm-alert-close-icon .text {
+    -fx-fill: #303030;
+}
+
 .hm-alert-heading {
     -fx-font-size: 16px;
     -fx-font-weight: bold;

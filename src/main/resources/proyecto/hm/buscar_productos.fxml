@@ -23,7 +23,7 @@
         <content>
           <AnchorPane fx:id="anchorBuscar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="750.0">
                <children>
-                  <Rectangle fx:id="rectanguloPie" arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutY="315.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="741.0" />
+                  <Rectangle fx:id="rectanguloPie" arcHeight="5.0" arcWidth="5.0" height="280.0" layoutY="315.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="741.0"  styleClass="footer-background" />
                   <HBox fx:id="hboxPie" layoutX="111.0" layoutY="357.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="520.0" spacing="30.0">
                      <children>
                         <VBox prefHeight="138.0" prefWidth="51.0">

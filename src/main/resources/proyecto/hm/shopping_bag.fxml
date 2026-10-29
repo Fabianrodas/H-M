@@ -406,12 +406,12 @@
                   </HBox>
                   <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
                   <Label layoutX="282.0" layoutY="143.0" text="HM.com /" />
-                  <Label layoutX="342.0" layoutY="143.0" text="Shopping bag" textFill="RED">
+                  <Label layoutX="342.0" layoutY="143.0" text="Shopping bag" styleClass="brand-accent-text" >
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="364.0" width="741.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="364.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="519.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />
@@ -447,7 +447,7 @@
                                  <children>
                                     <HBox prefHeight="22.0" prefWidth="295.0">
                                        <children>
-                                          <Label text="Discounts" textFill="#707070" />
+                                          <Label text="Discounts"  styleClass="muted-text" />
                                           <Label alignment="CENTER_RIGHT" text="Apply discount" translateX="160.0" underline="true" />
                                        </children>
                                     </HBox>
@@ -543,7 +543,7 @@
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="317.0" text="The estimated tax will be confirmed once you added your shipping address in checkout." textFill="#707070" translateY="60.0" wrapText="true">
+                                          <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="317.0" text="The estimated tax will be confirmed once you added your shipping address in checkout." translateY="60.0" wrapText="true" styleClass="muted-text" >
                                              <font>
                                                 <Font size="10.0" />
                                              </font>
@@ -553,12 +553,12 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label text="30-day returns. Read more about our" textFill="#707070" translateY="47.0">
+                                          <Label text="30-day returns. Read more about our" translateY="47.0" styleClass="muted-text" >
                                              <font>
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label text="return and refund policy." textFill="#707070" translateY="45.0" underline="true">
+                                          <Label text="return and refund policy." translateY="45.0" underline="true" styleClass="muted-text" >
                                              <font>
                                                 <Font size="10.0" />
                                              </font>

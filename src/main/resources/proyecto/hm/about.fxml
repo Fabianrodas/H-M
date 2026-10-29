@@ -405,7 +405,7 @@
                      </children>
                   </HBox>
                   <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="-100.0" width="741.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="-100.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="60.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />
@@ -434,6 +434,7 @@
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="139.0" text="H&amp;M (página recreada)" wrapText="true" />
                      </children>
                   </VBox>
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" height="145.0" layoutX="548.0" layoutY="168.0" width="162.0" styleClass="brand-mark-backplate" />
                   <ImageView fitHeight="129.0" fitWidth="146.0" layoutX="556.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../imagenes/uees.png" />

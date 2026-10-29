@@ -106,12 +106,12 @@ public class CompraController implements Initializable {
         double alturaLabel = 10;
         double espaciadoVertical = 5;
         double alturaFila = alturaImagen + 1 * alturaLabel + 1 * espaciadoVertical;
-        contenedor.setStyle("-fx-border-color: black; "+"-fx-border-width: 1px;");
+        contenedor.getStyleClass().add("order-summary");
         
         for (Carrito carrito : lineasCarrito) {
             Producto producto = productoController.GetById(carrito.getIdProducto());
             HBox hbox = new HBox();
-            hbox.setStyle("-fx-border-color: black; "+"-fx-border-width: 0.5px;");
+            hbox.getStyleClass().add("order-line");
             hbox.setSpacing(20); 
             VBox inVbox = new VBox();
             HBox inHbox = new HBox();

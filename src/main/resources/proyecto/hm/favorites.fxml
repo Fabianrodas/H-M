@@ -407,7 +407,7 @@
                   </HBox>
                   <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
                   <Label layoutX="322.0" layoutY="143.0" text="HM.com /  " />
-                  <Label layoutX="379.0" layoutY="143.0" text="Favorites" textFill="RED">
+                  <Label layoutX="379.0" layoutY="143.0" text="Favorites" styleClass="brand-accent-text" >
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -431,7 +431,7 @@
                            </font></Button>
                      </children>
                   </VBox>
-                  <Rectangle fx:id="rectanguloPie" arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutY="415.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="105.0" width="741.0" />
+                  <Rectangle fx:id="rectanguloPie" arcHeight="5.0" arcWidth="5.0" height="280.0" layoutY="415.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="105.0" width="741.0"  styleClass="footer-background" />
                   <HBox fx:id="hboxPie" layoutX="111.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="520.0" spacing="30.0" translateY="115.0">
                      <children>
                         <VBox prefHeight="138.0" prefWidth="51.0">

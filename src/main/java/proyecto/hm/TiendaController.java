@@ -378,17 +378,17 @@ public class TiendaController implements Initializable {
         }
         
         if(btnxs != null && btns != null && btnm != null && btnl != null && btnxl != null && btnxxl != null) {
-            btnxs.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
+            configureSizeButton(btnxs);
             btnxs.setOnMouseClicked(e -> botonTalla(btnxs,"XS",Arrays.asList(btns,btnm,btnl,btnxl,btnxxl)));
-            btns.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
+            configureSizeButton(btns);
             btns.setOnMouseClicked(e -> botonTalla(btns,"S",Arrays.asList(btnxs,btnm,btnl,btnxl,btnxxl)));
-            btnm.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
+            configureSizeButton(btnm);
             btnm.setOnMouseClicked(e -> botonTalla(btnm,"M",Arrays.asList(btnxs,btns,btnl,btnxl,btnxxl)));
-            btnl.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
+            configureSizeButton(btnl);
             btnl.setOnMouseClicked(e -> botonTalla(btnl,"L",Arrays.asList(btnxs,btns,btnm,btnxl,btnxxl)));
-            btnxl.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
+            configureSizeButton(btnxl);
             btnxl.setOnMouseClicked(e -> botonTalla(btnxl,"XL",Arrays.asList(btnxs,btns,btnm,btnl,btnxxl)));
-            btnxxl.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
+            configureSizeButton(btnxxl);
             btnxxl.setOnMouseClicked(e -> botonTalla(btnxxl,"XXL",Arrays.asList(btnxs,btns,btnm,btnl,btnxl)));
         }
         
@@ -606,10 +606,18 @@ public class TiendaController implements Initializable {
     }
     
     private void botonTalla(Button button, String str, List<Button> botones) {
-        button.setStyle("-fx-background-color: black;"+"-fx-text-fill: white;");
+        if (!button.getStyleClass().contains("selected")) {
+            button.getStyleClass().add("selected");
+        }
         this.talla = str;
         for (Button b : botones) {
-            b.setStyle("-fx-background-color: white;"+"-fx-text-fill: black;"+"-fx-border-color: black;"+"-fx-border-width: 0.5px;");
+            b.getStyleClass().remove("selected");
+        }
+    }
+
+    private void configureSizeButton(Button button) {
+        if (!button.getStyleClass().contains("size-option")) {
+            button.getStyleClass().add("size-option");
         }
     }
 
@@ -1151,7 +1159,7 @@ public class TiendaController implements Initializable {
         for (Carrito carrito : lineasCarrito) {
             Producto producto = productoController.GetById(carrito.getIdProducto());
             HBox hbox = new HBox();
-            hbox.setStyle("-fx-border-color: black; "+"-fx-border-width: 0.5px;");
+            hbox.getStyleClass().add("cart-line");
             hbox.setSpacing(20); 
             VBox inVbox = new VBox();
             HBox inHbox = new HBox();

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -55,17 +56,19 @@ public final class ThemeManager {
             scene.getStylesheets().remove(DARK_STYLESHEET);
             root.getStyleClass().remove(DARK_CLASS);
         }
+        root.applyCss();
         synchronizeMenuContent(root, darkMode);
         synchronizeToggleLabels(root, darkMode);
     }
 
     private static void synchronizeToggleLabels(Parent parent, boolean darkMode) {
         for (Node child : parent.getChildrenUnmodifiable()) {
-            if (child instanceof Button button
-                    && button.getStyleClass().contains("theme-toggle-button")) {
-                button.setText(darkMode ? "Modo claro" : "Modo oscuro");
-                button.setAccessibleText(
-                        darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+            if (child instanceof Button button) {
+                if (button.getStyleClass().contains("theme-toggle-button")) {
+                    button.setText(darkMode ? "Modo claro" : "Modo oscuro");
+                    button.setAccessibleText(
+                            darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+                }
             }
             if (child instanceof Parent childParent) {
                 synchronizeToggleLabels(childParent, darkMode);
@@ -109,7 +112,9 @@ public final class ThemeManager {
 
     private static void setMenuTextColor(Parent parent, Color color) {
         for (Node child : parent.getChildrenUnmodifiable()) {
-            if (child instanceof Text text) {
+            if (child instanceof Labeled labeled) {
+                labeled.setTextFill(color);
+            } else if (child instanceof Text text) {
                 text.setFill(color);
             } else if (child instanceof Parent childParent) {
                 setMenuTextColor(childParent, color);

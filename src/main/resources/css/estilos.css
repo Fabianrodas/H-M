@@ -197,3 +197,63 @@
     -fx-padding: 5 10;
     -fx-text-fill: #333; 
 }
+
+.footer-background {
+    -fx-fill: #e4e4e4;
+}
+
+.brand-accent-text {
+    -fx-text-fill: #e60023;
+}
+
+.muted-text {
+    -fx-text-fill: #707070;
+}
+
+.validation-marker {
+    -fx-text-fill: #d71932;
+}
+
+.danger-text {
+    -fx-text-fill: #d71932;
+}
+
+.hero-image-dark-text {
+    -fx-text-fill: #464444;
+}
+
+.brand-mark-backplate {
+    -fx-fill: transparent;
+}
+
+.size-option {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-border-width: 0.5px;
+}
+
+.size-option.selected {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.order-summary {
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+}
+
+.order-line {
+    -fx-border-color: #555555;
+    -fx-border-width: 0.5px;
+}
+
+.cart-line {
+    -fx-border-color: black;
+    -fx-border-width: 0.5px;
+}
+
+.future-date {
+    -fx-background-color: #b5b3b3;
+    -fx-text-fill: #333333;
+}

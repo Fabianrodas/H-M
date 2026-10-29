@@ -96,7 +96,9 @@ public class RegistroController {
 
                 if (item.isAfter(LocalDate.now())) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #b5b3b3");
+                    if (!getStyleClass().contains("future-date")) {
+                        getStyleClass().add("future-date");
+                    }
                 }
             }
         };

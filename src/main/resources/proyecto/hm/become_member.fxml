@@ -42,14 +42,14 @@
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="47.0">
                                  <children>
                                     <Label styleClass="negrita" text="Email" />
-                                    <Label text="*" textFill="#f20909" />
+                                    <Label text="*"  styleClass="validation-marker" />
                                  </children>
                               </HBox>
                               <TextField fx:id="txtemail" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" />
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="108.0" translateY="5.0">
                                  <children>
                                     <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="100.0" styleClass="negrita" text="Create a password" />
-                                    <Label text="*" textFill="#f20909" />
+                                    <Label text="*"  styleClass="validation-marker" />
                                  </children>
                               </HBox>
                               <TextField fx:id="textField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" translateY="15.0" />
@@ -63,29 +63,29 @@
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="81.0" translateY="-70.0">
                                  <children>
                                     <Label styleClass="negrita" text="Date of birth" />
-                                    <Label text="*" textFill="#f20909" />
+                                    <Label text="*"  styleClass="validation-marker" />
                                  </children>
                               </HBox>
                               <DatePicker fx:id="datePicker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" promptText="                YYYY            /                 MM             /             DD    " translateY="-65.0" />
-                              <Label text="H&amp;M wants to give you a special treat on your birthday" textFill="#707070" translateY="-65.0" />
+                              <Label text="H&amp;M wants to give you a special treat on your birthday" translateY="-65.0"  styleClass="muted-text" />
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="68.0" translateY="-55.0">
                                  <children>
                                     <Label styleClass="negrita" text="First name" />
-                                    <Label text="*" textFill="#f20909" />
+                                    <Label text="*"  styleClass="validation-marker" />
                                  </children>
                               </HBox>
                               <TextField fx:id="txtnombre" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" translateY="-50.0" />
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="68.0" translateY="-45.0">
                                  <children>
                                     <Label styleClass="negrita" text="Last name" />
-                                    <Label text="*" textFill="#f20909" />
+                                    <Label text="*"  styleClass="validation-marker" />
                                  </children>
                               </HBox>
                               <TextField fx:id="txtapellido" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" translateY="-45.0" />
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="68.0" translateY="-40.0">
                                  <children>
                                     <Label styleClass="negrita" text="Gender" />
-                                    <Label text="*" textFill="#f20909" />
+                                    <Label text="*"  styleClass="validation-marker" />
                                  </children>
                               </HBox>
                               <ComboBox fx:id="cmbGenero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" promptText="Select a gender" translateY="-38.0" />
@@ -93,12 +93,12 @@
                               <TextField fx:id="txtzipcode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" translateY="-25.0" />
                               <CheckBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" styleClass="negrita" text="Yes, email me my member rewards, special invites, trend alerts and more." translateY="-20.0" wrapText="true" />
                               <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="350.0" styleClass="negrita" text="Your inbox is about to get a lot more stylish! Get excited for exclusive deals, trend alerts, first access to our new collections, and more. Plus, don't miss out on all your Member rewards, birthday offer and special invites to events!" translateX="20.0" translateY="-10.0" wrapText="true" />
-                              <Label text="By clicking ‘Become a member’, I agree to the H&amp;M Membership" textFill="#707070">
+                              <Label text="By clicking ‘Become a member’, I agree to the H&amp;M Membership" styleClass="muted-text" >
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label onMouseClicked="#switchToTermsConditions" text="Terms and conditions" textFill="#707070" underline="true">
+                              <Label onMouseClicked="#switchToTermsConditions" text="Terms and conditions" underline="true" styleClass="muted-text" >
                                  <font>
                                     <Font size="11.0" />
                                  </font>
@@ -106,12 +106,12 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Label>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="360.0" text="To give you the full membership experience, we will process your personal data in accordance with the H&amp;M's" textFill="#707070" translateY="15.0" wrapText="true">
+                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="360.0" text="To give you the full membership experience, we will process your personal data in accordance with the H&amp;M's" translateY="15.0" wrapText="true" styleClass="muted-text" >
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label text="Privacy Notice" textFill="#707070" translateX="135.0" translateY="-6.0" underline="true">
+                              <Label text="Privacy Notice" translateX="135.0" translateY="-6.0" underline="true" styleClass="muted-text" >
                                  <font>
                                     <Font size="11.0" />
                                  </font>

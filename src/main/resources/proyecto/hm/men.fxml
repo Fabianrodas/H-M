@@ -416,7 +416,7 @@
                         <Font name="Franklin Gothic Heavy" size="24.0" />
                      </font>
                   </Label>
-                  <Button layoutX="337.0" layoutY="713.0" mnemonicParsing="false" onAction="#switchToMen_clothes" style="-fx-background-color: white; -fx-border-color: white;" styleClass="hero-cta" text="Shop now" translateY="10.0">
+                  <Button layoutX="337.0" layoutY="713.0" mnemonicParsing="false" onAction="#switchToMen_clothes" style="-fx-background-color: white; -fx-border-color: white; -fx-text-fill: #111111;" styleClass="hero-cta" text="Shop now" translateY="10.0">
                      <font>
                         <Font name="Leelawadee UI Bold" size="12.0" />
                      </font>
@@ -426,24 +426,24 @@
                         <Image url="@../../imagenes/men1.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="281.0" layoutY="392.0" text="CASUAL SHIRTS" translateY="-10.0">
+                  <Label layoutX="281.0" layoutY="392.0" styleClass="hero-image-dark-text" text="CASUAL SHIRTS" translateY="-10.0">
                      <font>
                         <Font name="Franklin Gothic Heavy" size="24.0" />
                      </font>
                   </Label>
-                  <Button layoutX="335.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToMen_shirts" style="-fx-background-color: white; -fx-border-color: white;" styleClass="hero-cta" text="Shop now">
+                  <Button layoutX="335.0" layoutY="434.0" mnemonicParsing="false" onAction="#switchToMen_shirts" style="-fx-background-color: white; -fx-border-color: white; -fx-text-fill: #111111;" styleClass="hero-cta" text="Shop now">
                      <font>
                         <Font name="Leelawadee UI Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="475.0" width="741.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="475.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="630.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="243.0" layoutY="565.0" text="Ecuador | Todos los derechos reservados 2024 © " translateY="660.0" />
-                  <Label layoutX="385.0" layoutY="143.0" text="Men" textFill="RED">
+                  <Label layoutX="385.0" layoutY="143.0" text="Men" styleClass="brand-accent-text" >
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

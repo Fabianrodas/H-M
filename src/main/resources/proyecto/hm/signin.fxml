@@ -31,14 +31,14 @@
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="47.0">
                <children>
                   <Label styleClass="negrita" text="Email" />
-                  <Label text="*" textFill="#f20909" />
+                  <Label text="*"  styleClass="validation-marker" />
                </children>
             </HBox>
             <TextField fx:id="emailSignin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" />
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="76.0" translateY="5.0">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="17.0" prefWidth="51.0" styleClass="negrita" text="Password" />
-                  <Label text="*" textFill="#f20909" />
+                  <Label text="*"  styleClass="validation-marker" />
                </children>
             </HBox>
             <TextField fx:id="textField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" translateY="10.0" />
