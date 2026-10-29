@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.transform.Scale;
+import javafx.geometry.Bounds;
 
 /** Scales an FXML design uniformly as its viewport grows, like browser page zoom. */
 final class ResponsiveZoomPane extends Region {
@@ -29,18 +30,30 @@ final class ResponsiveZoomPane extends Region {
         setMinSize(0, 0);
         setPrefWidth(designWidth);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        widthProperty().addListener((observable, oldWidth, newWidth) -> {
+            requestLayout();
+            if (getParent() != null) {
+                getParent().requestLayout();
+            }
+        });
     }
 
     @Override
     protected void layoutChildren() {
         double zoom = scaleForWidth(getWidth());
-        double designHeight = content.prefHeight(designWidth);
-        if (!Double.isFinite(designHeight) || designHeight <= 0) {
-            designHeight = content.getHeight();
-        }
+        double designHeight = contentDesignHeight();
 
         content.resize(designWidth, Math.max(0, designHeight));
         content.relocate(0, 0);
+        content.layout();
+
+        double laidOutHeight = contentDesignHeight();
+        if (laidOutHeight > designHeight + 0.5) {
+            content.resize(designWidth, laidOutHeight);
+            content.layout();
+            requestLayout();
+        }
+
         contentScale.setX(zoom);
         contentScale.setY(zoom);
     }
@@ -62,11 +75,43 @@ final class ResponsiveZoomPane extends Region {
 
     @Override
     protected double computePrefHeight(double width) {
-        double designHeight = content.prefHeight(designWidth);
-        if (!Double.isFinite(designHeight) || designHeight <= 0) {
-            designHeight = content.getHeight();
+        double effectiveWidth = getWidth() > 0 ? getWidth() : width;
+        return contentDesignHeight() * scaleForWidth(effectiveWidth);
+    }
+
+    private double contentDesignHeight() {
+        double preferredHeight = content.prefHeight(designWidth);
+        if (!Double.isFinite(preferredHeight) || preferredHeight <= 0) {
+            preferredHeight = content.getHeight();
         }
-        return Math.max(0, designHeight) * scaleForWidth(width);
+
+        double contentHeight = Math.max(0, preferredHeight);
+        if (content instanceof Parent parent) {
+            for (Node child : parent.getChildrenUnmodifiable()) {
+                if (!child.isVisible()) {
+                    continue;
+                }
+
+                Bounds bounds = child.getBoundsInParent();
+                if (Double.isFinite(bounds.getMaxY())) {
+                    contentHeight = Math.max(contentHeight, bounds.getMaxY());
+                }
+
+                double childHeight = child.getLayoutBounds().getHeight();
+                if (child instanceof Region region) {
+                    double preferredChildHeight = region.prefHeight(-1);
+                    if (Double.isFinite(preferredChildHeight) && preferredChildHeight > 0) {
+                        childHeight = Math.max(childHeight, preferredChildHeight);
+                    }
+                }
+
+                double childBottom = child.getLayoutY() + child.getTranslateY() + childHeight;
+                if (Double.isFinite(childBottom)) {
+                    contentHeight = Math.max(contentHeight, childBottom);
+                }
+            }
+        }
+        return contentHeight;
     }
 
     private double scaleForWidth(double width) {

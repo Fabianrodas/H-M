@@ -14,6 +14,8 @@ import modelo.ClienteSingleton;
 
 public class App extends Application {
 
+    private static final double ORIGINAL_WINDOW_WIDTH = 750;
+    private static final double ORIGINAL_WINDOW_HEIGHT = 437;
     private static Scene scene;
 
     @Override
@@ -64,6 +66,18 @@ public class App extends Application {
         });
 
         fadeOut.play();
+    }
+
+    static void restoreOriginalWindowSize() {
+        if (scene == null || !(scene.getWindow() instanceof Stage stage)) {
+            return;
+        }
+
+        stage.setFullScreen(false);
+        stage.setMaximized(false);
+        stage.setWidth(ORIGINAL_WINDOW_WIDTH);
+        stage.setHeight(ORIGINAL_WINDOW_HEIGHT);
+        stage.centerOnScreen();
     }
 
     private static boolean isRouteAllowed(String fxml) {

@@ -265,6 +265,21 @@
     -fx-border-color: #d87984;
 }
 
+.theme-dark .reset-size-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #c4c4c4;
+}
+
+.theme-dark .reset-size-button:hover {
+    -fx-background-color: #363636;
+    -fx-text-fill: #ffffff;
+}
+
+.theme-dark .reset-size-button:focused {
+    -fx-border-color: #d87984;
+}
+
 .theme-dark .hm-alert-window,
 .theme-dark .hm-alert-content-panel {
     -fx-background-color: #202020;
