@@ -23,11 +23,11 @@ import javafx.stage.Window;
 public final class HmAlert {
 
     public enum Kind {
-        INFORMATION("i", "Información"),
-        SUCCESS("✓", "Éxito"),
-        WARNING("!", "Advertencia"),
+        INFORMATION("i", "Information"),
+        SUCCESS("✓", "Success"),
+        WARNING("!", "Warning"),
         ERROR("×", "Error"),
-        CONFIRMATION("?", "Confirmación");
+        CONFIRMATION("?", "Confirmation");
 
         private final String symbol;
         private final String accessibleName;
@@ -53,7 +53,7 @@ public final class HmAlert {
     private String contentText;
 
     public HmAlert(Kind kind) {
-        this.kind = Objects.requireNonNull(kind, "El tipo de alerta es obligatorio.");
+        this.kind = Objects.requireNonNull(kind, "Alert type is required.");
         if (kind == Kind.CONFIRMATION) {
             buttonTypes.addAll(ButtonType.OK, ButtonType.CANCEL);
         } else {
@@ -117,7 +117,7 @@ public final class HmAlert {
             stage.showAndWait();
             return Optional.ofNullable(controller.getResult());
         } catch (IOException exception) {
-            throw new IllegalStateException("No se pudo cargar la alerta personalizada.", exception);
+            throw new IllegalStateException("Unable to load the custom alert.", exception);
         }
     }
 

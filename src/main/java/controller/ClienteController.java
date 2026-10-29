@@ -196,7 +196,7 @@ public class ClienteController {
             return true;
         } catch (SQLException exception) {
             rollback(database, exception);
-            LOGGER.log(Level.WARNING, "No se pudo eliminar la cuenta completa.", exception);
+            LOGGER.log(Level.WARNING, "Could not fully delete the account.", exception);
             return false;
         } finally {
             this.connection.desconectar();

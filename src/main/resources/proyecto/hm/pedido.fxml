@@ -19,7 +19,7 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Label layoutX="15.0" layoutY="65.0" text="Productos del Carrito">
+      <Label layoutX="15.0" layoutY="65.0" text="Shopping Bag Items">
          <font>
             <Font name="Segoe UI Bold Italic" size="14.0" />
          </font>
@@ -70,17 +70,17 @@
             </VBox>
          </children>
       </VBox>
-      <Label layoutX="15.0" layoutY="248.0" text="Cliente:">
+      <Label layoutX="15.0" layoutY="248.0" text="Customer:">
          <font>
             <Font name="Segoe UI Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="nombre_pedido" layoutX="72.0" layoutY="240.0" prefHeight="34.0" prefWidth="244.0" text="NOMBRE DEL CLIENTE">
+      <Label fx:id="nombre_pedido" layoutX="72.0" layoutY="240.0" prefHeight="34.0" prefWidth="244.0" text="CUSTOMER NAME">
          <font>
             <Font name="Segoe UI Italic" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="281.0" text="Fecha:">
+      <Label layoutX="14.0" layoutY="281.0" text="Date:">
          <font>
             <Font name="Segoe UI Bold Italic" size="14.0" />
          </font>
@@ -90,7 +90,7 @@
             <Font name="Segoe UI Italic" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnComprar" layoutX="326.0" layoutY="265.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="127.0" text="Comprar Productos">
+      <Button fx:id="btnComprar" layoutX="326.0" layoutY="265.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="127.0" text="Shop Products">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
@@ -101,12 +101,12 @@
       </Button>
       <HBox layoutX="14.0" layoutY="27.0" prefHeight="23.0" prefWidth="290.0" spacing="7.0">
          <children>
-            <Label text="Confirmar comprar de">
+            <Label text="Confirm Order for">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="82.0" text="MyCarrito">
+            <Label prefHeight="23.0" prefWidth="82.0" text="Shopping Bag">
                <font>
                   <Font name="Segoe UI Italic" size="18.0" />
                </font>

@@ -254,7 +254,7 @@ public class TiendaController implements Initializable {
                 descripcion_producto.setText(producto.getDescripcion());
                 precio_producto.setText("$" + producto.getPrecio());
                 imagen_producto.setImage(ImageResources.load("/imagenes/" + producto.getImagen()));
-                labelGenero.setText(productoController.getGenero(producto.getIdProd()));
+                labelGenero.setText(UiText.gender(productoController.getGenero(producto.getIdProd())));
                 labelSeccion.setText(productoController.getCategoria(producto.getIdProd()));
                 labelNom_producto.setText(producto.getNombre());
                 labelid_producto.setText(String.valueOf(producto.getIdProd()));
@@ -368,9 +368,9 @@ public class TiendaController implements Initializable {
                 } else {
                     btnPedido.setOnMouseClicked(e -> {
                         HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                        alert.setTitle("Pedido");
-                        alert.setHeaderText("Comprar productos del carrito");
-                        alert.setContentText("Llena de productos H&M tu carrito para poder comprar.");
+                        alert.setTitle("Order");
+                        alert.setHeaderText("Checkout");
+                        alert.setContentText("Add H&M products to your shopping bag before checking out.");
                         alert.showAndWait();
                     });
                 }    
@@ -397,16 +397,16 @@ public class TiendaController implements Initializable {
             ArrayList<Producto> productosFavoritos = favoritoController.favoritosCliente(cliente.getIdCliente());
             for(Producto p : productosFavoritos){
                 if(p.getIdProd() == producto.getIdProd()) {
-                    btnFavorito.setText("Eliminar de Favoritos");
+                    btnFavorito.setText("Remove from Favorites");
                     btnFavorito.setOnMouseClicked(e -> {
                         eliminarFavorito();
-                        btnFavorito.setText("Agregar a Favoritos");
+                        btnFavorito.setText("Add to Favorites");
                     });
                 }
             }
         }
 
-        tableNames = new ArrayList<>(Arrays.asList("Producto","Cliente","Carrito","Favorito","Categoría (JOIN)","Sesión","Género","Pedido"));
+        tableNames = new ArrayList<>(Arrays.asList("Products", "Customers", "Shopping Bag", "Favorites", "Categories (JOIN)", "Sessions", "Genders", "Orders"));
         
         if(stackPane != null) {
             cidproducto.setCellValueFactory(cellData -> cellData.getValue().getIdProd());
@@ -457,7 +457,7 @@ public class TiendaController implements Initializable {
                         c.getZipcode(), 
                         c.getFecha_nacimiento(), 
                         PasswordService.maskForDisplay(c.getContrasena()),
-                        c.getGenero(), 
+                        UiText.gender(c.getGenero()),
                         c.getImagen()));
                 }
                 tablaCliente.setItems(olCliente);
@@ -551,7 +551,7 @@ public class TiendaController implements Initializable {
                 for (Genero g : generos) {
                     olGenero.add(new GeneroProperty(
                         g.getIdGenero(), 
-                        g.getNombre()));
+                        UiText.gender(g.getNombre())));
                 }
                 tablaGenero.setItems(olGenero);
             }
@@ -654,9 +654,9 @@ public class TiendaController implements Initializable {
             return;
         }
         boolean darkMode = ThemeManager.isDarkMode();
-        themeToggleButton.setText(darkMode ? "Modo claro" : "Modo oscuro");
+        themeToggleButton.setText(darkMode ? "Light mode" : "Dark mode");
         themeToggleButton.setAccessibleText(
-                darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+                darkMode ? "Switch to light mode" : "Switch to dark mode");
     }
     
     @FXML
@@ -689,40 +689,40 @@ public class TiendaController implements Initializable {
             double precio = Double.parseDouble(precio_con_signo);
             if(talla == null || talla.isBlank()) {
                 HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                alert.setTitle("MyCarrito");
-                alert.setHeaderText("Datos Incompletos");
-                alert.setContentText("Tiene que seleccionar una talla para el producto.");
+                alert.setTitle("Shopping Bag");
+                alert.setHeaderText("Incomplete Information");
+                alert.setContentText("Select a size for this product.");
                 alert.showAndWait();
                 return; 
             }
             Carrito car = new Carrito(idClie,idProd,cantidad,precio,talla);
             if(carritoController.ReadByCliePro(idClie, idProd, talla) != null){
                 HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                alert.setTitle("MyCarrito");
-                alert.setHeaderText("Agregar producto al carrito");
-                alert.setContentText("Este producto ya está en el carrito");
+                alert.setTitle("Shopping Bag");
+                alert.setHeaderText("Add to Shopping Bag");
+                alert.setContentText("This product is already in your shopping bag.");
                 alert.showAndWait();
                 return;
             }
             int result = carritoController.Create(car);
             if (result > 0) {
                 HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
-                alert.setTitle("MyCarrito");
-                alert.setHeaderText("Agregar producto al carrito");
-                alert.setContentText("Producto agregado al carrito exitosamente");
+                alert.setTitle("Shopping Bag");
+                alert.setHeaderText("Add to Shopping Bag");
+                alert.setContentText("Product added to your shopping bag.");
                 alert.showAndWait();
             } else {
                 HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                alert.setTitle("MyCarrito");
-                alert.setHeaderText("Agregar producto al carrito");
-                alert.setContentText("No se pudo guardar el producto al carrito");
+                alert.setTitle("Shopping Bag");
+                alert.setHeaderText("Add to Shopping Bag");
+                alert.setContentText("Could not add the product to your shopping bag.");
                 alert.showAndWait();
             }
         } else {
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setTitle("MyCarrito");
-            alert.setHeaderText("Error al procesar el carrito");
-            alert.setContentText("Inicia sesión para usar el carrito");
+            alert.setTitle("Shopping Bag");
+            alert.setHeaderText("Shopping Bag Error");
+            alert.setContentText("Sign in to use your shopping bag.");
             alert.showAndWait();
         }
         
@@ -818,7 +818,7 @@ public class TiendaController implements Initializable {
                     forceChange = true;
                 }
             } catch (RuntimeException exception) {
-                Logger.getLogger(TiendaController.class.getName()).log(Level.SEVERE, "No se pudo actualizar la contraseña anterior.", exception);
+                Logger.getLogger(TiendaController.class.getName()).log(Level.SEVERE, "Could not upgrade the password.", exception);
                 forceChange = admin;
             }
         }
@@ -953,7 +953,7 @@ public class TiendaController implements Initializable {
                 imageView.setId("imagen"+String.valueOf(productoID));
                 Label nameLabel = new Label(nombre);
                 Label descriptionLabel = new Label(descripcion);
-                Label priceLabel = new Label("Precio: $" + precio);
+                Label priceLabel = new Label("Price: $" + precio);
                 nameLabel.setId("nombre"+String.valueOf(productoID));
                 nameLabel.setMaxWidth(150);
                 nameLabel.setStyle("-fx-font-weight: bold;");
@@ -1019,22 +1019,22 @@ public class TiendaController implements Initializable {
             int result = favoritoController.Create(fav);
             if (result>0) {
                 HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
-                alert.setTitle("Guardar favorito");
-                alert.setHeaderText("Producto guardado en Favorites");
-                alert.setContentText("Tu producto favorito puede ser consultado en Favorites");
+                alert.setTitle("Save Favorite");
+                alert.setHeaderText("Product added to Favorites");
+                alert.setContentText("You can view this item in Favorites.");
                 alert.showAndWait();
             } else {
                 HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                alert.setTitle("Guardar favorito");
-                alert.setHeaderText("Error al guardar favorito");
-                alert.setContentText("No se pudo guardar el producto como favorito");
+                alert.setTitle("Save Favorite");
+                alert.setHeaderText("Could Not Save Favorite");
+                alert.setContentText("Could not add the product to Favorites.");
                 alert.showAndWait();
             }
         } else {
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setTitle("Guardar favorito");
-            alert.setHeaderText("Error al guardar favorito");
-            alert.setContentText("Inicia sesión para guardar favoritos");
+            alert.setTitle("Save Favorite");
+            alert.setHeaderText("Could Not Save Favorite");
+            alert.setContentText("Sign in to save Favorites.");
             alert.showAndWait();
         }
     }
@@ -1044,15 +1044,15 @@ public class TiendaController implements Initializable {
         int result = favoritoController.Delete(idFav);
         if(result>0){
             HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
-            alert.setTitle("Eliminar favorito");
-            alert.setHeaderText("Producto eliminado de Favorites");
-            alert.setContentText("El producto se eliminó de Favoritos.");
+            alert.setTitle("Remove Favorite");
+            alert.setHeaderText("Product removed from Favorites");
+            alert.setContentText("Product removed from Favorites.");
             alert.showAndWait();   
         } else {
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setTitle("Eliminar favorito");
-            alert.setHeaderText("Error al eliminar favorito");
-            alert.setContentText("No se pudo eliminar el producto de Favoritos.");
+            alert.setTitle("Remove Favorite");
+            alert.setHeaderText("Could Not Remove Favorite");
+            alert.setContentText("Could not remove the product from Favorites.");
             alert.showAndWait();
         }
     }
@@ -1061,15 +1061,15 @@ public class TiendaController implements Initializable {
         int result = carritoController.Delete(idCarrito);
         if(result>0){
             HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
-            alert.setTitle("Eliminar del carrito");
-            alert.setHeaderText("Producto eliminado del carrito");
-            alert.setContentText("El producto se eliminó del carrito.");
+            alert.setTitle("Remove from Shopping Bag");
+            alert.setHeaderText("Product removed from Shopping Bag");
+            alert.setContentText("Product removed from your shopping bag.");
             alert.showAndWait();    
         } else {
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setTitle("Eliminar del carrito");
-            alert.setHeaderText("Error al eliminar del carrito");
-            alert.setContentText("No se pudo eliminar el producto del carrito.");
+            alert.setTitle("Remove from Shopping Bag");
+            alert.setHeaderText("Could Not Remove Item");
+            alert.setContentText("Could not remove the product from your shopping bag.");
             alert.showAndWait();
         }
     }
@@ -1172,12 +1172,12 @@ public class TiendaController implements Initializable {
             Label nombre = new Label(producto.getNombre());
             nombre.setMaxWidth(205);
             Label precio = new Label("$" + String.valueOf(producto.getPrecio()));
-            Label cantidad = new Label("Cantidad: "+carrito.getCantidad());
-            Label talla = new Label("Talla: "+carrito.getTalla());
-            Label favorito = new Label("Favorito: No");
+            Label cantidad = new Label("Quantity: "+carrito.getCantidad());
+            Label talla = new Label("Size: "+carrito.getTalla());
+            Label favorito = new Label("Favorite: No");
             for(Producto fav : favoritoController.favoritosCliente(cliente.getIdCliente())) {
                 if(fav.getIdProd() == producto.getIdProd()){
-                    favorito.setText("Favorito: Si");
+                    favorito.setText("Favorite: Yes");
                 }
             }
             this.total+= Math.round((producto.getPrecio() * carrito.getCantidad()) * 100.0) /100.0;
@@ -1191,7 +1191,7 @@ public class TiendaController implements Initializable {
             hbox.getChildren().add(imagen);
             
             HBox inin = new HBox();
-            Button eliminarCarrito = new Button("Borrar");
+            Button eliminarCarrito = new Button("Remove");
             eliminarCarrito.setTranslateX(25);
             eliminarCarrito.setTranslateY(30);
             eliminarCarrito.setOnMouseClicked(e -> {

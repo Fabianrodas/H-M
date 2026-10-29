@@ -42,7 +42,7 @@ public final class HmAlertController {
         contentLabel.setText(content == null ? "" : content);
         contentLabel.setManaged(!contentLabel.getText().isBlank());
         contentLabel.setVisible(contentLabel.isManaged());
-        closeButton.setAccessibleText("Cerrar alerta");
+        closeButton.setAccessibleText("Close alert");
 
         ButtonType primaryType = buttonTypes.stream()
                 .filter(type -> !isCancel(type))

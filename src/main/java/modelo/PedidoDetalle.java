@@ -13,10 +13,10 @@ public final class PedidoDetalle {
 
     public PedidoDetalle(Carrito carrito) {
         if (carrito == null) {
-            throw new IllegalArgumentException("La línea del carrito es obligatoria.");
+            throw new IllegalArgumentException("The shopping bag item is required.");
         }
         if (carrito.getCantidad() <= 0 || carrito.getPrecio() < 0) {
-            throw new IllegalArgumentException("La cantidad y el precio del producto no son válidos.");
+            throw new IllegalArgumentException("The product quantity and price are invalid.");
         }
         this.idProducto = carrito.getIdProducto();
         this.talla = carrito.getTalla();

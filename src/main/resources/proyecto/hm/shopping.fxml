@@ -362,14 +362,14 @@
                               </CustomMenuItem>
                            </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="BD">
+                        <Menu mnemonicParsing="false" text="DB">
                            <items>
-                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Ir a la Base de datos" />
+                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Open Database" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
                            <items>
-                              <MenuItem fx:id="about" mnemonicParsing="false" text="Descubre más sobre este proyecto" />
+                              <MenuItem fx:id="about" mnemonicParsing="false" text="Discover more about this project" />
                            </items>
                         </Menu>
                      </menus>
@@ -404,7 +404,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
+                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="92.0" styleClass="theme-toggle-button" text="Dark mode" />
                   <Label layoutX="282.0" layoutY="143.0" text="HM.com /" />
                   <Label layoutX="342.0" layoutY="143.0" text="Shopping bag" styleClass="brand-accent-text" >
                      <font>
@@ -417,7 +417,7 @@
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | Todos los derechos reservados 2024 © " translateY="469.0" />
+                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="469.0" />
                   <Label layoutX="246.0" layoutY="179.0" text="Spend $100 on e-gift cards &amp; get $20 back">
                      <font>
                         <Font size="13.0" />
@@ -427,7 +427,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="cliente_nombre" alignment="CENTER" contentDisplay="CENTER" text="Cliente" textAlignment="CENTER">
+                              <Label fx:id="cliente_nombre" alignment="CENTER" contentDisplay="CENTER" text="Customer" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="28.0" />
                                  </font>
@@ -588,7 +588,7 @@
                               <Label fx:id="men" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Men" />
                               <Label fx:id="baby" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Baby" />
                               <Label fx:id="kids" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Kids" />
-                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="BD" />
+                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="DB" />
                               <Label fx:id="about2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="About" />
                            </children>
                         </VBox>
@@ -643,7 +643,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Label fx:id="labelLlena" layoutX="204.0" layoutY="161.0" prefHeight="110.0" prefWidth="291.0" text="¡Llena tu carrito comprando productos H&amp;M!" textAlignment="CENTER" translateX="-145.0" translateY="225.0" wrapText="true">
+                  <Label fx:id="labelLlena" layoutX="204.0" layoutY="161.0" prefHeight="110.0" prefWidth="291.0" text="Fill your shopping bag with H&amp;M products to get started!" textAlignment="CENTER" translateX="-145.0" translateY="225.0" wrapText="true">
                      <font>
                         <Font name="Segoe UI Bold Italic" size="23.0" />
                      </font>

@@ -14,7 +14,7 @@
          <children>
             <StackPane prefHeight="40.0" prefWidth="40.0" styleClass="hm-alert-icon">
                <children>
-                  <Label fx:id="iconLabel" accessibleText="Estado de la alerta" styleClass="hm-alert-icon-label" text="×" />
+                  <Label fx:id="iconLabel" accessibleText="Alert status" styleClass="hm-alert-icon-label" text="×" />
                </children>
             </StackPane>
             <Label fx:id="statusLabel" alignment="CENTER" maxWidth="Infinity" styleClass="hm-alert-status-label" text="ERROR" wrapText="true" />
@@ -32,7 +32,7 @@
                <children>
                   <Label fx:id="windowTitle" styleClass="hm-alert-window-title" text="H&amp;M" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="closeButton" accessibleText="Cerrar alerta" focusTraversable="false" mnemonicParsing="false" onAction="#closeAlert" styleClass="hm-alert-close-button">
+                  <Button fx:id="closeButton" accessibleText="Close alert" focusTraversable="false" mnemonicParsing="false" onAction="#closeAlert" styleClass="hm-alert-close-button">
                      <graphic>
                         <Label styleClass="hm-alert-close-icon" text="×" />
                      </graphic>
@@ -44,8 +44,8 @@
             </HBox>
             <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="headerLabel" maxWidth="Infinity" styleClass="hm-alert-heading" text="Título de la alerta" wrapText="true" />
-                  <Label fx:id="contentLabel" maxWidth="Infinity" styleClass="hm-alert-content" text="Contenido de la alerta" wrapText="true" />
+                  <Label fx:id="headerLabel" maxWidth="Infinity" styleClass="hm-alert-heading" text="Alert title" wrapText="true" />
+                  <Label fx:id="contentLabel" maxWidth="Infinity" styleClass="hm-alert-content" text="Alert content" wrapText="true" />
                </children>
             </VBox>
             <HBox fx:id="actionButtons" alignment="CENTER_RIGHT" spacing="8.0">

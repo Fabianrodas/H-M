@@ -22,13 +22,13 @@ public class PedidoController {
 
     public long crearConDetalle(int clienteId, LocalDate fecha, List<Carrito> lineas) {
         if (clienteId <= 0) {
-            throw new IllegalArgumentException("El cliente del pedido no es válido.");
+            throw new IllegalArgumentException("The order customer is invalid.");
         }
         if (fecha == null) {
-            throw new IllegalArgumentException("La fecha del pedido es obligatoria.");
+            throw new IllegalArgumentException("The order date is required.");
         }
         if (lineas == null || lineas.isEmpty()) {
-            throw new IllegalArgumentException("El carrito está vacío.");
+            throw new IllegalArgumentException("The shopping bag is empty.");
         }
 
         List<PedidoDetalle> detalles = new ArrayList<>();
@@ -54,7 +54,7 @@ public class PedidoController {
                 statement.setBigDecimal(3, total);
                 try (ResultSet result = statement.executeQuery()) {
                     if (!result.next()) {
-                        throw new SQLException("PostgreSQL no devolvió el número del pedido creado.");
+                        throw new SQLException("PostgreSQL did not return the new order number.");
                     }
                     orderId = result.getLong("idPedido");
                 }
@@ -95,14 +95,14 @@ public class PedidoController {
                 }
             }
             if (removedCartLines != detalles.size()) {
-                throw new SQLException("El carrito cambió durante la compra; el pedido se revirtió.");
+                throw new SQLException("The shopping bag changed during checkout. The order was rolled back.");
             }
 
             database.commit();
             return orderId;
         } catch (SQLException exception) {
             rollback(database, exception);
-            throw new RuntimeException("No se pudo completar el pedido.", exception);
+            throw new RuntimeException("Could not complete the order.", exception);
         } catch (RuntimeException exception) {
             rollback(database, exception);
             throw exception;

@@ -365,14 +365,14 @@
                               </CustomMenuItem>
                            </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="BD">
+                        <Menu mnemonicParsing="false" text="DB">
                            <items>
-                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Ir a la Base de datos" />
+                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Open Database" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
                            <items>
-                              <MenuItem fx:id="about" mnemonicParsing="false" text="Descubre más sobre este proyecto" />
+                              <MenuItem fx:id="about" mnemonicParsing="false" text="Discover more about this project" />
                            </items>
                         </Menu>
                      </menus>
@@ -407,14 +407,14 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
+                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="92.0" styleClass="theme-toggle-button" text="Dark mode" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="100.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="260.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | Todos los derechos reservados 2024 © " translateY="290.0" />
+                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="290.0" />
                   <HBox fx:id="hboxPie" layoutX="119.0" layoutY="563.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="520.0" spacing="30.0" translateY="70.0">
                      <children>
                         <VBox prefHeight="138.0" prefWidth="51.0">
@@ -429,7 +429,7 @@
                               <Label fx:id="men" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Men" />
                               <Label fx:id="baby" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Baby" />
                               <Label fx:id="kids" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Kids" />
-                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="BD" />
+                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="DB" />
                               <Label fx:id="about2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="About" />
                            </children>
                         </VBox>
@@ -484,19 +484,19 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Label layoutX="26.0" layoutY="91.0" text="Base de Datos: " translateY="5.0">
+                  <Label layoutX="26.0" layoutY="91.0" text="Database: " translateY="5.0">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>
                   </Label>
                   <VBox alignment="CENTER" layoutX="233.0" layoutY="128.0" prefHeight="87.0" prefWidth="274.0">
                      <children>
-                        <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="94.0" text="Tabla:" textAlignment="CENTER">
+                        <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="94.0" text="Table:" textAlignment="CENTER">
                            <font>
                               <Font name="Segoe UI" size="19.0" />
                            </font>
                         </Label>
-                        <Label fx:id="nombreTablaLabel" text="Nombre_Tabla">
+                        <Label fx:id="nombreTablaLabel" text="Table Name">
                            <font>
                               <Font name="Segoe UI Bold" size="21.0" />
                            </font>
@@ -512,72 +512,72 @@
                      <children>
                         <TableView fx:id="tablaProducto" prefHeight="310.0" prefWidth="708.0">
                           <columns>
-                            <TableColumn fx:id="cidproducto" prefWidth="28.79998779296875" text="id" />
-                            <TableColumn fx:id="cnombre_producto" prefWidth="159.99993133544922" text="nombre_Producto" />
-                              <TableColumn fx:id="cdescripcion" prefWidth="193.60006713867188" text="descripción" />
-                              <TableColumn fx:id="cprecio" prefWidth="93.5999755859375" text="precio" />
-                              <TableColumn fx:id="cidsubsub" minWidth="8.79998779296875" prefWidth="59.20001220703125" text="Subsub" />
-                              <TableColumn fx:id="cidgeneroproducto" minWidth="4.0" prefWidth="48.0" text="Género" />
-                              <TableColumn fx:id="cimagen_nombre" prefWidth="114.39996337890625" text="imagen_nombre" />
+                            <TableColumn fx:id="cidproducto" prefWidth="28.79998779296875" text="ID" />
+                            <TableColumn fx:id="cnombre_producto" prefWidth="159.99993133544922" text="Product Name" />
+                              <TableColumn fx:id="cdescripcion" prefWidth="193.60006713867188" text="Description" />
+                              <TableColumn fx:id="cprecio" prefWidth="93.5999755859375" text="Price" />
+                              <TableColumn fx:id="cidsubsub" minWidth="8.79998779296875" prefWidth="59.20001220703125" text="Subcategory Item" />
+                              <TableColumn fx:id="cidgeneroproducto" minWidth="4.0" prefWidth="48.0" text="Gender ID" />
+                              <TableColumn fx:id="cimagen_nombre" prefWidth="114.39996337890625" text="Image Name" />
                           </columns>
                         </TableView>
                         <TableView fx:id="tablaCliente" prefHeight="200.0" prefWidth="689.0" visible="false">
                            <columns>
-                              <TableColumn fx:id="cidcliente" prefWidth="26.399993896484375" text="id" />
-                              <TableColumn fx:id="cnombrecliente" prefWidth="61.599998474121094" text="nombre" />
-                              <TableColumn fx:id="capellido" prefWidth="75.20004272460938" text="apellido" />
-                              <TableColumn fx:id="ccorreo" prefWidth="94.39999389648438" text="correo" />
-                              <TableColumn fx:id="czipcode" prefWidth="60.0" text="zipcode" />
-                              <TableColumn fx:id="cfecha_nacimiento" prefWidth="111.20001220703125" text="fecha_nacimiento" />
-                              <TableColumn fx:id="ccontrasena" prefWidth="109.60003662109375" text="contrasena" />
-                              <TableColumn fx:id="cgenero" prefWidth="53.5999755859375" text="género" />
-                              <TableColumn fx:id="cimagen_usuario" prefWidth="100.0" text="imagen_usuario" />
+                              <TableColumn fx:id="cidcliente" prefWidth="26.399993896484375" text="ID" />
+                              <TableColumn fx:id="cnombrecliente" prefWidth="61.599998474121094" text="Name" />
+                              <TableColumn fx:id="capellido" prefWidth="75.20004272460938" text="Last Name" />
+                              <TableColumn fx:id="ccorreo" prefWidth="94.39999389648438" text="Email" />
+                              <TableColumn fx:id="czipcode" prefWidth="60.0" text="ZIP Code" />
+                              <TableColumn fx:id="cfecha_nacimiento" prefWidth="111.20001220703125" text="Date of Birth" />
+                              <TableColumn fx:id="ccontrasena" prefWidth="109.60003662109375" text="Password" />
+                              <TableColumn fx:id="cgenero" prefWidth="53.5999755859375" text="Gender" />
+                              <TableColumn fx:id="cimagen_usuario" prefWidth="100.0" text="Profile Image" />
                            </columns>
                         </TableView>
                         <TableView fx:id="tablaCarrito" prefHeight="200.0" prefWidth="689.0" visible="false">
                            <columns>
-                              <TableColumn fx:id="cidcarrito" prefWidth="100.0" text="idCarrito" />
-                              <TableColumn fx:id="cidclientecarrito" prefWidth="100.0" text="idCliente" />
-                              <TableColumn fx:id="cidproductocarrito" prefWidth="100.0" text="idProducto" />
-                              <TableColumn fx:id="ccantidad" prefWidth="100.0" text="cantidad" />
-                              <TableColumn fx:id="cpreciounitario" minWidth="0.0" prefWidth="182.4000244140625" text="precioUnitario" />
-                              <TableColumn fx:id="ctalla" minWidth="0.0" prefWidth="111.199951171875" text="talla" />
+                              <TableColumn fx:id="cidcarrito" prefWidth="100.0" text="Cart ID" />
+                              <TableColumn fx:id="cidclientecarrito" prefWidth="100.0" text="Customer ID" />
+                              <TableColumn fx:id="cidproductocarrito" prefWidth="100.0" text="Product ID" />
+                              <TableColumn fx:id="ccantidad" prefWidth="100.0" text="Quantity" />
+                              <TableColumn fx:id="cpreciounitario" minWidth="0.0" prefWidth="182.4000244140625" text="Unit Price" />
+                              <TableColumn fx:id="ctalla" minWidth="0.0" prefWidth="111.199951171875" text="Size" />
                            </columns>
                         </TableView>
                         <TableView fx:id="tablaFavorito" prefHeight="200.0" prefWidth="689.0" visible="false">
                            <columns>
-                              <TableColumn fx:id="cidfavorito" prefWidth="231.0" text="idFavorito" />
-                              <TableColumn fx:id="cidproductofavorito" prefWidth="231.19998779296873" text="idProducto" />
-                              <TableColumn fx:id="cidclientefavorito" prefWidth="231.0" text="idCliente" />
+                              <TableColumn fx:id="cidfavorito" prefWidth="231.0" text="Favorite ID" />
+                              <TableColumn fx:id="cidproductofavorito" prefWidth="231.19998779296873" text="Product ID" />
+                              <TableColumn fx:id="cidclientefavorito" prefWidth="231.0" text="Customer ID" />
                            </columns>
                         </TableView>
                         <TableView fx:id="tablaCategoria" prefHeight="200.0" prefWidth="689.0" visible="false">
                            <columns>
-                              <TableColumn fx:id="cidcategoria" prefWidth="100.0" text="idCategoria" />
-                              <TableColumn fx:id="cnombre_categoria" prefWidth="132.80007934570312" text="nombre_categoria" />
-                              <TableColumn fx:id="cidsubcategoria" prefWidth="94.39997863769531" text="idSubcategoria" />
-                              <TableColumn fx:id="cnombre_subcategoria" prefWidth="155.199951171875" text="nombre_subcategoria" />
-                              <TableColumn fx:id="cidsubsubcategoria" minWidth="0.0" prefWidth="51.20001220703125" text="idSubub" />
-                              <TableColumn fx:id="cnombre_subsub" minWidth="0.0" prefWidth="164.7999267578125" text="nombre_subsub" />
+                              <TableColumn fx:id="cidcategoria" prefWidth="100.0" text="Category ID" />
+                              <TableColumn fx:id="cnombre_categoria" prefWidth="132.80007934570312" text="Category Name" />
+                              <TableColumn fx:id="cidsubcategoria" prefWidth="94.39997863769531" text="Subcategory ID" />
+                              <TableColumn fx:id="cnombre_subcategoria" prefWidth="155.199951171875" text="Subcategory Name" />
+                              <TableColumn fx:id="cidsubsubcategoria" minWidth="0.0" prefWidth="51.20001220703125" text="Subcategory Item ID" />
+                              <TableColumn fx:id="cnombre_subsub" minWidth="0.0" prefWidth="164.7999267578125" text="Subcategory Item Name" />
                            </columns>
                         </TableView>
                         <TableView fx:id="tablaSesion" prefHeight="200.0" prefWidth="689.0" visible="false">
                            <columns>
-                              <TableColumn fx:id="cidsesion" prefWidth="350.0" text="Sesión Activa (remember me)" />
-                              <TableColumn fx:id="cidclientesesion" prefWidth="350.0" text="Cliente en la Sesión" />
+                              <TableColumn fx:id="cidsesion" prefWidth="350.0" text="Active Session (Remember Me)" />
+                              <TableColumn fx:id="cidclientesesion" prefWidth="350.0" text="Signed-in Customer" />
                            </columns>
                         </TableView>
                         <TableView fx:id="tablaGenero" prefHeight="200.0" prefWidth="689.0" visible="false">
                            <columns>
-                              <TableColumn fx:id="cidgenero" prefWidth="350.0" text="idGenero" />
-                              <TableColumn fx:id="cnombregenero" prefWidth="350.0" text="Nombre (Producto)" />
+                              <TableColumn fx:id="cidgenero" prefWidth="350.0" text="Gender ID" />
+                              <TableColumn fx:id="cnombregenero" prefWidth="350.0" text="Gender" />
                            </columns>
                         </TableView>
                         <TableView fx:id="tablaPedido" prefHeight="200.0" prefWidth="689.0" visible="false">
                            <columns>
-                              <TableColumn fx:id="cidpedido" prefWidth="175.0" text="idPedido" />
-                              <TableColumn fx:id="cidclientepedido" prefWidth="175.0" text="idCliente" />
-                              <TableColumn fx:id="cfechapedido" prefWidth="175.0" text="Fecha" />
+                              <TableColumn fx:id="cidpedido" prefWidth="175.0" text="Order ID" />
+                              <TableColumn fx:id="cidclientepedido" prefWidth="175.0" text="Customer ID" />
+                              <TableColumn fx:id="cfechapedido" prefWidth="175.0" text="Date" />
                               <TableColumn fx:id="ctotalpedido" prefWidth="175.0" text="Total" />
                            </columns>
                         </TableView>

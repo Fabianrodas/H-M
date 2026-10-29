@@ -76,10 +76,10 @@ public class CompraController implements Initializable {
                 long factura = pedidoController.crearConDetalle(
                         cliente.getIdCliente(), LocalDate.now(), lineasCarrito);
                 HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
-                alert.setTitle("Pedido Exitoso");
-                alert.setHeaderText("N° FACTURA: " + factura);
-                alert.setContentText("Disfrute de sus productos H&M" + "\n"
-                        + "Vuelva a llenar su carrito para realizar otro pedido.");
+                alert.setTitle("Order Placed");
+                alert.setHeaderText("INVOICE NO.: " + factura);
+                alert.setContentText("Enjoy your H&M products" + "\n"
+                        + "Add items to your shopping bag before placing another order.");
                 alert.showAndWait();
                 cerrarStage();
                 try {
@@ -88,11 +88,11 @@ public class CompraController implements Initializable {
                     Logger.getLogger(CompraController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } catch (RuntimeException ex) {
-                Logger.getLogger(CompraController.class.getName()).log(Level.SEVERE, "No se pudo completar el pedido.", ex);
+                Logger.getLogger(CompraController.class.getName()).log(Level.SEVERE, "Could not complete the order.", ex);
                 HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                alert.setTitle("ERROR EN EL PEDIDO");
-                alert.setHeaderText("Error al crear el pedido");
-                alert.setContentText("No se pudo completar la acción.");
+                alert.setTitle("ORDER ERROR");
+                alert.setHeaderText("Could Not Place Order");
+                alert.setContentText("The action could not be completed.");
                 alert.showAndWait();
             }
         });
@@ -122,8 +122,8 @@ public class CompraController implements Initializable {
             Label nombre = new Label(producto.getNombre());
             nombre.setMaxWidth(205);
             Label precio = new Label("$" + String.valueOf(carrito.getPrecio()));
-            Label cantidad = new Label("Cantidad: "+carrito.getCantidad());
-            Label talla = new Label("Talla: "+carrito.getTalla());
+            Label cantidad = new Label("Quantity: "+carrito.getCantidad());
+            Label talla = new Label("Size: "+carrito.getTalla());
             Label descripcion = new Label(producto.getDescripcion());
             descripcion.setPrefWidth(200);
             this.total+= Math.round((carrito.getPrecio() * carrito.getCantidad()) * 100.0) /100.0;

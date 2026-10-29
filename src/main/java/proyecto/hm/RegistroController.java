@@ -70,7 +70,7 @@ public class RegistroController {
         
         if(cmbGenero != null){
            cmbGenero.getItems().removeAll(cmbGenero.getItems());
-            cmbGenero.getItems().addAll("Hombre", "Mujer"); 
+            cmbGenero.getItems().addAll("Male", "Female");
         }
         
         if(datePicker != null){
@@ -79,7 +79,7 @@ public class RegistroController {
             LocalDate diaSeleccionado = datePicker.getValue();
             if (diaSeleccionado.isAfter(LocalDate.now())) {
                 // Mostrar alerta si se selecciona una fecha futura
-                showAlert("Fecha no válida", "No puedes seleccionar una fecha posterior a hoy.");
+                showAlert("Invalid Date", "You cannot select a date later than today.");
                 // Restablecer el valor del DatePicker a null o a una fecha válida
                 datePicker.setValue(null);
             }
@@ -196,13 +196,13 @@ public class RegistroController {
         if (nombre == null || apellido == null || genero == null || email == null || fecha == null || contrasena == null
         || nombre.isBlank() || apellido.isBlank() || genero.isBlank() || email.isBlank() || fecha.isBlank() || contrasena.isBlank()) {
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setHeaderText("Error al registrar");
-            alert.setContentText("Los campos obligatorios tienen que estar llenos");
+            alert.setHeaderText("Sign-up Error");
+            alert.setContentText("Please complete all required fields.");
             alert.showAndWait();
         } else if (!email.matches("\\S+@\\S+\\.\\S+")) {
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setHeaderText("Correo inválido");
-            alert.setContentText("Por favor ingresa un correo electrónico válido.");
+            alert.setHeaderText("Invalid Email");
+            alert.setContentText("Please enter a valid email address.");
             alert.showAndWait();
         } else {
             char[] password = passwordField.getText().toCharArray();
@@ -216,9 +216,9 @@ public class RegistroController {
                 int result = clienteController.Create(cliente);
                 if (result > 0) {
                     HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
-                    alert.setTitle("Registro de Usuarios");
-                    alert.setHeaderText("Usuario agregado");
-                    alert.setContentText("Te registraste exitosamente, bienvenido a H&M.");
+                    alert.setTitle("User Registration");
+                    alert.setHeaderText("Account Created");
+                    alert.setContentText("Your H&M account has been created.");
                     alert.showAndWait();
                     try {
                         switchToSignin();
@@ -227,16 +227,16 @@ public class RegistroController {
                     }
                 } else {
                     HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                    alert.setTitle("Registro de Usuarios");
-                    alert.setHeaderText("Error al registrar");
-                    alert.setContentText("El registro no se ha podido agregar");
+                    alert.setTitle("User Registration");
+                    alert.setHeaderText("Sign-up Error");
+                    alert.setContentText("Your account could not be created.");
                     alert.showAndWait();
                 }
             } catch (RuntimeException exception) {
-                Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, "No se pudo proteger la contraseña del registro.", exception);
+                Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, "Could not secure the registration password.", exception);
                 HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-                alert.setHeaderText("Error al registrar");
-                alert.setContentText("No se pudo completar el registro. Vuelve a intentarlo.");
+                alert.setHeaderText("Sign-up Error");
+                alert.setContentText("Could not complete registration. Please try again.");
                 alert.showAndWait();
             } finally {
                 Arrays.fill(password, '\0');
@@ -250,9 +250,9 @@ public class RegistroController {
         char[] contrasena = passwordField.getText().toCharArray();
         if(email.isBlank() || contrasena.length == 0) {
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setTitle("Iniciar Sesión");
-            alert.setHeaderText("Error al iniciar sesión");
-            alert.setContentText("El email y/o contraseña estan vacíos");
+            alert.setTitle("Sign In");
+            alert.setHeaderText("Sign-in Error");
+            alert.setContentText("Email and/or password is missing.");
             alert.showAndWait();
             Arrays.fill(contrasena, '\0');
             return;
@@ -260,9 +260,9 @@ public class RegistroController {
         Cliente cliente = clienteController.ReadByEmail(email);
         if(cliente == null){
             HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-            alert.setTitle("Iniciar Sesión");
-            alert.setHeaderText("Error al iniciar sesión");
-            alert.setContentText("El email y/o contraseña son incorrectos");
+            alert.setTitle("Sign In");
+            alert.setHeaderText("Sign-in Error");
+            alert.setContentText("Incorrect email or password.");
             alert.showAndWait();
             Arrays.fill(contrasena, '\0');
             return;
@@ -298,7 +298,7 @@ public class RegistroController {
             cerrarStage();
             App.setRoot(verification.mustChangePassword() ? "accountsettings" : "account");
         } catch (IOException | IllegalStateException exception) {
-            Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, "No se pudo completar el inicio de sesión.", exception);
+            Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, "Could not complete sign-in.", exception);
             showPasswordUpgradeError();
         } finally {
             Arrays.fill(contrasena, '\0');
@@ -307,17 +307,17 @@ public class RegistroController {
 
     private void showInvalidCredentials() {
         HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-        alert.setTitle("Iniciar Sesión");
-        alert.setHeaderText("Error al iniciar sesión");
-        alert.setContentText("El email y/o contraseña son incorrectos");
+        alert.setTitle("Sign In");
+        alert.setHeaderText("Sign-in Error");
+        alert.setContentText("Incorrect email or password.");
         alert.showAndWait();
     }
 
     private void showPasswordUpgradeError() {
         HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-        alert.setTitle("Actualizar contraseña");
-        alert.setHeaderText("No se pudo completar el inicio de sesión");
-        alert.setContentText("Vuelve a intentarlo. Si el problema continúa, revisa la conexión con la base de datos.");
+        alert.setTitle("Update Password");
+        alert.setHeaderText("Could not complete sign-in.");
+        alert.setContentText("Please try again. If the problem persists, check your database connection.");
         alert.showAndWait();
     }
 }

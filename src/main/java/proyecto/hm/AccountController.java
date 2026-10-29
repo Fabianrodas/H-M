@@ -112,7 +112,7 @@ public class AccountController implements Initializable {
                 accName.setText(cliente.getNombre());
                 accApellido.setText(cliente.getApellido());
                 accEmail.setText(cliente.getCorreo());
-                accGenero.setText(cliente.getGenero());
+                accGenero.setText(UiText.gender(cliente.getGenero()));
                 accFecha.setText(cliente.getFecha_nacimiento());
             }
             
@@ -134,16 +134,16 @@ public class AccountController implements Initializable {
         if(btnDeleteAccount != null){
             btnDeleteAccount.setOnMouseClicked(e -> {
                    HmAlert alert = new HmAlert(HmAlert.Kind.CONFIRMATION);
-                    alert.setTitle("Confirmación");
-                    alert.setHeaderText("Confirmación de eliminación de usuario");
-                    alert.setContentText("¿Está seguro de que desea eliminar el usuario?");
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Confirm Account Deletion");
+                    alert.setContentText("Are you sure you want to delete this account?");
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
                         if (deleteAccountAndSignOut(clienteID)) {
                             HmAlert cuadroDialogo = new HmAlert(HmAlert.Kind.SUCCESS);
-                            cuadroDialogo.setTitle("Eliminar cuenta");
-                            cuadroDialogo.setHeaderText("Eliminación de cuenta exitosa");
-                            cuadroDialogo.setContentText("La cuenta ha sido eliminada de nuestra base de datos.");
+                            cuadroDialogo.setTitle("Delete Account");
+                            cuadroDialogo.setHeaderText("Account Deleted");
+                            cuadroDialogo.setContentText("Your account has been deleted.");
                             cuadroDialogo.showAndWait();
                             try {
                                 App.setRoot("tienda");
@@ -176,15 +176,15 @@ public class AccountController implements Initializable {
                             accPassword.setText(PasswordService.maskForDisplay(hash));
                         }
                         HmAlert success = new HmAlert(HmAlert.Kind.SUCCESS);
-                        success.setTitle("Actualizar contraseña");
-                        success.setHeaderText("Actualización de contraseña exitosa");
-                        success.setContentText("¡La contraseña ha sido actualizada exitosamente!");
+                        success.setTitle("Update Password");
+                        success.setHeaderText("Password Updated");
+                        success.setContentText("Your password has been updated successfully.");
                         success.showAndWait();
                     } else {
                         showPasswordUpdateError();
                     }
                 } catch (RuntimeException exception) {
-                    Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, "No se pudo actualizar la contraseña.", exception);
+                    Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, "Could not update the password.", exception);
                     showPasswordUpdateError();
                 } finally {
                     Arrays.fill(password, '\0');
@@ -318,9 +318,9 @@ public class AccountController implements Initializable {
 
     private void showAccountDeletionFailure() {
         HmAlert cuadroDialogo = new HmAlert(HmAlert.Kind.ERROR);
-        cuadroDialogo.setTitle("Eliminar cuenta");
-        cuadroDialogo.setHeaderText("Eliminación de cuenta fallida");
-        cuadroDialogo.setContentText("El proceso ha fallado y su cuenta no ha sido eliminada.");
+        cuadroDialogo.setTitle("Delete Account");
+        cuadroDialogo.setHeaderText("Could Not Delete Account");
+        cuadroDialogo.setContentText("Something went wrong, and your account was not deleted.");
         cuadroDialogo.showAndWait();
     }
 
@@ -362,9 +362,9 @@ public class AccountController implements Initializable {
             return;
         }
         boolean darkMode = ThemeManager.isDarkMode();
-        themeToggleButton.setText(darkMode ? "Modo claro" : "Modo oscuro");
+        themeToggleButton.setText(darkMode ? "Light mode" : "Dark mode");
         themeToggleButton.setAccessibleText(
-                darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+                darkMode ? "Switch to light mode" : "Switch to dark mode");
     }
 
     private void guardarImagenBD(String imageName) {
@@ -388,9 +388,9 @@ public class AccountController implements Initializable {
         ClienteSingleton.getInstance().signOut();
         int sesion = sesionController.Delete();
         if(sesion>0){
-            System.out.println("Se cerró la sesión exitosamente.");
+            System.out.println("Signed out successfully.");
         } else {
-            System.out.println("Ocurrio un error cerrando la sesión.");
+            System.out.println("An error occurred while signing out.");
         }
        try {
                 App.setRoot("tienda");
@@ -471,9 +471,9 @@ public class AccountController implements Initializable {
 
     private void showPasswordUpdateError() {
         HmAlert error = new HmAlert(HmAlert.Kind.ERROR);
-        error.setTitle("Error de actualización");
-        error.setHeaderText("Error al actualizar la contraseña");
-        error.setContentText("No se pudo actualizar la contraseña. Comprueba el campo y vuelve a intentarlo.");
+        error.setTitle("Update Error");
+        error.setHeaderText("Password Update Error");
+        error.setContentText("Could not update your password. Check the field and try again.");
         error.showAndWait();
     }
     

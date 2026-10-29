@@ -125,12 +125,12 @@ public class LoadingController {
     }
 
     private void showDatabaseError() {
-        ButtonType retry = new ButtonType("Reintentar");
-        ButtonType close = new ButtonType("Cerrar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType retry = new ButtonType("Retry");
+        ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
-        alert.setTitle("No se pudo iniciar H-M");
-        alert.setHeaderText("No fue posible acceder a la base de datos");
-        alert.setContentText("Revisa tu archivo .env y confirma que PostgreSQL esté iniciado. Puedes reintentar o cerrar la aplicación.");
+        alert.setTitle("Could Not Start H-M");
+        alert.setHeaderText("Could not connect to the database.");
+        alert.setContentText("Check your .env file and make sure PostgreSQL is running. You can retry or close the app.");
         alert.getButtonTypes().setAll(retry, close);
         alert.showAndWait().ifPresent(result -> {
             if (result == retry) {

@@ -72,7 +72,7 @@ public class SesionController {
             }
             return result;
         } else {
-            System.out.println("Ocurrio un error borrando la anterior sesión.");
+            System.out.println("An error occurred while clearing the previous session.");
             return 0;
         }
     }

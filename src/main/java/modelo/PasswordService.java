@@ -34,7 +34,7 @@ public final class PasswordService {
 
     private static String hash(char[] password, boolean changeRequired) {
         if (password == null || password.length == 0) {
-            throw new IllegalArgumentException("La contraseña no puede estar vacía.");
+            throw new IllegalArgumentException("Password cannot be empty.");
         }
         byte[] salt = new byte[SALT_BYTES];
         RANDOM.nextBytes(salt);
@@ -45,7 +45,7 @@ public final class PasswordService {
                 + Base64.getEncoder().encodeToString(derived);
         Arrays.fill(derived, (byte) 0);
         if (encoded.length() > MAX_STORED_LENGTH) {
-            throw new IllegalStateException("El hash de contraseña no cabe en la columna actual.");
+            throw new IllegalStateException("The password hash does not fit in the current column.");
         }
         return encoded;
     }
@@ -81,7 +81,7 @@ public final class PasswordService {
 
     public static String upgradeLegacyPassword(String storedValue, boolean requirePasswordChange) {
         if (!isLegacyHex(storedValue)) {
-            throw new IllegalArgumentException("El valor no tiene el formato de contraseña antigua.");
+            throw new IllegalArgumentException("The value is not in the legacy password format.");
         }
         char[] legacyPassword = decodeLegacyHex(storedValue).toCharArray();
         try {
@@ -134,7 +134,7 @@ public final class PasswordService {
                     .generateSecret(keySpec)
                     .getEncoded();
         } catch (GeneralSecurityException exception) {
-            throw new IllegalStateException("No se pudo proteger la contraseña.", exception);
+            throw new IllegalStateException("Could not secure the password.", exception);
         } finally {
             keySpec.clearPassword();
         }

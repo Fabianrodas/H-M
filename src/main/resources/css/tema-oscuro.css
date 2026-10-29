@@ -251,13 +251,18 @@
 }
 
 .theme-dark .theme-toggle-button {
-    -fx-background-color: #262626;
-    -fx-border-color: #929292;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #c4c4c4;
 }
 
 .theme-dark .theme-toggle-button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #363636;
+    -fx-text-fill: #ffffff;
+}
+
+.theme-dark .theme-toggle-button:focused {
+    -fx-border-color: #d87984;
 }
 
 .theme-dark .hm-alert-window,

@@ -21,7 +21,7 @@ public final class ThemeManager {
     private static final String DARK_CLASS = "theme-dark";
     private static final String DARK_STYLESHEET = Objects.requireNonNull(
             ThemeManager.class.getResource("/css/tema-oscuro.css"),
-            "No se encontró la hoja de estilos del modo oscuro.").toExternalForm();
+            "Dark mode stylesheet was not found.").toExternalForm();
 
     private static boolean darkMode;
 
@@ -43,7 +43,7 @@ public final class ThemeManager {
     }
 
     public static void apply(Scene scene) {
-        Objects.requireNonNull(scene, "La escena es obligatoria.");
+        Objects.requireNonNull(scene, "Scene is required.");
         Parent root = scene.getRoot();
         if (darkMode) {
             if (!scene.getStylesheets().contains(DARK_STYLESHEET)) {
@@ -65,9 +65,9 @@ public final class ThemeManager {
         for (Node child : parent.getChildrenUnmodifiable()) {
             if (child instanceof Button button) {
                 if (button.getStyleClass().contains("theme-toggle-button")) {
-                    button.setText(darkMode ? "Modo claro" : "Modo oscuro");
+                    button.setText(darkMode ? "Light mode" : "Dark mode");
                     button.setAccessibleText(
-                            darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+                            darkMode ? "Switch to light mode" : "Switch to dark mode");
                 }
             }
             if (child instanceof Parent childParent) {

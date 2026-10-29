@@ -67,7 +67,7 @@ public class App extends Application {
         if (currentUser.isPasswordChangeRequired()
                 && !"accountsettings".equalsIgnoreCase(fxml)
                 && !"bd".equalsIgnoreCase(fxml)) {
-            showAccessMessage("Actualiza tu contraseña antes de continuar.");
+            showAccessMessage("Update your password before continuing.");
             return false;
         }
         return true;
@@ -75,8 +75,8 @@ public class App extends Application {
 
     private static void showAccessMessage(String message) {
         HmAlert alert = new HmAlert(HmAlert.Kind.WARNING);
-        alert.setTitle("Acceso restringido");
-        alert.setHeaderText("No se puede abrir esta pantalla");
+        alert.setTitle("Restricted Access");
+        alert.setHeaderText("Unable to open this screen");
         alert.setContentText(message);
         alert.showAndWait();
     }

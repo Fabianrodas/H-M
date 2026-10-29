@@ -16,7 +16,7 @@ public class DbConnection {
 
     public DbConnection(DatabaseConfig config) {
         if (config == null) {
-            throw new IllegalArgumentException("La configuración de base de datos es obligatoria.");
+            throw new IllegalArgumentException("Database configuration is required.");
         }
         this.config = config;
     }
@@ -41,7 +41,7 @@ public class DbConnection {
         try {
             connection.close();
         } catch (SQLException exception) {
-            LOGGER.log(Level.SEVERE, "No se pudo cerrar la conexión con la base de datos.", exception);
+            LOGGER.log(Level.SEVERE, "Could not close the database connection.", exception);
         } finally {
             connection = null;
         }
@@ -49,7 +49,7 @@ public class DbConnection {
 
     public Connection getConnection() {
         if (connection == null) {
-            throw new IllegalStateException("No hay una conexión activa. Conecta con la base de datos primero.");
+            throw new IllegalStateException("There is no active connection. Connect to the database first.");
         }
         return connection;
     }

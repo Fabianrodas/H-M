@@ -362,14 +362,14 @@
                               </CustomMenuItem>
                            </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="BD">
+                        <Menu mnemonicParsing="false" text="DB">
                            <items>
-                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Ir a la Base de datos" />
+                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Open Database" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
                            <items>
-                              <MenuItem fx:id="about" mnemonicParsing="false" text="Descubre más sobre este proyecto" />
+                              <MenuItem fx:id="about" mnemonicParsing="false" text="Discover more about this project" />
                            </items>
                         </Menu>
                      </menus>
@@ -404,7 +404,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
+                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="92.0" styleClass="theme-toggle-button" text="Dark mode" />
                   <Label layoutX="279.0" layoutY="143.0" text="HM.com / Kids / " />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="175.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="330.0">
@@ -412,7 +412,7 @@
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | Todos los derechos reservados 2024 © " translateY="360.0" />
+                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="360.0" />
                   <Label layoutX="369.0" layoutY="143.0" text="Girls (9-14Y) Shoes" styleClass="brand-accent-text" >
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -441,12 +441,12 @@
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="nombre115" prefHeight="5.0" prefWidth="112.0" text="Producto de niños">
+                                          <Label fx:id="nombre115" prefHeight="5.0" prefWidth="112.0" text="Kids' Product">
                                              <font>
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="precio115" text="Precio $">
+                                          <Label fx:id="precio115" text="Price $">
                                              <font>
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
@@ -474,12 +474,12 @@
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="nombre116" prefHeight="5.0" prefWidth="112.0" text="Producto de niños">
+                                          <Label fx:id="nombre116" prefHeight="5.0" prefWidth="112.0" text="Kids' Product">
                                              <font>
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="precio116" text="Precio $">
+                                          <Label fx:id="precio116" text="Price $">
                                              <font>
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
@@ -507,12 +507,12 @@
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="nombre117" prefHeight="5.0" prefWidth="112.0" text="Producto de niños">
+                                          <Label fx:id="nombre117" prefHeight="5.0" prefWidth="112.0" text="Kids' Product">
                                              <font>
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="precio117" text="Precio $">
+                                          <Label fx:id="precio117" text="Price $">
                                              <font>
                                                 <Font name="Gill Sans MT" size="12.0" />
                                              </font>
@@ -622,7 +622,7 @@
                               <Label fx:id="men" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Men" />
                               <Label fx:id="baby" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Baby" />
                               <Label fx:id="kids" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Kids" />
-                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="BD" />
+                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="DB" />
                               <Label fx:id="about2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="About" />
                            </children>
                         </VBox>

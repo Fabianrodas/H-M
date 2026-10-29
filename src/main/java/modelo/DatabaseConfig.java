@@ -37,7 +37,7 @@ public final class DatabaseConfig {
     public static DatabaseConfig load(Path envFile) {
         if (envFile == null || !Files.isRegularFile(envFile)) {
             throw new IllegalStateException(
-                    "No se encontró el archivo de configuración. Copia .env.example a .env y completa la conexión local a PostgreSQL.");
+                    "Configuration file not found. Copy .env.example to .env and enter your local PostgreSQL connection settings.");
         }
 
         Properties properties = new Properties();
@@ -45,7 +45,7 @@ public final class DatabaseConfig {
             properties.load(reader);
         } catch (IOException | IllegalArgumentException exception) {
             throw new IllegalStateException(
-                    "No se pudo leer el archivo de configuración. Revisa su formato y los valores de conexión local.", exception);
+                    "Could not read the configuration file. Check its format and local connection settings.", exception);
         }
 
         String host = requireNonBlank(properties, "HM_DB_HOST", envFile);
@@ -55,10 +55,10 @@ public final class DatabaseConfig {
             port = Integer.parseInt(portValue);
         } catch (NumberFormatException exception) {
             throw new IllegalStateException(
-                    "HM_DB_PORT debe ser un número entre 1 y 65535.", exception);
+                    "HM_DB_PORT must be a number between 1 and 65535.", exception);
         }
         if (port < 1 || port > 65535) {
-            throw new IllegalStateException("HM_DB_PORT debe ser un número entre 1 y 65535.");
+            throw new IllegalStateException("HM_DB_PORT must be a number between 1 and 65535.");
         }
         String databaseName = requireNonBlank(properties, "HM_DB_NAME", envFile);
         String user = requireNonBlank(properties, "HM_DB_USER", envFile);
@@ -87,7 +87,7 @@ public final class DatabaseConfig {
 
     private static IllegalStateException missingSetting(String key, Path envFile) {
         return new IllegalStateException(
-                "Falta " + key + " en " + envFile + ". Completa la configuración local indicada en .env.example.");
+                "Missing " + key + " in " + envFile + ". Add the local setting shown in .env.example.");
     }
 
     public Connection openConnection() throws SQLException {

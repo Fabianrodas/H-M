@@ -168,18 +168,26 @@
 }
 
 .theme-toggle-button {
-    -fx-background-color: white;
-    -fx-border-color: black;
+    -fx-pref-width: 92px;
+    -fx-pref-height: 26px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 1px;
-    -fx-background-radius: 2px;
-    -fx-border-radius: 2px;
-    -fx-text-fill: black;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: #686868;
     -fx-font-size: 11px;
-    -fx-font-weight: bold;
+    -fx-font-weight: normal;
+    -fx-padding: 4px 7px;
 }
 
 .theme-toggle-button:hover {
     -fx-background-color: #eeeeee;
+    -fx-text-fill: #222222;
+}
+
+.theme-toggle-button:focused {
+    -fx-border-color: #6f000f;
 }
 
 .table-view {

@@ -362,14 +362,14 @@
                               </CustomMenuItem>
                            </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="BD">
+                        <Menu mnemonicParsing="false" text="DB">
                            <items>
-                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Ir a la Base de datos" />
+                              <MenuItem fx:id="bd" mnemonicParsing="false" text="Open Database" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="About">
                            <items>
-                              <MenuItem fx:id="about" mnemonicParsing="false" text="Descubre más sobre este proyecto" />
+                              <MenuItem fx:id="about" mnemonicParsing="false" text="Discover more about this project" />
                            </items>
                         </Menu>
                      </menus>
@@ -404,20 +404,20 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="118.0" styleClass="theme-toggle-button" text="Modo oscuro" />
+                  <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="92.0" styleClass="theme-toggle-button" text="Dark mode" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="-100.0" width="741.0"  styleClass="footer-background" />
                   <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="60.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | Todos los derechos reservados 2024 © " translateY="90.0" />
+                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="90.0" />
                   <Label layoutX="88.0" layoutY="144.0" text="About">
                      <font>
                         <Font name="Malgun Gothic Bold" size="31.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="199.0" prefHeight="134.0" prefWidth="282.0" text="Este proyecto fue desarrollado utilizando JavaFX 2 y PostgreSQL. Cada sección del proyecto se ha implementado como un archivo FXML independiente, y todos están correctamente integrados entre sí. Este trabajo representa nuestro proyecto de Programación Orientada a Objetos (POO)." wrapText="true" />
+                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="199.0" prefHeight="134.0" prefWidth="282.0" text="This project was built with JavaFX 2 and PostgreSQL. Each section is implemented in a separate FXML file, and all sections are integrated. This is our Object-Oriented Programming (OOP) project." wrapText="true" />
                   <Label alignment="TOP_LEFT" layoutX="398.0" layoutY="157.0" prefHeight="19.0" prefWidth="95.0" text="Special Thanks" wrapText="true">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -429,9 +429,9 @@
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Paula Benalcazar" wrapText="true" />
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Luis Goncalves" wrapText="true" />
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Carlos Auqui" wrapText="true" />
-                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Miss Vanessa (POO)" wrapText="true" />
-                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Miss Shirley (BD)" wrapText="true" />
-                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="139.0" text="H&amp;M (página recreada)" wrapText="true" />
+                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Miss Vanessa (OOP)" wrapText="true" />
+                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Miss Shirley (DB)" wrapText="true" />
+                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="139.0" text="H&amp;M (recreated page)" wrapText="true" />
                      </children>
                   </VBox>
                   <Rectangle arcHeight="10.0" arcWidth="10.0" height="145.0" layoutX="548.0" layoutY="168.0" width="162.0" styleClass="brand-mark-backplate" />
@@ -454,7 +454,7 @@
                               <Label fx:id="men" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Men" />
                               <Label fx:id="baby" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Baby" />
                               <Label fx:id="kids" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="Kids" />
-                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="BD" />
+                              <Label fx:id="bd2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="DB" />
                               <Label fx:id="about2" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="53.0" text="About" />
                            </children>
                         </VBox>
