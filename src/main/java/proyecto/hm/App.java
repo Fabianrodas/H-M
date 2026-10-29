@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,12 +15,10 @@ import modelo.ClienteSingleton;
 public class App extends Application {
 
     private static Scene scene;
-    private static ResponsiveScalePane responsiveRoot;
 
     @Override
     public void start(Stage stage) throws IOException {
-        responsiveRoot = new ResponsiveScalePane(asRegion(loadFXML("pantalla_carga")), 750, 437);
-        scene = new Scene(responsiveRoot, 750, 437);
+        scene = new Scene(ResponsiveScreenLayout.prepare(loadFXML("pantalla_carga")), 750, 437);
         Image icon = new Image(getClass().getResourceAsStream("/imagenes/h&m.png"));
         String css = getClass().getResource("/css/estilos.css").toExternalForm();
         scene.getStylesheets().add(css);
@@ -29,8 +26,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("H&M Store");
         stage.getIcons().add(icon);
-        stage.setMinWidth(600);
-        stage.setMinHeight(376);
+        stage.setMinWidth(750);
+        stage.setMinHeight(360);
         stage.setResizable(true);
         double x = 400;
         double y = 150;
@@ -43,7 +40,7 @@ public class App extends Application {
         if (!isRouteAllowed(fxml)) {
             return;
         }
-        responsiveRoot.setContent(asRegion(loadFXML(fxml)));
+        scene.setRoot(ResponsiveScreenLayout.prepare(loadFXML(fxml)));
         ThemeManager.apply(scene);
     }
     
@@ -51,16 +48,16 @@ public class App extends Application {
         if (!isRouteAllowed(fxml)) {
             return;
         }
-        Region newRoot = asRegion(loadFXML(fxml));
+        Parent newRoot = ResponsiveScreenLayout.prepare(loadFXML(fxml));
         FadeTransition fadeOut = new FadeTransition(
-                Duration.seconds(1), responsiveRoot.getContent());
+                Duration.seconds(1), scene.getRoot());
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(event -> {
-            responsiveRoot.setContent(newRoot);
+            scene.setRoot(newRoot);
             ThemeManager.apply(scene);
             FadeTransition fadeIn = new FadeTransition(
-                    Duration.seconds(1), responsiveRoot.getContent());
+                    Duration.seconds(1), scene.getRoot());
             fadeIn.setFromValue(0.0);
             fadeIn.setToValue(1.0);
             fadeIn.play();
@@ -91,14 +88,6 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
-    }
-
-    private static Region asRegion(Parent root) {
-        if (root instanceof Region region) {
-            return region;
-        }
-        throw new IllegalStateException(
-                "FXML screen root must be resizable: " + root.getClass().getName());
     }
 
     public static void main(String[] args) {

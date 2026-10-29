@@ -417,7 +417,7 @@
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="469.0" />
+                  <Label layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="469.0"  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minWidth="0.0" maxWidth="Infinity" alignment="CENTER" textAlignment="CENTER" styleClass="footer-copyright"/>
                   <Label layoutX="246.0" layoutY="179.0" text="Spend $100 on e-gift cards &amp; get $20 back">
                      <font>
                         <Font size="13.0" />

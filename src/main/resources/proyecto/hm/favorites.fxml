@@ -506,7 +506,7 @@
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="labelPie" layoutX="243.0" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="215.0" />
+                  <Label fx:id="labelPie" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="215.0"  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minWidth="0.0" maxWidth="Infinity" alignment="CENTER" textAlignment="CENTER" styleClass="footer-copyright"/>
                </children>
             </AnchorPane>
         </content>

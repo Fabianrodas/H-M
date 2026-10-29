@@ -37,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -924,19 +925,7 @@ public class TiendaController implements Initializable {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, "%" + searchText + "%");
             ResultSet rs = stmt.executeQuery();
-            VBox mainVBox = new VBox();
-            mainVBox.setSpacing(30); 
-            mainVBox.setAlignment(Pos.CENTER);
-            HBox rowHBox = new HBox();
-            rowHBox.setSpacing(20); 
-            rowHBox.setAlignment(Pos.CENTER); 
-
-            int contadorProducto = 0;
-            int cantidadFilas = 0;
-            double alturaImagen = 150;
-            double alturaLabel = 20;
-            double espaciadoVertical = 10;
-            double alturaFila = alturaImagen + 3 * alturaLabel + 2 * espaciadoVertical;
+            List<VBox> productCards = new ArrayList<>();
             
             while (rs.next()) {
                 int productoID = rs.getInt("idProducto");
@@ -946,6 +935,7 @@ public class TiendaController implements Initializable {
                 String imagenNombre = rs.getString("imagen_nombre");
                 VBox productVBox = new VBox();
                 productVBox.setSpacing(5);
+                productVBox.setAlignment(Pos.TOP_CENTER);
                 ImageView imageView = new ImageView(ImageResources.load("/imagenes/" + imagenNombre));
                 imageView.setFitWidth(150);
                 imageView.setFitHeight(150);
@@ -960,32 +950,26 @@ public class TiendaController implements Initializable {
                 descriptionLabel.setMaxWidth(150);
                 comprarProductos(imageView,nameLabel);
                 productVBox.getChildren().addAll(imageView, nameLabel, descriptionLabel, priceLabel);
-                rowHBox.getChildren().add(productVBox);
-                contadorProducto++;
-                
-                if (contadorProducto % 4 == 0) {
-                    mainVBox.getChildren().add(rowHBox);
-                    rowHBox = new HBox();
-                    rowHBox.setSpacing(10);
-                    rowHBox.setAlignment(Pos.CENTER);
-                    cantidadFilas++;
-                }
+                productCards.add(productVBox);
             }
-            if (!rowHBox.getChildren().isEmpty()) {
-                mainVBox.getChildren().add(rowHBox);
-                cantidadFilas++;
-            }
-            vboxResultados.getChildren().add(mainVBox);
-            double espaciadoVerticalEntreFilas = 30;
-            cantidadFilas++;
-            double rectangulo = rectanguloPie.getHeight();
-            double nuevaAltura = cantidadFilas * alturaFila + (cantidadFilas - 1) * espaciadoVerticalEntreFilas; 
-            nuevaAltura = nuevaAltura + rectangulo;
-            rectanguloPie.setTranslateY(nuevaAltura - rectangulo - 310);
-            hboxPie.setTranslateY(nuevaAltura - rectangulo - 310);
-            labelPie.setTranslateY(nuevaAltura - rectangulo - 310);
-            imagenPie.setTranslateY(nuevaAltura - rectangulo - 310);
-            anchorBuscar.setPrefHeight(nuevaAltura);
+
+            double originalContentHeight = anchorBuscar.getPrefHeight();
+            double footerY = rectanguloPie.getLayoutY() + rectanguloPie.getTranslateY();
+            double baseFooterTranslateY = rectanguloPie.getTranslateY();
+            double baseHBoxTranslateY = hboxPie.getTranslateY();
+            double baseLabelTranslateY = labelPie.getTranslateY();
+            double baseImageTranslateY = imagenPie.getTranslateY();
+            FlowPane resultGrid = ResponsiveProductGrid.createSearchGrid(productCards, gridHeight -> {
+                double resultBottom = vboxResultados.getLayoutY() + gridHeight;
+                double footerOffset = Math.max(0, resultBottom + 24 - footerY);
+                rectanguloPie.setTranslateY(baseFooterTranslateY + footerOffset);
+                hboxPie.setTranslateY(baseHBoxTranslateY + footerOffset);
+                labelPie.setTranslateY(baseLabelTranslateY + footerOffset);
+                imagenPie.setTranslateY(baseImageTranslateY + footerOffset);
+                anchorBuscar.setPrefHeight(Math.max(originalContentHeight,
+                        footerY + footerOffset - baseFooterTranslateY + rectanguloPie.getHeight() + 24));
+            });
+            vboxResultados.getChildren().setAll(resultGrid);
             
             rs.close();
             stmt.close();

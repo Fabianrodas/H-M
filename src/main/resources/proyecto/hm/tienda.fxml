@@ -442,7 +442,7 @@
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="243.0" layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="485.0" />
+                  <Label layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="485.0"  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minWidth="0.0" maxWidth="Infinity" alignment="CENTER" textAlignment="CENTER" styleClass="footer-copyright"/>
                   <HBox fx:id="hboxPie" layoutX="109.0" layoutY="553.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="520.0" spacing="30.0" translateY="275.0">
                      <children>
                         <VBox prefHeight="138.0" prefWidth="51.0">
