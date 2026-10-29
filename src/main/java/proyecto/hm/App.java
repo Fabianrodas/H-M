@@ -23,6 +23,7 @@ public class App extends Application {
         String css = getClass().getResource("/css/estilos.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
+        stage.setTitle("H&M Store");
         stage.getIcons().add(icon);
         stage.setResizable(false);
         double x = 400;
