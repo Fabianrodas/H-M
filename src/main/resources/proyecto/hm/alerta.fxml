@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="alertWindow" alignment="CENTER_LEFT" minWidth="390.0" prefWidth="430.0" styleClass="hm-alert-window" stylesheets="@../../css/alertas.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hm.HmAlertController">
+   <children>
+      <VBox alignment="CENTER" minWidth="78.0" prefWidth="78.0" maxWidth="78.0" spacing="10.0" styleClass="hm-alert-status-panel">
+         <children>
+            <StackPane prefHeight="40.0" prefWidth="40.0" styleClass="hm-alert-icon">
+               <children>
+                  <Label fx:id="iconLabel" accessibleText="Estado de la alerta" styleClass="hm-alert-icon-label" text="×" />
+               </children>
+            </StackPane>
+            <Label fx:id="statusLabel" alignment="CENTER" maxWidth="Infinity" styleClass="hm-alert-status-label" text="ERROR" wrapText="true" />
+         </children>
+         <padding>
+            <Insets bottom="14.0" left="8.0" right="8.0" top="14.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" spacing="0.0" styleClass="hm-alert-content-panel" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="16.0" left="18.0" right="16.0" top="12.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" onMouseDragged="#dragWindow" onMousePressed="#startDrag" spacing="8.0">
+               <children>
+                  <Label fx:id="windowTitle" styleClass="hm-alert-window-title" text="H&amp;M" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="closeButton" accessibleText="Cerrar alerta" focusTraversable="false" mnemonicParsing="false" onAction="#closeAlert" styleClass="hm-alert-close-button" text="×" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="11.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="headerLabel" maxWidth="Infinity" styleClass="hm-alert-heading" text="Título de la alerta" wrapText="true" />
+                  <Label fx:id="contentLabel" maxWidth="Infinity" styleClass="hm-alert-content" text="Contenido de la alerta" wrapText="true" />
+               </children>
+            </VBox>
+            <HBox fx:id="actionButtons" alignment="CENTER_RIGHT" spacing="8.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

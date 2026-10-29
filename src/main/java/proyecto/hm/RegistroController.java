@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -105,7 +103,7 @@ public class RegistroController {
     }
     
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.WARNING);
+        HmAlert alert = new HmAlert(HmAlert.Kind.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
@@ -192,12 +190,12 @@ public class RegistroController {
         String contrasena = passwordField.getText();
         if (nombre == null || apellido == null || genero == null || email == null || fecha == null || contrasena == null
         || nombre.isBlank() || apellido.isBlank() || genero.isBlank() || email.isBlank() || fecha.isBlank() || contrasena.isBlank()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setHeaderText("Error al registrar");
             alert.setContentText("Los campos obligatorios tienen que estar llenos");
             alert.showAndWait();
         } else if (!email.matches("\\S+@\\S+\\.\\S+")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setHeaderText("Correo inválido");
             alert.setContentText("Por favor ingresa un correo electrónico válido.");
             alert.showAndWait();
@@ -212,7 +210,7 @@ public class RegistroController {
                 Cliente cliente = new Cliente(nombre, apellido, email, zipcode, fecha, hashedPassword, genero);
                 int result = clienteController.Create(cliente);
                 if (result > 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
                     alert.setTitle("Registro de Usuarios");
                     alert.setHeaderText("Usuario agregado");
                     alert.setContentText("Te registraste exitosamente, bienvenido a H&M.");
@@ -223,7 +221,7 @@ public class RegistroController {
                         Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                     alert.setTitle("Registro de Usuarios");
                     alert.setHeaderText("Error al registrar");
                     alert.setContentText("El registro no se ha podido agregar");
@@ -231,7 +229,7 @@ public class RegistroController {
                 }
             } catch (RuntimeException exception) {
                 Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, "No se pudo proteger la contraseña del registro.", exception);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                 alert.setHeaderText("Error al registrar");
                 alert.setContentText("No se pudo completar el registro. Vuelve a intentarlo.");
                 alert.showAndWait();
@@ -246,7 +244,7 @@ public class RegistroController {
         String email = emailSignin.getText();
         char[] contrasena = passwordField.getText().toCharArray();
         if(email.isBlank() || contrasena.length == 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setTitle("Iniciar Sesión");
             alert.setHeaderText("Error al iniciar sesión");
             alert.setContentText("El email y/o contraseña estan vacíos");
@@ -256,7 +254,7 @@ public class RegistroController {
         }
         Cliente cliente = clienteController.ReadByEmail(email);
         if(cliente == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setTitle("Iniciar Sesión");
             alert.setHeaderText("Error al iniciar sesión");
             alert.setContentText("El email y/o contraseña son incorrectos");
@@ -303,7 +301,7 @@ public class RegistroController {
     }
 
     private void showInvalidCredentials() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
         alert.setTitle("Iniciar Sesión");
         alert.setHeaderText("Error al iniciar sesión");
         alert.setContentText("El email y/o contraseña son incorrectos");
@@ -311,7 +309,7 @@ public class RegistroController {
     }
 
     private void showPasswordUpgradeError() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
         alert.setTitle("Actualizar contraseña");
         alert.setHeaderText("No se pudo completar el inicio de sesión");
         alert.setContentText("Vuelve a intentarlo. Si el problema continúa, revisa la conexión con la base de datos.");

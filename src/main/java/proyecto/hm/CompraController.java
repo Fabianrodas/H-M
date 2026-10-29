@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -76,7 +75,7 @@ public class CompraController implements Initializable {
             try {
                 long factura = pedidoController.crearConDetalle(
                         cliente.getIdCliente(), LocalDate.now(), lineasCarrito);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
                 alert.setTitle("Pedido Exitoso");
                 alert.setHeaderText("N° FACTURA: " + factura);
                 alert.setContentText("Disfrute de sus productos H&M" + "\n"
@@ -90,7 +89,7 @@ public class CompraController implements Initializable {
                 }
             } catch (RuntimeException ex) {
                 Logger.getLogger(CompraController.class.getName()).log(Level.SEVERE, "No se pudo completar el pedido.", ex);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                 alert.setTitle("ERROR EN EL PEDIDO");
                 alert.setHeaderText("Error al crear el pedido");
                 alert.setContentText("No se pudo completar la acción.");

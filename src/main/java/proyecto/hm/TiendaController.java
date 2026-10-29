@@ -28,7 +28,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -363,7 +362,7 @@ public class TiendaController implements Initializable {
                     });
                 } else {
                     btnPedido.setOnMouseClicked(e -> {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                         alert.setTitle("Pedido");
                         alert.setHeaderText("Comprar productos del carrito");
                         alert.setContentText("Llena de productos H&M tu carrito para poder comprar.");
@@ -638,7 +637,7 @@ public class TiendaController implements Initializable {
             precio_con_signo = precio_con_signo.replace("$", "").trim(); 
             double precio = Double.parseDouble(precio_con_signo);
             if(talla == null || talla.isBlank()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                 alert.setTitle("MyCarrito");
                 alert.setHeaderText("Datos Incompletos");
                 alert.setContentText("Tiene que seleccionar una talla para el producto.");
@@ -647,7 +646,7 @@ public class TiendaController implements Initializable {
             }
             Carrito car = new Carrito(idClie,idProd,cantidad,precio,talla);
             if(carritoController.ReadByCliePro(idClie, idProd, talla) != null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                 alert.setTitle("MyCarrito");
                 alert.setHeaderText("Agregar producto al carrito");
                 alert.setContentText("Este producto ya está en el carrito");
@@ -656,20 +655,20 @@ public class TiendaController implements Initializable {
             }
             int result = carritoController.Create(car);
             if (result > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
                 alert.setTitle("MyCarrito");
                 alert.setHeaderText("Agregar producto al carrito");
                 alert.setContentText("Producto agregado al carrito exitosamente");
                 alert.showAndWait();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                 alert.setTitle("MyCarrito");
                 alert.setHeaderText("Agregar producto al carrito");
                 alert.setContentText("No se pudo guardar el producto al carrito");
                 alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setTitle("MyCarrito");
             alert.setHeaderText("Error al procesar el carrito");
             alert.setContentText("Inicia sesión para usar el carrito");
@@ -967,20 +966,20 @@ public class TiendaController implements Initializable {
             }
             int result = favoritoController.Create(fav);
             if (result>0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
                 alert.setTitle("Guardar favorito");
                 alert.setHeaderText("Producto guardado en Favorites");
                 alert.setContentText("Tu producto favorito puede ser consultado en Favorites");
                 alert.showAndWait();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
                 alert.setTitle("Guardar favorito");
                 alert.setHeaderText("Error al guardar favorito");
                 alert.setContentText("No se pudo guardar el producto como favorito");
                 alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setTitle("Guardar favorito");
             alert.setHeaderText("Error al guardar favorito");
             alert.setContentText("Inicia sesión para guardar favoritos");
@@ -992,13 +991,13 @@ public class TiendaController implements Initializable {
         int idFav = favoritoController.GetByClieProd(cliente.getIdCliente(), producto.getIdProd()).getIdFavorito();
         int result = favoritoController.Delete(idFav);
         if(result>0){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
             alert.setTitle("Eliminar favorito");
             alert.setHeaderText("Producto eliminado de Favorites");
             alert.setContentText("El producto se eliminó de Favoritos.");
             alert.showAndWait();   
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setTitle("Eliminar favorito");
             alert.setHeaderText("Error al eliminar favorito");
             alert.setContentText("No se pudo eliminar el producto de Favoritos.");
@@ -1009,13 +1008,13 @@ public class TiendaController implements Initializable {
     private void eliminarCarrito(int idCarrito) {
         int result = carritoController.Delete(idCarrito);
         if(result>0){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            HmAlert alert = new HmAlert(HmAlert.Kind.SUCCESS);
             alert.setTitle("Eliminar del carrito");
             alert.setHeaderText("Producto eliminado del carrito");
             alert.setContentText("El producto se eliminó del carrito.");
             alert.showAndWait();    
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
             alert.setTitle("Eliminar del carrito");
             alert.setHeaderText("Error al eliminar del carrito");
             alert.setContentText("No se pudo eliminar el producto del carrito.");

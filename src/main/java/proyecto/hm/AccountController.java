@@ -31,8 +31,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
 import javafx.fxml.FXMLLoader;
@@ -134,14 +132,14 @@ public class AccountController implements Initializable {
         
         if(btnDeleteAccount != null){
             btnDeleteAccount.setOnMouseClicked(e -> {
-                   Alert alert = new Alert(AlertType.CONFIRMATION);
+                   HmAlert alert = new HmAlert(HmAlert.Kind.CONFIRMATION);
                     alert.setTitle("Confirmación");
                     alert.setHeaderText("Confirmación de eliminación de usuario");
                     alert.setContentText("¿Está seguro de que desea eliminar el usuario?");
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
                         if (deleteAccountAndSignOut(clienteID)) {
-                            Alert cuadroDialogo = new Alert(AlertType.INFORMATION);
+                            HmAlert cuadroDialogo = new HmAlert(HmAlert.Kind.SUCCESS);
                             cuadroDialogo.setTitle("Eliminar cuenta");
                             cuadroDialogo.setHeaderText("Eliminación de cuenta exitosa");
                             cuadroDialogo.setContentText("La cuenta ha sido eliminada de nuestra base de datos.");
@@ -176,7 +174,7 @@ public class AccountController implements Initializable {
                         if (accPassword != null) {
                             accPassword.setText(PasswordService.maskForDisplay(hash));
                         }
-                        Alert success = new Alert(AlertType.INFORMATION);
+                        HmAlert success = new HmAlert(HmAlert.Kind.SUCCESS);
                         success.setTitle("Actualizar contraseña");
                         success.setHeaderText("Actualización de contraseña exitosa");
                         success.setContentText("¡La contraseña ha sido actualizada exitosamente!");
@@ -316,7 +314,7 @@ public class AccountController implements Initializable {
     }
 
     private void showAccountDeletionFailure() {
-        Alert cuadroDialogo = new Alert(AlertType.ERROR);
+        HmAlert cuadroDialogo = new HmAlert(HmAlert.Kind.ERROR);
         cuadroDialogo.setTitle("Eliminar cuenta");
         cuadroDialogo.setHeaderText("Eliminación de cuenta fallida");
         cuadroDialogo.setContentText("El proceso ha fallado y su cuenta no ha sido eliminada.");
@@ -454,7 +452,7 @@ public class AccountController implements Initializable {
     }
 
     private void showPasswordUpdateError() {
-        Alert error = new Alert(AlertType.ERROR);
+        HmAlert error = new HmAlert(HmAlert.Kind.ERROR);
         error.setTitle("Error de actualización");
         error.setHeaderText("Error al actualizar la contraseña");
         error.setContentText("No se pudo actualizar la contraseña. Comprueba el campo y vuelve a intentarlo.");

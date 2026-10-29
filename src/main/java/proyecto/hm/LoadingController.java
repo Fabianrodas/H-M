@@ -10,7 +10,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -128,7 +127,7 @@ public class LoadingController {
     private void showDatabaseError() {
         ButtonType retry = new ButtonType("Reintentar");
         ButtonType close = new ButtonType("Cerrar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        HmAlert alert = new HmAlert(HmAlert.Kind.ERROR);
         alert.setTitle("No se pudo iniciar H-M");
         alert.setHeaderText("No fue posible acceder a la base de datos");
         alert.setContentText("Revisa tu archivo .env y confirma que PostgreSQL esté iniciado. Puedes reintentar o cerrar la aplicación.");
