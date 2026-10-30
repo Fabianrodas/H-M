@@ -259,6 +259,74 @@
     -fx-fill: transparent;
 }
 
+.contributor-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dedede;
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    -fx-padding: 10px;
+}
+
+.contributor-section-title,
+.contributor-name {
+    -fx-font-weight: bold;
+}
+
+.contributor-name {
+    -fx-font-size: 13px;
+}
+
+.github-profile-button,
+.linkedin-profile-button {
+    -fx-min-width: 92px;
+    -fx-pref-width: 92px;
+    -fx-max-width: 92px;
+    -fx-min-height: 34px;
+    -fx-pref-height: 34px;
+    -fx-max-height: 34px;
+    -fx-padding: 4px 6px;
+    -fx-graphic-text-gap: 4px;
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+    -fx-border-color: transparent;
+}
+
+.github-profile-button {
+    -fx-background-color: #24292f;
+    -fx-text-fill: #ffffff;
+}
+
+.github-profile-button:hover {
+    -fx-background-color: #3b4047;
+}
+
+.linkedin-profile-button {
+    -fx-background-color: #0a66c2;
+    -fx-text-fill: #ffffff;
+}
+
+.linkedin-profile-button:hover {
+    -fx-background-color: #004182;
+}
+
+.github-profile-button:focused,
+.linkedin-profile-button:focused {
+    -fx-border-color: #e60023;
+    -fx-border-width: 2px;
+}
+
+.profile-social-icon {
+    -fx-fill: #ffffff;
+    -fx-scale-x: 0.75;
+    -fx-scale-y: 0.75;
+}
+
+.linkedin-profile-mark {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
 .size-option {
     -fx-background-color: white;
     -fx-text-fill: black;

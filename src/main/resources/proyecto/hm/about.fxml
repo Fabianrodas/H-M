@@ -9,12 +9,15 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -22,7 +25,7 @@
    <children>
       <ScrollPane fx:id="scrollPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0">
         <content>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="750.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="750.0">
                <children>
                   <MenuBar fx:id="menuBarFinal" layoutX="218.0" layoutY="91.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="315.0">
                      <menus>
@@ -405,28 +408,97 @@
                      </children>
                   </HBox>
                   <Button fx:id="themeToggleButton" layoutX="26.0" layoutY="34.0" mnemonicParsing="false" onAction="#toggleTheme" prefHeight="28.0" prefWidth="92.0" styleClass="theme-toggle-button" text="Dark mode" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="495.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="-100.0" width="741.0"  styleClass="footer-background" />
-                  <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true" translateY="60.0">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="280.0" layoutX="-2.0" layoutY="750.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateY="-100.0" width="741.0"  styleClass="footer-background" />
+                  <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="359.0" layoutY="819.0" pickOnBounds="true" preserveRatio="true" translateY="60.0">
                      <image>
                         <Image url="@../../imagenes/h&amp;m.png" />
                      </image>
                   </ImageView>
-                  <Label layoutY="565.0" text="Ecuador | All rights reserved 2024 © " translateY="90.0"  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minWidth="0.0" maxWidth="Infinity" alignment="CENTER" textAlignment="CENTER" styleClass="footer-copyright"/>
+                  <Label layoutY="825.0" text="Ecuador | All rights reserved 2024 © " translateY="90.0"  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minWidth="0.0" maxWidth="Infinity" alignment="CENTER" textAlignment="CENTER" styleClass="footer-copyright"/>
                   <Label layoutX="88.0" layoutY="144.0" text="About">
                      <font>
                         <Font name="Malgun Gothic Bold" size="31.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="199.0" prefHeight="134.0" prefWidth="282.0" text="This project was built with JavaFX 2 and PostgreSQL. Each section is implemented in a separate FXML file, and all sections are integrated. This is our Object-Oriented Programming (OOP) project." wrapText="true" />
-                  <Label alignment="TOP_LEFT" layoutX="398.0" layoutY="157.0" prefHeight="19.0" prefWidth="95.0" text="Special Thanks" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="199.0" prefHeight="80.0" prefWidth="420.0" text="This project was built with JavaFX 2 and PostgreSQL. Each section is implemented in a separate FXML file, and all sections are integrated. This is our Object-Oriented Programming (OOP) project." wrapText="true" />
+                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="288.0" prefHeight="24.0" prefWidth="150.0" styleClass="contributor-section-title" text="Made by" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" layoutX="88.0" layoutY="318.0" prefHeight="128.0" prefWidth="220.0" spacing="9.0" styleClass="contributor-card">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                           <children>
+                              <ImageView accessibleText="Fabian Rodas GitHub profile photo" fitHeight="58.0" fitWidth="58.0" preserveRatio="false" smooth="true">
+                                 <clip>
+                                    <Circle centerX="29.0" centerY="29.0" radius="29.0" />
+                                 </clip>
+                                 <image>
+                                    <Image url="@../../imagenes/contributors/fabianrodas.png" />
+                                 </image>
+                              </ImageView>
+                              <Label styleClass="contributor-name" text="Fabian Rodas" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="8.0">
+                           <children>
+                              <Button accessibleText="Fabian Rodas on GitHub" mnemonicParsing="false" onAction="#openFabianGitHub" prefHeight="34.0" prefWidth="92.0" styleClass="github-profile-button" text="GitHub">
+                                 <graphic>
+                                    <SVGPath content="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.418-1.305.762-1.604-2.665-.304-5.466-1.333-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.119 3.176.77.84 1.234 1.911 1.234 3.221 0 4.61-2.805 5.624-5.475 5.921.43.372.814 1.103.814 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.566 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" styleClass="profile-social-icon" />
+                                 </graphic>
+                                 <tooltip><Tooltip text="Open Fabian's GitHub profile" /></tooltip>
+                              </Button>
+                              <Button accessibleText="Fabian Rodas on LinkedIn" mnemonicParsing="false" onAction="#openFabianLinkedIn" prefHeight="34.0" prefWidth="92.0" styleClass="linkedin-profile-button" text="LinkedIn">
+                                 <graphic>
+                                    <Label styleClass="linkedin-profile-mark" text="in" />
+                                 </graphic>
+                                 <tooltip><Tooltip text="Open Fabian's LinkedIn profile" /></tooltip>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="328.0" layoutY="318.0" prefHeight="128.0" prefWidth="220.0" spacing="9.0" styleClass="contributor-card">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                           <children>
+                              <ImageView accessibleText="Paula Benalcazar GitHub profile photo" fitHeight="58.0" fitWidth="58.0" preserveRatio="false" smooth="true">
+                                 <clip>
+                                    <Circle centerX="29.0" centerY="29.0" radius="29.0" />
+                                 </clip>
+                                 <image>
+                                    <Image url="@../../imagenes/contributors/paulabenalcazart.png" />
+                                 </image>
+                              </ImageView>
+                              <Label styleClass="contributor-name" text="Paula Benalcazar" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="8.0">
+                           <children>
+                              <Button accessibleText="Paula Benalcazar on GitHub" mnemonicParsing="false" onAction="#openPaulaGitHub" prefHeight="34.0" prefWidth="92.0" styleClass="github-profile-button" text="GitHub">
+                                 <graphic>
+                                    <SVGPath content="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.418-1.305.762-1.604-2.665-.304-5.466-1.333-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.119 3.176.77.84 1.234 1.911 1.234 3.221 0 4.61-2.805 5.624-5.475 5.921.43.372.814 1.103.814 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.566 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" styleClass="profile-social-icon" />
+                                 </graphic>
+                                 <tooltip><Tooltip text="Open Paula's GitHub profile" /></tooltip>
+                              </Button>
+                              <Button accessibleText="Paula Benalcazar on LinkedIn" mnemonicParsing="false" onAction="#openPaulaLinkedIn" prefHeight="34.0" prefWidth="92.0" styleClass="linkedin-profile-button" text="LinkedIn">
+                                 <graphic>
+                                    <Label styleClass="linkedin-profile-mark" text="in" />
+                                 </graphic>
+                                 <tooltip><Tooltip text="Open Paula's LinkedIn profile" /></tooltip>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Label alignment="TOP_LEFT" layoutX="88.0" layoutY="480.0" prefHeight="19.0" prefWidth="150.0" styleClass="contributor-section-title" text="Special Thanks" wrapText="true">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="398.0" layoutY="190.0" prefHeight="161.0" prefWidth="132.0">
+                  <VBox layoutX="88.0" layoutY="513.0" prefHeight="121.0" prefWidth="220.0" spacing="0.0">
                      <children>
-                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="80.0" text="Fabián Rodas" wrapText="true" />
-                        <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Paula Benalcazar" wrapText="true" />
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Luis Goncalves" wrapText="true" />
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Carlos Auqui" wrapText="true" />
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="105.0" text="Miss Vanessa (OOP)" wrapText="true" />
@@ -434,13 +506,13 @@
                         <Label alignment="TOP_LEFT" prefHeight="19.0" prefWidth="139.0" text="H&amp;M (recreated page)" wrapText="true" />
                      </children>
                   </VBox>
-                  <Rectangle arcHeight="10.0" arcWidth="10.0" height="145.0" layoutX="548.0" layoutY="168.0" width="162.0" styleClass="brand-mark-backplate" />
-                  <ImageView fitHeight="129.0" fitWidth="146.0" layoutX="556.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" height="145.0" layoutX="548.0" layoutY="485.0" width="162.0" styleClass="brand-mark-backplate" />
+                  <ImageView fitHeight="129.0" fitWidth="146.0" layoutX="556.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../imagenes/uees.png" />
                      </image>
                   </ImageView>
-                  <HBox fx:id="hboxPie" layoutX="119.0" layoutY="563.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="520.0" spacing="30.0" translateY="-130.0">
+                  <HBox fx:id="hboxPie" layoutX="119.0" layoutY="823.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="520.0" spacing="30.0" translateY="-130.0">
                      <children>
                         <VBox prefHeight="138.0" prefWidth="51.0">
                            <children>

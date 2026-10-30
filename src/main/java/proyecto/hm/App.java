@@ -1,6 +1,7 @@
 package proyecto.hm;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,9 +18,11 @@ public class App extends Application {
     private static final double ORIGINAL_WINDOW_WIDTH = 750;
     private static final double ORIGINAL_WINDOW_HEIGHT = 437;
     private static Scene scene;
+    private static HostServices hostServices;
 
     @Override
     public void start(Stage stage) throws IOException {
+        hostServices = getHostServices();
         scene = new Scene(ResponsiveScreenLayout.prepare(loadFXML("pantalla_carga")), 750, 437);
         Image icon = new Image(getClass().getResourceAsStream("/imagenes/h&m.png"));
         String css = getClass().getResource("/css/estilos.css").toExternalForm();
@@ -78,6 +81,12 @@ public class App extends Application {
         stage.setWidth(ORIGINAL_WINDOW_WIDTH);
         stage.setHeight(ORIGINAL_WINDOW_HEIGHT);
         stage.centerOnScreen();
+    }
+
+    static void openExternalUrl(String url) {
+        if (hostServices != null && url != null && !url.isBlank()) {
+            hostServices.showDocument(url);
+        }
     }
 
     private static boolean isRouteAllowed(String fxml) {

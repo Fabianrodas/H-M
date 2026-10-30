@@ -280,6 +280,36 @@
     -fx-border-color: #d87984;
 }
 
+.theme-dark .contributor-card {
+    -fx-background-color: #232323;
+    -fx-border-color: #4b4b4b;
+}
+
+.theme-dark .github-profile-button {
+    -fx-background-color: #24292f;
+    -fx-border-color: transparent;
+    -fx-text-fill: #ffffff;
+}
+
+.theme-dark .github-profile-button:hover {
+    -fx-background-color: #3b4047;
+}
+
+.theme-dark .linkedin-profile-button {
+    -fx-background-color: #0a66c2;
+    -fx-border-color: transparent;
+    -fx-text-fill: #ffffff;
+}
+
+.theme-dark .linkedin-profile-button:hover {
+    -fx-background-color: #004182;
+}
+
+.theme-dark .github-profile-button:focused,
+.theme-dark .linkedin-profile-button:focused {
+    -fx-border-color: #d87984;
+}
+
 .theme-dark .hm-alert-window,
 .theme-dark .hm-alert-content-panel {
     -fx-background-color: #202020;

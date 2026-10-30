@@ -629,6 +629,26 @@ public class TiendaController implements Initializable {
         updateThemeToggleButton();
     }
 
+    @FXML
+    private void openFabianGitHub() {
+        App.openExternalUrl("https://github.com/Fabianrodas");
+    }
+
+    @FXML
+    private void openFabianLinkedIn() {
+        App.openExternalUrl("https://www.linkedin.com/in/fabianrodas/");
+    }
+
+    @FXML
+    private void openPaulaGitHub() {
+        App.openExternalUrl("https://github.com/paulabenalcazart/");
+    }
+
+    @FXML
+    private void openPaulaLinkedIn() {
+        App.openExternalUrl("https://www.linkedin.com/in/paula-benalc%C3%A1zar-944409329/");
+    }
+
     private void configureThemeToggleButton() {
         if (themeToggleButton != null || logoHM == null) {
             return;
