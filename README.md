@@ -6,24 +6,24 @@ A JavaFX clothing storefront backed by a local PostgreSQL database. The applicat
 
 ## Screenshots
 
-The images below are high-resolution captures of the running application (1920 × 1032).
+The images below are high-resolution captures of the running application.
 
 ### Storefront
 
 <p align="center">
-  <img src="docs/screenshots/store-home.jpg" width="960" alt="H&M Store home screen">
+  <img src="docs/screenshots/store-home.png" width="960" alt="H&M Store home screen">
 </p>
 
 ### Women's clothing catalog
 
 <p align="center">
-  <img src="docs/screenshots/womens-dresses.jpg" width="960" alt="Women's clothing catalog with products from PostgreSQL">
+  <img src="docs/screenshots/womens-dresses.png" width="960" alt="Women's clothing catalog with products from PostgreSQL">
 </p>
 
 ### Product details
 
 <p align="center">
-  <img src="docs/screenshots/product-details.jpg" width="960" alt="Product details with size and price">
+  <img src="docs/screenshots/product-details.png" width="960" alt="Product details with size and price">
 </p>
 
 ## Features
