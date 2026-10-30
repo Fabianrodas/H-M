@@ -1,82 +1,91 @@
-![H-M: tienda de ropa para probar en tu equipo](docs/assets/readme-header.png)
+![H&M Store desktop application](docs/assets/readme-header.png)
 
-# H-M
+# H&M Store
 
-H-M es una tienda de ropa de demostración para usar en tu computadora. Puedes recorrer prendas, elegir tallas, añadir productos al carrito y crear pedidos. Incluye una cuenta y una zona de administración para probar esos recorridos.
+A JavaFX clothing storefront backed by a local PostgreSQL database. The application reads its catalog and account data from the configured database and writes shopping activity there.
 
-Todo el contenido de ejemplo es ficticio. No uses información personal ni contraseñas reales.
+## Screenshots
 
-## Capturas de pantalla
+The images below are high-resolution captures of the running application (1920 × 1032).
 
-### Inicio de la tienda
+### Storefront
 
-![Pantalla inicial de la tienda H-M](docs/screenshots/store.jpg)
+<p align="center">
+  <img src="docs/screenshots/store-home.jpg" width="960" alt="H&M Store home screen">
+</p>
 
-## Qué puedes probar
+### Women's clothing catalog
 
-- Explorar prendas y sus tallas.
-- Añadir distintas tallas de una prenda al carrito.
-- Revisar el carrito y completar un pedido.
-- Crear y administrar una cuenta de demostración.
-- Consultar las tablas de la base de datos desde la sección BD.
+<p align="center">
+  <img src="docs/screenshots/womens-dresses.jpg" width="960" alt="Women's clothing catalog with products from PostgreSQL">
+</p>
 
-## Ejecutar en Windows
+### Product details
 
-### Lo que necesitas
+<p align="center">
+  <img src="docs/screenshots/product-details.jpg" width="960" alt="Product details with size and price">
+</p>
 
-- Java 23 o posterior (probado con Java 25).
-- Maven 3.9 o posterior.
-- PostgreSQL 18.
+## Features
 
-### 1. Crear la base de datos
+- Browse clothing categories and search the catalog.
+- View product details, prices, images, and available sizes.
+- Use favorites and the shopping bag.
+- Sign in or create an account.
+- Browse the connected database from the app's **DB** section.
+- Switch between light and dark themes and restore the original display size.
+- Use custom in-app alerts for information, errors, and confirmations.
 
-Abre PowerShell en la carpeta de H-M. Si psql no está disponible como comando, agrega la carpeta bin de PostgreSQL al PATH o usa la ruta completa a psql.exe.
+## Requirements
 
-    psql -U postgres -d postgres -c 'CREATE DATABASE "hm-db";'
+- JDK 25
+- Maven 3.9 or later
+- PostgreSQL
 
-Cuando psql lo solicite, escribe la contraseña local de tu instalación de PostgreSQL.
+## Run with your local PostgreSQL database
 
-### 2. Preparar las tablas y los datos de ejemplo
+H&M Store uses the PostgreSQL database configured for your local installation. The repository does not load sample catalog or account records; the app displays the records in the database you connect.
 
-Ejecuta estos comandos en la carpeta del proyecto, en este orden:
+1. Create a PostgreSQL database for the project if you do not already have one:
 
-    psql -U postgres -d hm-db -v ON_ERROR_STOP=1 -f database/postgresql/schema.sql
-    psql -U postgres -d hm-db -v ON_ERROR_STOP=1 -f database/postgresql/seed.sql
-    psql -U postgres -d hm-db -v ON_ERROR_STOP=1 -f database/postgresql/sync-identities.sql
-    psql -U postgres -d hm-db -v ON_ERROR_STOP=1 -f database/postgresql/migrations/001_order_details.sql
+   ```powershell
+   psql -U postgres -d postgres -c 'CREATE DATABASE "hm-db";'
+   ```
 
-### 3. Completar la conexión local
+2. Apply the project schema and required database scripts from the repository root:
 
-Crea tu archivo local a partir de la plantilla y ábrelo para completar la conexión:
+   ```powershell
+   psql -U postgres -d hm-db -v ON_ERROR_STOP=1 -f database/postgresql/schema.sql
+   psql -U postgres -d hm-db -v ON_ERROR_STOP=1 -f database/postgresql/sync-identities.sql
+   psql -U postgres -d hm-db -v ON_ERROR_STOP=1 -f database/postgresql/migrations/001_order_details.sql
+   ```
 
-    Copy-Item .env.example .env
-    notepad .env
+3. Create a local environment file from the template and enter the connection details for your PostgreSQL instance:
 
-En .env, escribe el nombre del servidor, puerto, base de datos, usuario y contraseña de tu PostgreSQL. Usa localhost, el puerto 5432 y el nombre hm-db si instalaste PostgreSQL con la configuración habitual. El usuario y la contraseña deben corresponder a tu instalación.
+   ```powershell
+   Copy-Item .env.example .env
+   notepad .env
+   ```
 
-El archivo .env se queda en tu computadora y Git lo ignora. No lo compartas.
+   Set the host, port, database name, username, and password. For a local default PostgreSQL installation, the host is usually `localhost` and the port is usually `5432`. `.env` is ignored by Git and must remain local.
 
-### 4. Abrir H-M
+4. Start the application:
 
-    mvn javafx:run
+   ```powershell
+   mvn javafx:run
+   ```
 
-La primera ejecución puede tardar mientras Maven prepara los componentes necesarios. Para cerrar la tienda, cierra su ventana.
+If you already have a database configured, set `.env` to that database and start the app. H&M Store will use its existing records.
 
-## Comprobar el proyecto
+## Build and tests
 
-Para compilar y ejecutar las pruebas:
+```powershell
+mvn -B -ntp test
+mvn -B -ntp package
+```
 
-    mvn -B -ntp test
-    mvn -B -ntp package
+## License
 
-También puedes ejecutar la comprobación completa contra una base temporal:
+The project code is distributed under the [MIT License](LICENSE). Third-party names and logos displayed by the application belong to their respective owners; this project is not affiliated with them.
 
-    .\scripts\test-postgresql.ps1
-
-Esa comprobación crea una base de prueba descartable dentro de target; no utiliza la base hm-db de tu archivo .env.
-
-## Licencia
-
-El código del proyecto se distribuye bajo la licencia [MIT](LICENSE). Los nombres y logotipos de otras marcas que aparezcan en la demostración pertenecen a sus titulares; el proyecto no está afiliado con esas marcas.
-
-Para informar un problema de seguridad, consulta [SECURITY.md](SECURITY.md).
+For security concerns, see [SECURITY.md](SECURITY.md).
